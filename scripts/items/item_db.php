@@ -18,6 +18,18 @@ function get_item_by_id($id) {
         }
 }
 
+function get_item_url($id) {
+    $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
+    $query = "SELECT url FROM models_test WHERE id='$id'";
+    $result = $sql->query($query);
+    if($result && $result->num_rows !== 0) {
+        $actor = $result->fetch_assoc();
+        return $actor['url'];
+    } else {
+        return NULL;
+    }
+}
+
 function get_items_by_name($name) {
     $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
     $query = "SELECT * FROM models_test WHERE name = '$name', hidden=0";
