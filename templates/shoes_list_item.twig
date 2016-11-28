@@ -1,0 +1,12 @@
+<section class="list_item" id={{ item.ID }}>
+    <a href="/shoes/photos/{{ item.img_code }}_orig.jpg">
+    <img height="110" width="198" src="/shoes/photos/{{ item.img_code }}_very_small.jpg">
+    </a>
+    <div>
+        <h3>{{ item.name }}</h3>
+        <span>Цвет: <i>{{ item.color }}</i><br></span>
+        <span>Цена: <i>{{ item.price }}</i> Грн.</span>
+    </div>
+    <button class="to_cart" onclick="click_handler_to_cart({{ item.ID }})">В корзину</button>
+    <button id="more" onclick="click_handler_more({{ item.ID }})">Подробнее</button>
+</section>

@@ -1,0 +1,18 @@
+<html>
+    <!DOCTYPE html>
+    <head>
+    {{ include('head.html') }}
+    <link rel="stylesheet" href="/styles/shoes_show_style.css">
+    </head>
+    <body>
+        <section class="main">
+        {{ include('header.html') }}
+        {{ include('navigation.html') }}
+        <div class="content">
+        <h1 id="ss_s">{{ item.name }}</h1>
+        </div>
+        {{ include('footer.html') }}
+        </section>
+    </body>
+</html>
+    

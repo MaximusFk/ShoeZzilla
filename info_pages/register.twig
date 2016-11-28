@@ -1,0 +1,105 @@
+<html>
+    <!DOCTYPE HTML>
+    <head>
+        {{ include('head.html') }}
+        <script type="text/javascript" src="/scripts/jquery_mask/jquery.mask.min.js"></script>
+        <link rel="stylesheet" href="/styles/register_style.css">
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content">
+                <h3 class="parag">Регистрация на сайте</h3>
+                <p class="info, hidden">!</p>
+                <form class="register_form" title="register" method="post">
+                    <p>
+                        <label>Имя</label><br/>
+                        <input id="name" name="name" type="text" placeholder="Иван">
+                    </p>
+                    <p>
+                        <label>Фамилия</label><br/>
+                        <input id="surname" name="surname" type="text" placeholder="Иванов">
+                    </p>
+                    <p>
+                        <label>Электронная почта</label><br/>
+                        <input id="email" name="email" type="email" placeholder="example@domain.com">
+                    </p>
+                    <p>
+                        <label>Номер телефона</label><br/>
+                        <input id="phone_number" name="phone_number" type="text">
+                    </p>
+                    <hr/>
+                    <p><input id="password" type="password" placeholder="Пароль"></p>
+                    <p><input id="password_req" type="password" placeholder="Повторите пароль"></p>
+                    
+                    <button type="submit" class="important_b">Отправить</button>
+                    
+                </form>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+        <script>
+            $("#phone_number").mask('(000) 000-00-00', { placeholder: "(___) ___-__-__" });
+        </script>
+        <script type="text/javascript">
+            $("form.register_form").submit(function (event) {
+                event.preventDefault();
+                var name = $("#name").val();
+                var surname = $("#surname").val();
+                var phone = $("#phone_number").val();
+                var email = $("#email").val();
+                var password = $("#password").val();
+                var password_req = $("#password_req").val();
+                var password_hash;
+                if(!name) {
+                    $("#name").addClass("error");
+                    $(".info").removeClass("hidden").text("Поле 'Имя' не может быть пустым");
+                    return true;
+                }
+                $("#name").removeClass("error");
+                $(".info").addClass("hidden");
+                if(!surname) {
+                    $("#surname").addClass("error");
+                    return true;
+                }
+                $("#surname").removeClass("error");
+                if(!email) {
+                    $("#email").addClass("error");
+                    return true;
+                }
+                $("#email").removeClass("error");
+                if(!phone) {
+                    $("#phone_number").addClass("error");
+                    return true;
+                }
+                $("#phone_number").removeClass("error");
+                if(!password || !password_req || password !== password_req) {
+                    $("#password").addClass("error");
+                    $("#password_req").addClass("error");
+                    return true;
+                }
+                $("#password").removeClass("error");
+                $("#password_req").removeClass("error");
+                password_hash = password;
+                $.post("/profile.php", {
+                    type: 'account_reg',
+                    name: name,
+                    surname: surname,
+                    phone: phone,
+                    email: email,
+                    password_hash: password_hash
+                }, null, "text").done(function (msg) {
+                    if(msg === "1") {
+                        location.href = "/index.php";
+                    } else {
+                        $("#email").addClass("error");
+                    }
+                }).fail(function () {
+                    alert("Ошибка отправки данных!");
+                });
+                return true;
+            });
+        </script>
+    </body>
+</html>

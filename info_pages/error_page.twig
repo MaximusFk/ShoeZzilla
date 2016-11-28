@@ -1,0 +1,16 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+        <link rel="stylesheet" href="../styles/info_error_style.css">
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content">
+                <h3 class="error">{{ text }}</h3>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>

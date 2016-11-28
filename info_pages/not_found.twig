@@ -1,0 +1,17 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/search_style.css">
+    </head>
+    <body>
+    <section class="main">
+    {{ include('header.html') }}
+    {{ include('navigation.html') }}
+    <div class="content">
+        <h3 class="not_found">По Вашему запросу ничего не найдено</h3>
+        <p id="search_string">"{{ str }}"</p>
+    </div>
+    {{ include('footer.html') }}
+    </section>
+    </body>
+</html>

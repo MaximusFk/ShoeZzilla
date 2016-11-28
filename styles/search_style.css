@@ -1,0 +1,11 @@
+h3.not_found {
+    width: 100%;
+    text-align: center;
+    color: orangered;
+    text-shadow: .5px .5px 2px hotpink;
+}
+
+p#search_string {
+    width: 100%;
+    text-align: center;
+}

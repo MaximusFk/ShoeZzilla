@@ -1,0 +1,67 @@
+section.list_item {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 2px;
+    box-shadow: 0.5px 0.5px 1px .5px gray;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    width: 13em;
+    height: 255px;
+    display: inline-block;
+}
+
+section.list_item h3 {
+    color: #00D05e;
+    text-shadow: 0 0 2px black;
+    padding-left: 10px;
+    -webkit-margin-before: 0.5em;
+    margin-top: 0.5em;
+    -webkit-margin-after: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+section.list_item span {
+    color: darkslategrey;
+    padding-left: 15px;
+}
+
+section.list_item div {
+    border: 1px solid gray;
+    margin: 5px;
+    border-radius: 5px;
+    height: 80px;
+}
+
+section.list_item a>img {
+    padding-left: 5px;
+    padding-top: 5px;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
+
+button.to_cart {
+    width: 46%;
+    height: 15%;
+    border: none;
+    margin-left: 5px;
+    border-radius: 2px;
+    background-repeat: repeat-x;
+    background: #FFF url(/images/vertical-cs.png);
+    color: white;
+    font: bold 0.7em sans-serif;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0 0 2px .5px black;
+    cursor: pointer;
+}
+
+button#more {
+    width: 46%;
+    height: 15%;
+    margin-left: 3px;
+    background-color: transparent;
+    border-radius: 2px;
+    border: 1px solid #00D05e;
+    color: #00D05e;
+    cursor: pointer;
+    display: inline-block;
+}

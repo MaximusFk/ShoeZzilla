@@ -1,0 +1,17 @@
+form.register_form {
+    margin-left: 2em;
+}
+
+form.register_form label {
+    margin-left: .5em;
+}
+
+form input.error {
+    background-color: salmon;
+}
+
+p.info {
+    background-color: #fffa90;
+    height: max-content;
+    border-radius: 5px 5px 5px 5px;
+}

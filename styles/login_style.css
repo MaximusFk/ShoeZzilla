@@ -1,0 +1,29 @@
+form.login_form {
+    width: 100%;
+    text-align: center;
+}
+
+form.login_form button#login_submit {
+    width: 8em;
+    height: 3em;
+    border: none;
+    border-radius: 2px;
+    background-repeat: repeat-x;
+    background: #FFF url(/images/vertical-cs.png);
+    color: white;
+    font: bold 0.7em sans-serif;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0 0 2px .5px black;
+    cursor: pointer;
+}
+
+form.login_form button#register {
+    width: 8em;
+    height: 2.6em;
+    margin-left: 10px;
+    background-color: transparent;
+    border-radius: 2px;
+    border: 1px solid #00D05e;
+    color: #00D05e;
+    cursor: pointer;
+}

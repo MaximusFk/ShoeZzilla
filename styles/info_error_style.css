@@ -1,0 +1,6 @@
+h3.error {
+    width: 100%;
+    text-align: center;
+    color: orangered;
+    text-shadow: .5px .5px 2px hotpink;
+}

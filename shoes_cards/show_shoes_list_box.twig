@@ -1,0 +1,30 @@
+<html>
+    <!DOCTYPE html>
+    <head>
+    {{ include('head.html') }}
+    <link rel="stylesheet" href="/styles/shoes_list_item_style.css">
+    </head>
+    <body>
+        <section class="main">
+        {{ include('header.html') }}
+        {{ include('navigation.html') }}
+        <div class="content">
+            {% for item in items %}
+            {{ include('shoes_list_item.twig') }}
+            {% else %}
+            <h1> Items not found </h1>
+            {% endfor %}
+        </div>
+        {{ include('footer.html') }}
+        </section>
+        <script type="text/javascript">
+                function click_handler_to_cart(item_id) {
+                    alert("Test clicked to cart with id: " + item_id);
+                }
+                
+                function click_handler_more(item_id) {
+                    alert("Test clicked more with id: " + item_id);
+                }
+        </script>
+    </body>
+</html>

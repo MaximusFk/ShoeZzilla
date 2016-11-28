@@ -1,0 +1,57 @@
+<html>
+    <!DOCTYPE HTML>
+    <head>
+        {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/login_style.css">
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content">
+                <form class="login_form" title="login" method="POST" action="/login.php">
+                    <p><input id="login" name="email" type="text" placeholder="Электронная почта"></p>
+                    <p><input id="password" name="password_hash" type="password" placeholder="Пароль"></p>
+                    <p>
+                        <button id="login_submit" type="submit">Войти</button>
+                        <button id="register" type="button" onclick="register_handler();">Регистрация</button>
+                    </p>
+                </form>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+        <script type="text/javascript">
+            $("form.login_form").submit(function (event) {
+                var email = $("#email").val();
+                var password = $("#password").val();
+                var password_hash = password;
+                
+                $("#password").val(password_hash);
+                
+                {#jQuery.ajax({
+                   url: "/profile.php",
+                   type: "POST",
+                   cache: false,
+                   dataType: 'html',
+                   data: {
+                       type: "account_login",
+                       email: email,
+                       password_hash: password_hash
+                   }
+                }).done(function (msg) {
+                    if(msg === "1") {
+                        location.href = "/index.php";
+                    } else {
+                        alert("Ошибка при авторизации!");
+                    }
+                });
+                return true;
+                #}
+            });
+            
+            function register_handler() {
+                window.open("/profile.php?type=register");
+            }
+        </script>
+    </body>
+</html> 
