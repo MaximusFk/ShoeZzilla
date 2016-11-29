@@ -1,11 +1,13 @@
 <?php
 
-define('current_db', 'ShoesDB');
+define('Password', 'maxime51mk');
+define('Login', 'maximusfk');
+define('current_db', 'maximusfk');
 define('Accounts', 'accounts');
 define('Models', 'models_test');
 
 function get_db($name) {
-	return new mysqli('localhost', 'root', 'maxime51mk', $name);
+	return new mysqli('localhost', Login, Password, $name);
 }
 
 function get_item_pagepath_by_id($item_id) {

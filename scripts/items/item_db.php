@@ -1,9 +1,19 @@
 <?php
 require_once 'item.php';
 
+define('Password', 'maxime51mk');
+define('Login', 'maximusfk');
+define('current_db', 'maximusfk');
+define('Accounts', 'accounts');
+define('Models', 'models_test');
+
+function get_db($name) {
+	return new mysqli('localhost', Login, Password, $name);
+}
+
 function get_item_by_id($id) {
-        $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
-        $query = "SELECT name, color, price, img_code FROM models_test WHERE id = $id, hidden=0";
+        $sql = get_db(current_db);
+        $query = "SELECT name, color, price, img_code FROM models_test WHERE id='$id' AND hidden=0";
         if($result = $sql->query($query)) {
             if($result->num_rows !== 0) {
                 $actor = $result->fetch_assoc();
@@ -19,7 +29,7 @@ function get_item_by_id($id) {
 }
 
 function get_item_url($id) {
-    $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
+    $sql = get_db(current_db);
     $query = "SELECT url FROM models_test WHERE id='$id'";
     $result = $sql->query($query);
     if($result && $result->num_rows !== 0) {
@@ -31,8 +41,8 @@ function get_item_url($id) {
 }
 
 function get_items_by_name($name) {
-    $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
-    $query = "SELECT * FROM models_test WHERE name = '$name', hidden=0";
+    $sql = get_db(current_db);
+    $query = "SELECT * FROM models_test WHERE name = '$name' AND hidden=0";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items;
@@ -51,7 +61,7 @@ function get_items_by_name($name) {
 }
 
 function find_items($str) {
-    $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
+    $sql = get_db(current_db);
     if(!$str) {
         return array();
     }
@@ -74,7 +84,7 @@ function find_items($str) {
 }
 
 function get_items() {
-    $sql = new mysqli('127.0.0.1', 'root', 'maxime51mk', 'ShoesDB');
+    $sql = get_db(current_db);
     $query = "SELECT * FROM models_test WHERE hidden=0";
     if($result = $sql->query($query)) {
         $pos = 0;
