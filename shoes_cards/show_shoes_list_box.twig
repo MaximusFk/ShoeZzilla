@@ -23,14 +23,7 @@
                 }
                 
                 function click_handler_more(item_id) {
-                    $.post("/method/getItemURL.php", {
-                        item_id: item_id
-                    }, null, "text")
-                            .done(function (msg) {
-                                if(msg !== "") {
-                                    location.href = "/" + msg;
-                                }
-                    });
+                    location.href = "/shoes/catalog.php?item_id=" + item_id;
                 }
         </script>
     </body>
