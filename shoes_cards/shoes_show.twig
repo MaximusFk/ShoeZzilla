@@ -32,6 +32,8 @@
                 var img = $(this);
                 var id = img.attr("id");
                 $("#photo_show").attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg");
+                $(".photo_small").removeClass("chosed");
+                img.addClass("chosed");
             });
         </script>
     </body>
