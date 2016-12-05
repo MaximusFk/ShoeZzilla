@@ -32,11 +32,12 @@ section.list_item div {
     height: 80px;
 }
 
-section.list_item a>img {
-    padding-left: 5px;
-    padding-top: 5px;
+section.list_item img {
+    margin-left: 4px;
+    margin-top: 5px;
     background-clip: padding-box;
     border-radius: 10px;
+    border: 1px solid #00D05e;
 }
 
 button.to_cart {

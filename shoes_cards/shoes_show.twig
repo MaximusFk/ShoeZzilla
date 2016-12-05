@@ -9,10 +9,31 @@
         {{ include('header.html') }}
         {{ include('navigation.html') }}
         <div class="content">
-        <h1 id="ss_s">{{ item.name }}</h1>
+            <section class="images">
+                <img id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg">
+                {% for photo in 1..5 %}
+                    <img class="photo_small" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
+                {% endfor %}
+            </section>
+            <section class="description">
+                <h1 id="ss_s">{{item.display_name}} {{ item.name }}<i> {{ item.color }}</i></h1>
+                <section class="allow_sizes">
+                    {% for i in item.min_size .. item.max_size %}
+                        <button class="size_choser">{{ i }}</button>
+                    {% endfor %}
+                    <a href="#">Как выбрать?</a>
+                </section>
+            </section>
         </div>
         {{ include('footer.html') }}
         </section>
+        <script type="text/javascript">
+            $(".photo_small").click(function () {
+                var img = $(this);
+                var id = img.attr("id");
+                $("#photo_show").attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg");
+            });
+        </script>
     </body>
 </html>
     
