@@ -6,6 +6,8 @@ Twig_Autoloader::register();
 $command = filter_input(INPUT_GET, 'type');
 $post = filter_input(INPUT_POST, 'type');
 
+$session_id = filter_input(INPUT_COOKIE, 'session_id');
+
 $loader = new Twig_Loader_Filesystem('./templates');
 $loader->addPath('./info_pages');
 $twig = new Twig_Environment($loader);
@@ -28,7 +30,7 @@ else if($post === 'get_name' && filter_has_var(INPUT_POST, 'session_id')) {
 
 switch ($command) {
     case 'login':
-        if(!filter_has_var(INPUT_COOKIE, 'session_id') || !equals_session_id(filter_input(INPUT_COOKIE, 'session_id'))) {
+        if(!filter_has_var(INPUT_COOKIE, 'session_id') || !equals_session_id($session_id)) {
             echo $twig->render('login.twig');
         } else {
             header("Location: /");
