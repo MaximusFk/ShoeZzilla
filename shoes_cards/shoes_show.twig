@@ -10,30 +10,109 @@
         {{ include('navigation.html') }}
         <div class="content">
             <section class="images">
-                <img id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg">
+                <img id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"><br/>
                 {% for photo in 1..5 %}
                     <img class="photo_small" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
                 {% endfor %}
             </section>
             <section class="description">
                 <h1 id="ss_s">{{item.display_name}} {{ item.name }}<i> {{ item.color }}</i></h1>
+                <section id="price"></section>
                 <section class="allow_sizes">
                     {% for i in item.min_size .. item.max_size %}
-                        <button class="size_choser">{{ i }}</button>
+                        <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
                     {% endfor %}
-                    <a href="#">Как выбрать?</a>
+                    <a href="#">Как выбрать?</a><br/>
+                    <i>* Ctrl - для выбора нескольких размеров</i>
                 </section>
+                    <button id="pust_to_cart">В корзину</button>
             </section>
         </div>
         {{ include('footer.html') }}
         </section>
         <script type="text/javascript">
+            ctrl = false;
+            shift = false;
+            
+            $(".description").keydown(function (event) {
+                if(event.keyCode === 17) {
+                    ctrl = true;
+                }
+                else if(event.keyCode === 16) {
+                    shift = true;
+                }
+            });
+            
+            $(".description").keyup(function (event) {
+                if(event.keyCode === 17) {
+                    ctrl = false;
+                }
+                else if(event.keyCode === 16) {
+                    shift = false;
+                }
+            });
+            
             $(".photo_small").click(function () {
                 var img = $(this);
                 var id = img.attr("id");
-                $("#photo_show").attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg");
+                $("#photo_show").fadeOut(100, function () {
+                    $("#photo_show").attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg").fadeIn(300);
+                });
+                
                 $(".photo_small").removeClass("chosed");
                 img.addClass("chosed");
+            });
+            
+            $(".size_choser").click(function () {
+                var button = $(this);
+                if(!ctrl && !shift) {
+                    $("button.chosed").addClass("size_choser");
+                    $("button.size_choser").removeClass("chosed").data({count: 0});
+                    $("button.size_choser").children("sup").text("");
+                }
+                else if(shift) {
+                    var b = false;
+                    $("button").each(function () {
+                        if($(this).hasClass("chosed")) {
+                            b = true;
+                        }
+                        if($(this).val() === button.val()) {
+                            return false;
+                        }
+                        if(b) {
+                            $(this).addClass("chosed");
+                            $(this).removeClass("size_choser");
+                            $(this).data({count: 1});
+                            $(this).children("sup").text($(this).data().count);
+                        }
+                    });
+                }
+                button.addClass("chosed");
+                button.removeClass("size_choser");
+                button.data({count: button.data().count + 1});
+                button.children("sup").text(button.data().count);
+            });
+            
+            $("button#pust_to_cart").click(function () {
+                var sizes = {};
+                var button = $(this);
+                $("button.chosed").each(function () {
+                    var count = $(this).data().count;
+                    sizes[$(this).val()] = count;
+                });
+                if(sizes) {
+                    $.getJSON("/cart.php", {
+                        method: "ADD",
+                        item_id: {{ item.ID }},
+                        sizes: JSON.stringify(sizes)
+                    })
+                    .done(function (msg) {
+                        alert("Добавлено в корзину id: " + msg.item_id + " count: " + msg.count);
+                    });
+                }
+                else {
+                    alert("Выберите размер/ы");
+                }
             });
         </script>
     </body>

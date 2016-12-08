@@ -38,25 +38,65 @@ section.description {
     border-radius: 5px;
 }
 
-button.size_choser {
-    width: 35px;
-    height: 30px;
-    border: none;
-    margin-left: 5px;
-    border-radius: 2px;
-    background-repeat: repeat-x;
-    background: #FFF url(/images/vertical-cs.png);
+button.chosed {
+    background: #FFF url(/images/vertical-cs.png) repeat-x;
     color: white;
-    font: bold 0.7em sans-serif;
     text-shadow: 1px 1px 2px black;
     box-shadow: 0 0 2px .5px black;
+    border-radius: 2px;
+    border: 1px solid #00D05e;
+    font: bold 0.7em sans-serif;
     cursor: pointer;
+    margin-left: 5px;
+    width: 35px;
+    height: 30px;
 }
 
 img.chosed {
     box-shadow: 0 0 5px 1px #00D05e;
 }
 
+button.size_choser {
+    width: 35px;
+    height: 30px;
+    color: #00D05e;
+    margin-left: 5px;
+    background-color: transparent;
+    border-radius: 2px;
+    border: 1px solid #00D05e;
+    font: bold 0.7em sans-serif;
+    cursor: pointer;
+}
+
 section.allow_sizes a {
     font-size: 0.7em;
+    text-decoration: underline;
+    
+}
+
+section.allow_sizes a:hover {
+    text-shadow: 0 0 .5px black;
+}
+
+section.allow_sizes a:visited {
+    color: #00D05e;
+}
+
+section.allow_sizes i {
+    font-size: 0.7em;
+}
+
+button#pust_to_cart {
+    background: #FFF url(/images/vertical-cs.png) repeat-x;
+    width: 100px;
+    height: 40px;
+    border-radius: 2px;
+    border: none;
+    color: white;
+    font: bold 0.7em sans-serif;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0 0 2px .5px black;
+    cursor: pointer;
+    margin-left: 85%;
+    margin-top: -8%;
 }
