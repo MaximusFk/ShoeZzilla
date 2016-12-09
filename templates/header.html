@@ -3,7 +3,7 @@
     <section class="cart_widget">
         <a href="#">
             <img src="/images/cart_32.png">
-            <span>Товаров: <i>0</i></span><br>
+            <span>Товаров: <i id="count">0</i></span><br>
             <small id="goto_cart">Оформить покупку</small>
         </a>
     </section>
@@ -15,3 +15,8 @@
         </button>
     </form>
 </header>
+<script type="text/javascript">
+    function notify_cart_count(count) {
+        $("i#count").text(count);
+    }
+</script>
