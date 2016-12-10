@@ -73,17 +73,15 @@
                 else if(shift) {
                     var b = false;
                     $("button").each(function () {
-                        if($(this).hasClass("chosed")) {
-                            b = true;
-                        }
                         if($(this).val() === button.val()) {
                             return false;
                         }
-                        if(b) {
+                        if(b || $(this).hasClass("chosed")) {
                             $(this).addClass("chosed");
                             $(this).removeClass("size_choser");
-                            $(this).data({count: 1});
+                            $(this).data({count: (b ? ($(this).data().count + 1) : $(this).data().count)});
                             $(this).children("sup").text($(this).data().count);
+                            if(!b) b = true;
                         }
                     });
                 }
@@ -107,7 +105,7 @@
                         sizes: JSON.stringify(sizes)
                     })
                     .done(function (msg) {
-                        alert("Добавлено в корзину id: " + msg.item_id + " count: " + msg.count);
+                        notify_cart_count(msg.all_count);
                     });
                 }
                 else {
