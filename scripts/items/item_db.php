@@ -7,7 +7,7 @@ define('current_db', 'maximusfk');
 define('Accounts', 'accounts');
 define('Models', 'models_test');
 
-function get_db($name) {
+function get_db($name = current_db) {
 	return new mysqli('localhost', Login, Password, $name);
 }
 
@@ -18,27 +18,27 @@ function construct_item_from_array(array $array) {
     if(array_key_exists('color', $array)) { $item->color = $array['color']; }
     if(array_key_exists('display_name', $array)) { $item->display_name = $array['display_name']; }
     if(array_key_exists('category', $array)) { $item->category = $array['category']; }
-    if(array_key_exists('img_code', $array)) { $item->img_code = $array['img_code']; }
-    if(array_key_exists('img_main', $array)) { $item->img_main = $array['img_main']; }
+    if(array_key_exists('img_code', $array)) { $item->img_code = $array['image_path']; }
+    if(array_key_exists('img_main', $array)) { $item->img_main = $array['image_head']; }
     if(array_key_exists('size_min', $array)) { $item->min_size = $array['size_min']; }
     if(array_key_exists('size_max', $array)) { $item->max_size = $array['size_max']; }
-    if(array_key_exists('price', $array)) { $item->price = $array['price']; }
+    if(array_key_exists('price', $array)) { $item->price = $array['price_retail']; }
     if(array_key_exists('url', $array)) { $item->url = $array['url']; }
     return $item;
 }
 
 function get_item_by_id($id) {
         $sql = get_db(current_db);
-        $query = "SELECT * FROM models_test WHERE id='$id' AND hidden=0";
+        $query = "SELECT * FROM _Shoes_ WHERE id='$id' AND hide=0";
         if($result = $sql->query($query)) {
             if($result->num_rows !== 0) {
                 $actor = $result->fetch_assoc();
                 $item = new ShoesItem();
                 $item->name = $actor['name'];
                 $item->color = $actor['color'];
-                $item->price = $actor['price'];
-                $item->img_code = $actor['img_code'];
-                $item->img_main = $actor['img_main'];
+                $item->price = $actor['price_ratail'];
+                $item->img_code = $actor['image_path'];
+                $item->img_main = $actor['image_head'];
                 $item->min_size = $actor['size_min'];
                 $item->max_size = $actor['size_max'];
 		$item->ID = $id;
@@ -49,7 +49,7 @@ function get_item_by_id($id) {
 
 function get_items_by_category($category) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT * FROM models_test WHERE category='$category'");
+    $result = $sql->query("SELECT * FROM _Shoes_ WHERE category='$category'");
     if($result) {
         $pos = 0;
         while ($actor = $result->fetch_assoc()) {
@@ -60,11 +60,11 @@ function get_items_by_category($category) {
     }
 }
 
-function create_item_entry($shoesItem) {
+function create_item($shoesItem) {
     if($shoesItem) {
         $db = get_db(current_db);
-        $result = $db->query("INSERT INTO models_test (name, color, price, category, size_min, size_max, url) VALUES "
-                . "('$shoesItem->name', '$shoesItem->color', '$shoesItem->price', '$shoesItem->category', '$shoesItem->min_size', '$shoesItem->max_size', '$shoesItem->url')");
+        $result = $db->query("INSERT INTO _Shoes_ (name, color, price_retail, category, size_min, size_max) VALUES "
+                . "('$shoesItem->name', '$shoesItem->color', '$shoesItem->price', '$shoesItem->category', '$shoesItem->min_size', '$shoesItem->max_size')");
         $nid = $db->query("SELECT last_insert_id()");
         $shoesItem->ID = $nid->fetch_assoc()["last_insert_id()"];
         return $result ? true : false;
@@ -74,7 +74,7 @@ function create_item_entry($shoesItem) {
 
 function get_item_url($id) {
     $sql = get_db(current_db);
-    $query = "SELECT url FROM models_test WHERE id='$id'";
+    $query = "SELECT url FROM _Shoes_ WHERE id='$id'";
     $result = $sql->query($query);
     if($result && $result->num_rows !== 0) {
         $actor = $result->fetch_assoc();
@@ -84,9 +84,21 @@ function get_item_url($id) {
     }
 }
 
+function get_item_price_retail($id) {
+    $sql = get_db(current_db);
+    $query = "SELECT price_retail FROM _Shoes_ WHERE id='$id'";
+    $result = $sql->query($query);
+    if($result && $result->num_rows !== 0) {
+        $actor = $result->fetch_assoc();
+        return $actor['price_retail'];
+    } else {
+        return NULL;
+    }
+}
+
 function get_items_by_name($name) {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM models_test WHERE name = '$name' AND hidden=0";
+    $query = "SELECT * FROM _Shoes_ WHERE name = '$name' AND hide=0";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items;
@@ -109,7 +121,7 @@ function find_items($str) {
     if(!$str) {
         return array();
     }
-    $query = "SELECT * FROM models_test WHERE concat(name, color, price) LIKE '%$str%'";
+    $query = "SELECT * FROM _Shoes_ WHERE concat(name, color, price_retail, display_name, brand, gender) LIKE '%$str%'";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items = NULL;
@@ -117,8 +129,8 @@ function find_items($str) {
             $item = new ShoesItem();
             $item->name = $actor['name'];
             $item->color = $actor['color'];
-            $item->price = $actor['price'];
-            $item->img_code = $actor['img_code'];
+            $item->price = $actor['price_retail'];
+            $item->img_code = $actor['image_path'];
 			$item->ID = $actor['id'];
             $items[$pos] = $item;
             $pos++;
@@ -129,7 +141,7 @@ function find_items($str) {
 
 function get_items() {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM models_test WHERE hidden=0";
+    $query = "SELECT * FROM _Shoes_ WHERE hide=0";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items = NULL;
@@ -137,9 +149,9 @@ function get_items() {
             $item = new ShoesItem();
             $item->name = $actor['name'];
             $item->color = $actor['color'];
-            $item->price = $actor['price'];
-            $item->img_code = $actor['img_code'];
-            $item->img_main = $actor['img_main'];
+            $item->price = $actor['price_retail'];
+            $item->img_code = $actor['image_path'];
+            $item->img_main = $actor['image_head'];
             $item->ID = $actor['id'];
             $items[$pos] = $item;
             $pos++;
@@ -147,4 +159,37 @@ function get_items() {
         return $items;
     }
 }
-?>
+
+
+/* ShoesEntry block */
+
+function has_entry($cart_id, $item_id) {
+    $sql = get_db(current_db);
+    $result = $sql->query("SELECT item_id FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
+    return $result->num_rows;
+}
+
+function add_entry_for_cart($cart_id, $item_id, $count, $info) {
+    $sql = get_db(current_db);
+    $sql->query("INSERT INTO _ShoesEntries_ (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info'");
+    return $sql->field_count !== 0;
+}
+
+function remove_entry_from_cart($cart_id, $item_id) {
+    $sql = get_db(current_db);
+    $sql->query("DELETE ");
+}
+
+function get_entries($cart_id) {
+    $sql = get_db(current_db);
+    $result = $sql->query("SELECT item_id, count, info FROM _Carts_ WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
+    if($result) {
+        $pos = 0;
+        while($actor = $result->fetch_assoc()) {
+            $list[$pos] = $actor;
+            $pos++;
+        }
+        return $list;
+    }
+    return null;
+}
