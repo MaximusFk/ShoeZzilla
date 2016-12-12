@@ -16,7 +16,7 @@
                 {% endfor %}
             </section>
             <section class="description">
-                <h1 id="ss_s">{{item.display_name}} {{ item.name }}<i> {{ item.color }}</i></h1>
+                <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>
                 <section id="price"></section>
                 <section class="allow_sizes">
                     {% for i in item.min_size .. item.max_size %}
