@@ -1,0 +1,27 @@
+section#cart_view button {
+    margin-top: 10px;
+}
+
+table tbody tr td, table thead tr th, table tfoot tr th {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0;
+    border: none;
+}
+
+table thead tr th, table tfoot tr th  {
+    color: #00D05e;
+    text-shadow: 1px 1px 1px black;
+}
+
+table tbody tr td {
+    color: darkgreen;
+    padding-bottom: 15px;
+}
+
+table {
+    border: 1px solid grey;
+    border-radius: 5px;
+}
+

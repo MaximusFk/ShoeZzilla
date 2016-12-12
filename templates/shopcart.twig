@@ -2,8 +2,42 @@
     <!DOCTYPE>
     <head>
         {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/shopcart_style.css">
     </head>
     <body>
         <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
             <div class="content">
+                <section id="cart_view" class="content_block">
+                <h2>Ваша корзина покупок</h2>
+                <table border="1">
+                    <caption>Список выбраных товаров</caption>
+                    <thead>
+                        <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th></tr>
+                    </thead>
+                    <tfoot>
+                        <tr><th></th><th></th><th></th><th></th><th>{{ cart.item_count }} шт.</th><th>Итого</th><th>{{ cart.price_sum }} грн.</th></tr>
+                    </tfoot>
+                    <tbody>
+                        {% for item in items %}
+                            <tr><td>{{ loop.index }}</td>
+                                <td><img class="product_photo" src="/shoes/photos/{{ item["node"].img_code }}/{{ item["node"].img_main }}_100.jpg"></td>
+                                <td>{{ item["node"].display_name }}</td>
+                                <td>{{ item["node"].price }} грн.</td>
+                                <td>{{ item.count }} шт.</td>
+                                <td>{% for key, info in item.info %} {{ key }}: {{ info }} шт.<br/>{% endfor %}</td>
+                                <td>{{ item.count * item["node"].price}} грн.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="important_b">Оформить покупку</button>
+                </section>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>
+        
                 
