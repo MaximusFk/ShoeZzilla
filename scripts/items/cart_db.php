@@ -17,7 +17,8 @@ function update_cart($cart_id, $item_count, $price_sum) {
 function add_to_cart($cart_id, $item_id, $sizes) {
     $cart = get_cart($cart_id);
     if($cart && has_entry($cart_id, $item_id)) {
-        
+        $item = get_entry_from_cart($cart_id, $item_id);
+        $item_count = $item['count'];
     }
     if($cart) {
         $count = $cart['item_count'];
@@ -29,8 +30,8 @@ function add_to_cart($cart_id, $item_id, $sizes) {
             $item_count += $c;
             $sum += $price * $c;
         }
-        update_cart($cart_id, $item_count, $sum);
-        add_to_cart($cart_id, $item_id, json_encode($sizes));
+        update_cart($cart_id, $count, $sum);
+        add_entry_for_cart($cart_id, $item_id, $item_count, json_encode($sizes));
         return $count;
     }
 }

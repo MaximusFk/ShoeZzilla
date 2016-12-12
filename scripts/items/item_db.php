@@ -15,14 +15,14 @@ function construct_item_from_array(array $array) {
     $item = new ShoesItem();
     if(array_key_exists('id', $array)) { $item->ID = $array['id']; }
     if(array_key_exists('name', $array)) { $item->name = $array['name']; }
-    if(array_key_exists('color', $array)) { $item->color = $array['color']; }
+    if(array_key_exists('color', $array)) { $item->color = strtolower($array['color']); }
     if(array_key_exists('display_name', $array)) { $item->display_name = $array['display_name']; }
     if(array_key_exists('category', $array)) { $item->category = $array['category']; }
-    if(array_key_exists('img_code', $array)) { $item->img_code = $array['image_path']; }
-    if(array_key_exists('img_main', $array)) { $item->img_main = $array['image_head']; }
+    if(array_key_exists('image_path', $array)) { $item->img_code = $array['image_path']; }
+    if(array_key_exists('image_head', $array)) { $item->img_main = $array['image_head']; }
     if(array_key_exists('size_min', $array)) { $item->min_size = $array['size_min']; }
     if(array_key_exists('size_max', $array)) { $item->max_size = $array['size_max']; }
-    if(array_key_exists('price', $array)) { $item->price = $array['price_retail']; }
+    if(array_key_exists('price_retail', $array)) { $item->price = $array['price_retail']; }
     if(array_key_exists('url', $array)) { $item->url = $array['url']; }
     return $item;
 }
@@ -33,16 +33,7 @@ function get_item_by_id($id) {
         if($result = $sql->query($query)) {
             if($result->num_rows !== 0) {
                 $actor = $result->fetch_assoc();
-                $item = new ShoesItem();
-                $item->name = $actor['name'];
-                $item->color = $actor['color'];
-                $item->price = $actor['price_ratail'];
-                $item->img_code = $actor['image_path'];
-                $item->img_main = $actor['image_head'];
-                $item->min_size = $actor['size_min'];
-                $item->max_size = $actor['size_max'];
-		$item->ID = $id;
-                return $item;
+                return construct_item_from_array($actor);
             }
         }
 }
@@ -65,8 +56,7 @@ function create_item($shoesItem) {
         $db = get_db(current_db);
         $result = $db->query("INSERT INTO _Shoes_ (name, color, price_retail, category, size_min, size_max) VALUES "
                 . "('$shoesItem->name', '$shoesItem->color', '$shoesItem->price', '$shoesItem->category', '$shoesItem->min_size', '$shoesItem->max_size')");
-        $nid = $db->query("SELECT last_insert_id()");
-        $shoesItem->ID = $nid->fetch_assoc()["last_insert_id()"];
+        $shoesItem->ID = $db->insert_id;
         return $result ? true : false;
     }
     return false;
@@ -106,8 +96,8 @@ function get_items_by_name($name) {
             $item = new ShoesItem();
             $item->name = $actor['name'];
             $item->color = $actor['color'];
-            $item->price = $actor['price'];
-            $item->img_code = $actor['img_code'];
+            $item->price = $actor['price_retail'];
+            $item->img_code = $actor['image_path'];
             $item->ID = $actor['id'];
             $items[$pos] = $item;
             $pos++;
@@ -126,12 +116,7 @@ function find_items($str) {
         $pos = 0;
         $items = NULL;
         while ($actor = $result->fetch_assoc()) {
-            $item = new ShoesItem();
-            $item->name = $actor['name'];
-            $item->color = $actor['color'];
-            $item->price = $actor['price_retail'];
-            $item->img_code = $actor['image_path'];
-			$item->ID = $actor['id'];
+            $item = construct_item_from_array($actor);
             $items[$pos] = $item;
             $pos++;
         }
@@ -169,9 +154,21 @@ function has_entry($cart_id, $item_id) {
     return $result->num_rows;
 }
 
+function get_entry_from_cart($cart_id, $item_id) {
+    $sql = get_db(current_db);
+    $result = $sql->query("SELECT * FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
+    return $result ? $result->fetch_assec() : null;
+}
+
+function update_entry_in_cart($cart_id, $item_id, $count, $info) {
+    $sql = get_db(current_db);
+    $sql->query("UPDATE _ShoesEntries_ SET (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
+    return $sql->field_count !== 0;
+}
+
 function add_entry_for_cart($cart_id, $item_id, $count, $info) {
     $sql = get_db(current_db);
-    $sql->query("INSERT INTO _ShoesEntries_ (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info'");
+    $sql->query("INSERT INTO _ShoesEntries_ (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
     return $sql->field_count !== 0;
 }
 
