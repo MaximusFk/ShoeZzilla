@@ -6,11 +6,6 @@ h1#ss_s {
     margin-top: 0;
 }
 
-section.images img {
-    border-radius: 5px;
-    border: 1px solid #00D05e;
-}
-
 section.images {
     width: 40%;
     height: max-content;

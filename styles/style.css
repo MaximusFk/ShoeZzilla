@@ -123,6 +123,14 @@ form.search_form {
     border-radius: 5px 5px 5px 5px;
 }
 
+.content_block {
+    height: max-content;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 1em;
+}
+
 div.contacts {
     padding-top: 0.4em;
     padding-left: 1em;
@@ -162,7 +170,6 @@ input {
 }
 
 button.important_b {
-    width: 10em;
     height: 3em;
     border: none;
     border-radius: 2px;
@@ -173,6 +180,11 @@ button.important_b {
     text-shadow: 1px 1px 2px black;
     box-shadow: 0 0 2px .5px black;
     cursor: pointer;
+}
+
+img.product_photo {
+    border-radius: 5px;
+    border: 1px solid #00D05e;
 }
 
 .hidden {

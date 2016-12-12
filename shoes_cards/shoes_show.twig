@@ -10,9 +10,9 @@
         {{ include('navigation.html') }}
         <div class="content">
             <section class="images">
-                <img id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"><br/>
+                <img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"><br/>
                 {% for photo in 1..5 %}
-                    <img class="photo_small" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
+                    <img class="photo_small product_photo" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
                 {% endfor %}
             </section>
             <section class="description">
