@@ -7,6 +7,7 @@ section.list_item {
     width: 13em;
     height: 255px;
     display: inline-block;
+    cursor: pointer;
 }
 
 section.list_item:hover {
@@ -17,10 +18,10 @@ section.list_item h3 {
     color: #00D05e;
     text-shadow: 0 0 2px black;
     padding-left: 10px;
-    -webkit-margin-before: 0.5em;
-    margin-top: 0.5em;
-    -webkit-margin-after: 0.5em;
-    margin-bottom: 0.5em;
+    -webkit-margin-before: 0.2em;
+    margin-top: 0.2em;
+    -webkit-margin-after: 0;
+    margin-bottom: 0;
 }
 
 section.list_item span {
@@ -64,7 +65,7 @@ button#more {
     margin-left: 3px;
     background-color: transparent;
     border-radius: 2px;
-    border: 1px solid #00D05e;
+    border: none;
     color: #00D05e;
     cursor: pointer;
     display: inline-block;
