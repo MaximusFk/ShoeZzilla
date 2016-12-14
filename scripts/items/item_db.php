@@ -62,18 +62,6 @@ function create_item($shoesItem) {
     return false;
 }
 
-function get_item_url($id) {
-    $sql = get_db(current_db);
-    $query = "SELECT url FROM _Shoes_ WHERE id='$id'";
-    $result = $sql->query($query);
-    if($result && $result->num_rows !== 0) {
-        $actor = $result->fetch_assoc();
-        return $actor['url'];
-    } else {
-        return NULL;
-    }
-}
-
 function get_item_price_retail($id) {
     $sql = get_db(current_db);
     $query = "SELECT price_retail FROM _Shoes_ WHERE id='$id'";
@@ -93,13 +81,7 @@ function get_items_by_name($name) {
         $pos = 0;
         $items;
         while ($actor = $result->fetch_assoc()) {
-            $item = new ShoesItem();
-            $item->name = $actor['name'];
-            $item->color = $actor['color'];
-            $item->price = $actor['price_retail'];
-            $item->img_code = $actor['image_path'];
-            $item->ID = $actor['id'];
-            $items[$pos] = $item;
+            $items[$pos] = construct_item_from_array($actor);
             $pos++;
         }
         return $items;
@@ -131,14 +113,7 @@ function get_items() {
         $pos = 0;
         $items = NULL;
         while ($actor = $result->fetch_assoc()) {
-            $item = new ShoesItem();
-            $item->name = $actor['name'];
-            $item->color = $actor['color'];
-            $item->price = $actor['price_retail'];
-            $item->img_code = $actor['image_path'];
-            $item->img_main = $actor['image_head'];
-            $item->ID = $actor['id'];
-            $items[$pos] = $item;
+            $items[$pos] = construct_item_from_array($actor);
             $pos++;
         }
         return $items;
@@ -179,7 +154,7 @@ function remove_entry_from_cart($cart_id, $item_id) {
 
 function get_entries($cart_id) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT item_id, count, info FROM _Carts_ WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
+    $result = $sql->query("SELECT item_id, count, info FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
     if($result) {
         $pos = 0;
         while($actor = $result->fetch_assoc()) {
