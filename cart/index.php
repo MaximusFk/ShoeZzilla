@@ -18,6 +18,7 @@ if(filter_has_var(INPUT_COOKIE, 'session_id')) {
                 $key['node'] = get_item_by_id($key['item_id']);
             }
             echo $enviroment->render('shopcart.twig', array('cart' => $cart, 'items' => $items));
+            return;
         }
     }
 }
