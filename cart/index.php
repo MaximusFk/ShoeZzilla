@@ -1,11 +1,10 @@
 <?php
 require_once '../scripts/items/cart_db.php';
 require_once '../scripts/database/sessions_db.php';
-require_once '../lib/Twig/Autoloader.php';
-Twig_Autoloader::register();
+require_once '../scripts/twig.php';
 
-$loader = new Twig_Loader_Filesystem('../templates');
-$enviroment = new Twig_Environment($loader);
+$loader = create_file_loader();
+$enviroment = create_twig($loader);
 if(filter_has_var(INPUT_COOKIE, 'session_id')) {
     $session_id = filter_input(INPUT_COOKIE, 'session_id');
     if(equals_session($session_id)) {
@@ -15,6 +14,7 @@ if(filter_has_var(INPUT_COOKIE, 'session_id')) {
             $items = get_entries($cart_id);
             foreach ($items as &$key) {
                 $key['info'] = json_decode($key['info'], true);
+                ksort($key['info']);
                 $key['node'] = get_item_by_id($key['item_id']);
             }
             echo $enviroment->render('shopcart.twig', array('cart' => $cart, 'items' => $items));

@@ -1,15 +1,6 @@
 <?php
 require_once 'item.php';
-
-define('Password', 'maxime51mk');
-define('Login', 'maximusfk');
-define('current_db', 'maximusfk');
-define('Accounts', 'accounts');
-define('Models', 'models_test');
-
-function get_db($name = current_db) {
-	return new mysqli('localhost', Login, Password, $name);
-}
+require_once __DIR__ . '/../database/db_connect.php';
 
 function construct_item_from_array(array $array) {
     $item = new ShoesItem();
@@ -29,7 +20,7 @@ function construct_item_from_array(array $array) {
 
 function get_item_by_id($id) {
         $sql = get_db(current_db);
-        $query = "SELECT * FROM _Shoes_ WHERE id='$id' AND hide=0";
+        $query = "SELECT * FROM " . Models . " WHERE id='$id' AND hide=0";
         if($result = $sql->query($query)) {
             if($result->num_rows !== 0) {
                 $actor = $result->fetch_assoc();
@@ -40,7 +31,7 @@ function get_item_by_id($id) {
 
 function get_items_by_category($category) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT * FROM _Shoes_ WHERE category='$category'");
+    $result = $sql->query("SELECT * FROM " . Models . " WHERE category='$category'");
     if($result) {
         $pos = 0;
         while ($actor = $result->fetch_assoc()) {
@@ -54,7 +45,7 @@ function get_items_by_category($category) {
 function create_item($shoesItem) {
     if($shoesItem) {
         $db = get_db(current_db);
-        $result = $db->query("INSERT INTO _Shoes_ (name, color, price_retail, category, size_min, size_max) VALUES "
+        $result = $db->query("INSERT INTO " . Models . " (name, color, price_retail, category, size_min, size_max) VALUES "
                 . "('$shoesItem->name', '$shoesItem->color', '$shoesItem->price', '$shoesItem->category', '$shoesItem->min_size', '$shoesItem->max_size')");
         $shoesItem->ID = $db->insert_id;
         return $result ? true : false;
@@ -64,7 +55,7 @@ function create_item($shoesItem) {
 
 function get_item_price_retail($id) {
     $sql = get_db(current_db);
-    $query = "SELECT price_retail FROM _Shoes_ WHERE id='$id'";
+    $query = "SELECT price_retail FROM " . Models . " WHERE id='$id'";
     $result = $sql->query($query);
     if($result && $result->num_rows !== 0) {
         $actor = $result->fetch_assoc();
@@ -76,7 +67,7 @@ function get_item_price_retail($id) {
 
 function get_items_by_name($name) {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM _Shoes_ WHERE name = '$name' AND hide=0";
+    $query = "SELECT * FROM " . Models . " WHERE name = '$name' AND hide=0";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items;
@@ -93,7 +84,7 @@ function find_items($str) {
     if(!$str) {
         return array();
     }
-    $query = "SELECT * FROM _Shoes_ WHERE concat(name, color, price_retail, display_name, brand, gender) LIKE '%$str%'";
+    $query = "SELECT * FROM " . Models . " WHERE concat(name, color, price_retail, display_name, brand, gender) LIKE '%$str%'";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items = NULL;
@@ -108,7 +99,7 @@ function find_items($str) {
 
 function get_items() {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM _Shoes_ WHERE hide=0";
+    $query = "SELECT * FROM " . Models . " WHERE hide=0";
     if($result = $sql->query($query)) {
         $pos = 0;
         $items = NULL;
@@ -125,25 +116,25 @@ function get_items() {
 
 function has_entry($cart_id, $item_id) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT item_id FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
+    $result = $sql->query("SELECT item_id FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
     return $result->num_rows;
 }
 
 function get_entry_from_cart($cart_id, $item_id) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT * FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
-    return $result ? $result->fetch_assec() : null;
+    $result = $sql->query("SELECT * FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
+    return $result ? $result->fetch_assoc() : null;
 }
 
 function update_entry_in_cart($cart_id, $item_id, $count, $info) {
     $sql = get_db(current_db);
-    $sql->query("UPDATE _ShoesEntries_ SET (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
+    $sql->query("UPDATE " . Entries . " SET count='$count', info='$info' WHERE item_id='$item_id' AND parent_id='$cart_id' AND parent_table='_Carts_'");
     return $sql->field_count !== 0;
 }
 
 function add_entry_for_cart($cart_id, $item_id, $count, $info) {
     $sql = get_db(current_db);
-    $sql->query("INSERT INTO _ShoesEntries_ (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
+    $sql->query("INSERT INTO " . Entries . " (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
     return $sql->field_count !== 0;
 }
 
@@ -154,7 +145,7 @@ function remove_entry_from_cart($cart_id, $item_id) {
 
 function get_entries($cart_id) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT item_id, count, info FROM _ShoesEntries_ WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
+    $result = $sql->query("SELECT item_id, count, info FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
     if($result) {
         $pos = 0;
         while($actor = $result->fetch_assoc()) {
@@ -164,4 +155,12 @@ function get_entries($cart_id) {
         return $list;
     }
     return null;
+}
+
+function sizes_sum(array $sizes) {
+    $sum = 0;
+    foreach ($sizes as $value) {
+        $sum += $value;
+    }
+    return $sum;
 }

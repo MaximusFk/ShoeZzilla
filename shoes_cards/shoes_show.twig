@@ -17,7 +17,7 @@
             </section>
             <section class="description">
                 <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>
-                <section id="price"></section>
+                <section id="price">{{ item.price }}</section>
                 <section class="allow_sizes">
                     {% for i in item.min_size .. item.max_size %}
                         <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
@@ -26,6 +26,8 @@
                     <i>* Ctrl - для выбора нескольких размеров</i>
                 </section>
                     <button id="pust_to_cart">В корзину</button>
+                    <section>
+                    </section>
             </section>
         </div>
         {{ include('footer.html') }}
@@ -100,6 +102,7 @@
                 });
                 if(sizes) {
                     $.getJSON("/cart.php", {
+                        session_id: $.cookie('session_id'),
                         method: "ADD",
                         item_id: {{ item.ID }},
                         sizes: JSON.stringify(sizes)

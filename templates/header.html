@@ -3,7 +3,7 @@
     <section class="cart_widget">
         <a href="/cart/">
             <img src="/images/cart_32.png">
-            <span>Товаров: <i id="count">0</i></span><br>
+            <span>Товаров: <i id="count">{{ get_cart_entry_count(get_session_id()) }}</i></span><br>
             <small id="goto_cart">Оформить покупку</small>
         </a>
     </section>

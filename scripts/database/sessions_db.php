@@ -27,3 +27,15 @@ require_once __DIR__ . '/../items/item_db.php';
         $result = $sql->query("SELECT * FROM _Sessions_ WHERE id='$session_id'");
         return $result->num_rows !== 0;
     }
+    
+    function get_account_id_by_session($session_id) {
+        $sql = get_db(current_db);
+        $res = $sql->query("SELECT account_id FROM " . Sessions . " WHERE id='$session_id'");
+        return $res && $res->num_rows !== 0 ? $res->fetch_assoc()['account_id'] : NULL;
+    }
+    
+    function set_account_id_for_session($session_id, $account_id) {
+        $sql = get_db(current_db);
+        $sql->query("UPDATE " . Sessions . " SET account_id='$account_id' WHERE id='$session_id'");
+        return $sql->affected_rows !== 0;
+    }

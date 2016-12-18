@@ -14,25 +14,36 @@ function update_cart($cart_id, $item_count, $price_sum) {
 }
 
 
-function add_to_cart($cart_id, $item_id, $sizes) {
+function add_to_cart($cart_id, $item_id, array $sizes) {
     $cart = get_cart($cart_id);
-    if($cart && has_entry($cart_id, $item_id)) {
-        $item = get_entry_from_cart($cart_id, $item_id);
-        $item_count = $item['count'];
-    }
     if($cart) {
         $count = $cart['item_count'];
         $sum = $cart['price_sum'];
         $price = get_item_price_retail($item_id);
         $item_count = 0;
-        foreach ($sizes as $c) {
-            $count = $count + $c;
-            $item_count += $c;
-            $sum += $price * $c;
+        foreach ($sizes as $value) {
+            $count = $count + $value;
+            $item_count += $value;
+            $sum += $price * $value;
         }
         update_cart($cart_id, $count, $sum);
-        add_entry_for_cart($cart_id, $item_id, $item_count, json_encode($sizes));
+        if(has_entry($cart_id, $item_id)) {
+            $item = get_entry_from_cart($cart_id, $item_id);
+            $item_count += $item['count'];
+            $info = json_encode(concat_entry_info($sizes, json_decode($item['info'], true)));
+            update_entry_in_cart($cart_id, $item_id, $item_count, $info);
+        }
+        else {
+            add_entry_for_cart($cart_id, $item_id, $item_count, json_encode($sizes));
+        }
         return $count;
+    }
+}
+
+function remove_from_cart($cart_id, $item_id, array $sizes) {
+    $cart = get_cart($cart_id);
+    if($cart) {
+        
     }
 }
 
@@ -40,6 +51,11 @@ function get_cart($cart_id) {
     $sql = get_db(current_db);
     $result = $sql->query("SELECT price_sum, item_count FROM _Carts_ WHERE id=$cart_id");
     return $result && $result->num_rows !== 0 ? $result->fetch_assoc() : null;
+}
+
+function get_cart_entry_count($cart_id) {
+    $cart = get_cart($cart_id);
+    return $cart ? $cart['item_count'] : 0;
 }
 
 function get_cart_id($session_id, $create = true) {
@@ -55,4 +71,28 @@ function get_cart_id($session_id, $create = true) {
     else {
         return null;
     }
+}
+
+function concat_entry_info(array $info1, array $info2) {
+    foreach ($info2 as $key => $value) {
+        if(array_key_exists($key, $info1)) {
+            $info1["$key"] += $value;
+        }
+        else {
+            $info1["$key"] = $value;
+        }
+    }
+    return $info1;
+}
+
+function remove_entry_info(array $info1, array $info2) {
+    foreach ($info2 as $key => $value) {
+        if(array_key_exists($key, $info1)) {
+            $info1["$key"] -= $value;
+            if($info1["$key"] === 0) {
+                unset($info1["$key"]);
+            }
+        }
+    }
+    return $info1;
 }

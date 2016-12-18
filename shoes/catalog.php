@@ -1,13 +1,10 @@
 <?php
 require_once '../scripts/items/item_db.php';
-require_once '../lib/Twig/Autoloader.php';
-Twig_Autoloader::register();
+require_once '../scripts/twig.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $loader = new Twig_Loader_Filesystem("../templates");
-    $loader->addPath("../shoes_cards");
-    $loader->addPath('../info_pages');
-    $twig = new Twig_Environment($loader);
+    $loader = create_file_loader(['info_pages', 'shoes_cards']);
+    $twig = create_twig($loader);
     if(filter_has_var(INPUT_GET, 'category')) {
         $category = filter_input(INPUT_GET, 'category');
         $items = $category === 'all' ? get_items() : get_items_by_category($category);
