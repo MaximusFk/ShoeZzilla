@@ -13,8 +13,8 @@ if(filter_has_var(INPUT_COOKIE, 'session_id')) {
             $cart = get_cart($cart_id);
             $items = get_entries($cart_id);
             foreach ($items as &$key) {
-                $key['info'] = json_decode($key['info'], true);
-                ksort($key['info']);
+                $key['size_data'] = json_decode($key['size_data'], true);
+                ksort($key['size_data']);
                 $key['node'] = get_item_by_id($key['item_id']);
             }
             echo $enviroment->render('shopcart.twig', array('cart' => $cart, 'items' => $items));
