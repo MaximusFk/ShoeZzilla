@@ -1,15 +1,20 @@
+section#desc_r {
+    float: left;
+}
+
 h1#ss_s {
+    font-size: 1.5em;
     color: #00D05e;
     text-shadow: 1px 1px 1px black;
     padding-left: 0.5em;
     padding-top: 0.5em;
     margin-top: 0;
+    margin-bottom: 15px;
 }
 
 section.images {
-    width: 40%;
-    height: max-content;
-    display: inline-block;
+    width: 38%;
+    float: left;
 }
 
 section.images>img#photo_show {
@@ -25,12 +30,13 @@ section.images>img.photo_small {
 }
 
 section.description {
-    width: 60%;
-    margin-left: 40%;
-    height: 300px;
+    width: 59%;
+    float: right;
     background-color: white;
     border: 1px solid grey;
     border-radius: 5px;
+    min-height: 300px;
+    padding: 10px;
 }
 
 button.chosed {
@@ -63,6 +69,13 @@ button.size_choser {
     cursor: pointer;
 }
 
+section.allow_sizes {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 5px;
+    width: max-content;
+}
+
 section.allow_sizes a {
     font-size: 0.7em;
     text-decoration: underline;
@@ -81,9 +94,13 @@ section.allow_sizes i {
     font-size: 0.7em;
 }
 
+section#price_cart {
+    float: right;
+}
+
 button#pust_to_cart {
     background: #FFF url(/images/vertical-cs.png) repeat-x;
-    width: 100px;
+    width: 151px;
     height: 40px;
     border-radius: 2px;
     border: none;
@@ -92,6 +109,24 @@ button#pust_to_cart {
     text-shadow: 1px 1px 2px black;
     box-shadow: 0 0 2px .5px black;
     cursor: pointer;
-    margin-left: 85%;
-    margin-top: -8%;
+    margin-top: 5px;
+}
+
+section#price {
+    width: 150px;
+    height: max-content;
+/*    box-shadow: 0 0 2px .5px black;*/
+    text-shadow: 0 0 .5px black;
+    border-radius: 5px;
+    border: 1px solid gray;
+    color: #00D05e;
+    font-size: 2.2em;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+section#desc_r p {
+    margin-left: 5px;
+    width: 70%;
 }

@@ -13,6 +13,9 @@ footer {
 bottom: 0;
 position: relative;
 text-align: center;
+width: 100%;
+height: max-content;
+clear: both;
 }
 
 section.main {
@@ -60,6 +63,7 @@ body {
     text-decoration: none;
     float: left;
     padding: 10px;
+    margin-left: 2px;
     font: bold 0.9em sans-serif;
     border-right: 1px solid gray;
     /*box-shadow: 2px 0 5px #00D05e;*/
@@ -79,7 +83,18 @@ body {
 }
 
 .navigation a:hover {
-    border-top: 6px solid #00D05e;
+    /*border-top: 6px solid #00D05e;*/
+    box-shadow: .5px .5px 1px 2px gray;
+    border-radius: 5px;
+    border: none;
+}
+
+.navigation form {
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 25%;
+    height: 60px;
+    display: inline-block;
 }
 
 .search {
@@ -103,6 +118,27 @@ button#search_submit {
     cursor: pointer;
 }
 
+form button#order_search_submit {
+    width: 30px;
+    height: 2em;
+    margin-left: 5px;
+    background-color: white;
+    border: 1px solid #00D05e;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
+button.basic_submit_button {
+    background-color: white;
+    border: 1px solid #00D05e;
+    border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
+}
+
+form input#order_search_text {
+    float: left;
+}
+
 form.search_form {
     /*margin-right: 5em;*/
     /*margin-top: 0.4em;*/
@@ -114,8 +150,8 @@ form.search_form {
 }
 
 .content {
-    margin-top: 2px;
-    width: 100%;
+    margin: 15px;
+    width: 98%;
     padding: 10px;
     box-sizing: border-box;
     height: max-content;
@@ -131,12 +167,6 @@ form.search_form {
     padding: 1em;
 }
 
-div.contacts {
-    padding-top: 0.4em;
-    padding-left: 1em;
-    padding-bottom: 0.4em;
-}
-
 div.contacts h3, .item_name, h3.parag {
     color: #00D05e;
     text-shadow: 1px 1px 1px black;
@@ -146,7 +176,8 @@ div.contacts h3, .item_name, h3.parag {
 section.cart_widget {
     float: right;
     text-align: center;
-    background-color: aliceblue;
+    background-color: white;
+    border: 1px solid gray;
     border-radius: 10px 10px 10px 10px;
     padding: 5px; 
     margin-top: .4em;
@@ -158,6 +189,10 @@ section.cart_widget a {
     text-decoration: none;
     color: #00D05f;
     text-shadow: 0 0 .5px black;
+}
+
+i#count {
+    font-size: 1.5em;
 }
 
 input {
@@ -189,4 +224,8 @@ img.product_photo {
 
 .hidden {
     display: none;
+}
+
+p {
+    font-family: tahoma;
 }

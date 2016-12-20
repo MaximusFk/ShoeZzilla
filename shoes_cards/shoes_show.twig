@@ -16,18 +16,23 @@
                 {% endfor %}
             </section>
             <section class="description">
-                <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>
-                <section id="price">{{ item.price }}</section>
-                <section class="allow_sizes">
-                    {% for i in item.min_size .. item.max_size %}
-                        <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
-                    {% endfor %}
-                    <a href="#">Как выбрать?</a><br/>
-                    <i>* Ctrl - для выбора нескольких размеров</i>
-                </section>
-                    <button id="pust_to_cart">В корзину</button>
-                    <section>
+                <section id="desc_r">
+                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>
+                    <section class="allow_sizes">
+                        {% for i in item.min_size .. item.max_size %}
+                          <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
+                        {% endfor %}
+                        <a href="#">Как выбрать?</a><br/>
+                        <i>* Ctrl - для выбора нескольких размеров</i>
                     </section>
+                        <p>Здесь будет очень развернутое и интересное описание этого отличного товара!!</p>
+                </section>
+                <section id="price_cart">
+                    <section id="price">{{ item.price }}грн.</section>
+                    <button id="pust_to_cart">В корзину</button>
+                </section>
+                <section>
+                </section>
             </section>
         </div>
         {{ include('footer.html') }}

@@ -9,10 +9,11 @@
         {{ include('header.html') }}
         {{ include('navigation.html') }}
         <div class="content">
+            {% if str %}<p class="content_block">Показан результат по запросу: <q>{{ str }}</q></p>{% endif %}
             {% for item in items %}
             {{ include('shoes_list_item.twig') }}
             {% else %}
-            <h1> Items not found </h1>
+            <h1> По Вашему запросу ничего не найдено! </h1>
             {% endfor %}
         </div>
         {{ include('footer.html') }}
