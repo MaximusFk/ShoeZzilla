@@ -29,10 +29,10 @@ else if($post === 'get_name' && filter_has_var(INPUT_POST, 'session_id')) {
 
 switch ($command) {
     case 'login':
-        if(!filter_has_var(INPUT_COOKIE, 'session_id') || !equals_session($session_id)) {
+        if(!linked_to_account($session_id)) {
             echo $twig->render('login.twig');
         } else {
-            header("Location: /");
+            header("Location: /profile");
         }
         break;
     case 'register':
