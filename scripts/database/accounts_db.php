@@ -30,3 +30,9 @@ function get_name($id) {
     $result = $sql->query("SELECT name FROM " . Accounts . " WHERE id='$id'");
     return $result && $result->num_rows !== 0 ? $result->fetch_assoc()['name'] : null;
 }
+
+function get_account_info($id) {
+    $sql = get_db();
+    $result = $sql->query("SELECT name, surname, secondname, phone, email FROM " . Accounts . " WHERE id='$id'");
+    return $result ? $result->fetch_assoc() : null;
+}

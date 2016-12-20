@@ -14,8 +14,17 @@ function construct_item_from_array(array $array) {
     if(array_key_exists('size_min', $array)) { $item->min_size = $array['size_min']; }
     if(array_key_exists('size_max', $array)) { $item->max_size = $array['size_max']; }
     if(array_key_exists('price_retail', $array)) { $item->price = $array['price_retail']; }
+    if(array_key_exists('size_data', $array)) { $item->size_data = json_decode($array['size_data'], true); }
     if(array_key_exists('url', $array)) { $item->url = $array['url']; }
     return $item;
+}
+
+function construct_entry_from_array(array $array) {
+    $entry = new ShoesEntry();
+    if(array_key_exists('item_id', $array)) { $entry->item_id = $array['item_id']; }
+    if(array_key_exists('count', $array)) { $entry->count = $array['count']; }
+    if(array_key_exists('size_data', $array)) { $entry->size_data = json_decode($array['size_data']); }
+    return $entry;
 }
 
 function get_item_by_id($id) {
@@ -126,26 +135,27 @@ function get_entry_from_cart($cart_id, $item_id) {
     return $result ? $result->fetch_assoc() : null;
 }
 
-function update_entry_in_cart($cart_id, $item_id, $count, $info) {
+function update_entry_in_cart($cart_id, $item_id, $count, $size_data) {
     $sql = get_db(current_db);
-    $sql->query("UPDATE " . Entries . " SET count='$count', info='$info' WHERE item_id='$item_id' AND parent_id='$cart_id' AND parent_table='_Carts_'");
-    return $sql->field_count !== 0;
+    $sql->query("UPDATE " . Entries . " SET count='$count', size_data='$size_data' WHERE item_id='$item_id' AND parent_id='$cart_id' AND parent_table='_Carts_'");
+    return $sql->affected_rows !== 0;
 }
 
-function add_entry_for_cart($cart_id, $item_id, $count, $info) {
+function add_entry_for_cart($cart_id, $item_id, $count, $size_data) {
     $sql = get_db(current_db);
-    $sql->query("INSERT INTO " . Entries . " (item_id,parent_id,parent_table,count,info) VALUES ('$item_id','$cart_id','_Carts_','$count','$info')");
-    return $sql->field_count !== 0;
+    $sql->query("INSERT INTO " . Entries . " (item_id,parent_id,parent_table,count,size_data) VALUES ('$item_id','$cart_id','_Carts_','$count','$size_data')");
+    return $sql->affected_rows !== 0;
 }
 
 function remove_entry_from_cart($cart_id, $item_id) {
     $sql = get_db(current_db);
-    $sql->query("DELETE ");
+    $sql->query("DELETE FROM " . Entries . " WHERE item_id='$item_id' AND parent_id='$cart_id' AND parent_table='_Carts_'");
+    return $sql->affected_rows !== 0;
 }
 
 function get_entries($cart_id) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT item_id, count, info FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
+    $result = $sql->query("SELECT item_id, count, size_data FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_'");
     if($result) {
         $pos = 0;
         while($actor = $result->fetch_assoc()) {

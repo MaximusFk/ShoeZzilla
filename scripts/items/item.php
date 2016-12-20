@@ -14,5 +14,12 @@ class ShoesItem {
     public $min_size;
     public $max_size;
     public $url;
+    public $size_data;
     public $infoPairs = array("none" => "none");
+}
+
+class ShoesEntry {
+    public $item_id;
+    public $count;
+    public $size_data;
 }

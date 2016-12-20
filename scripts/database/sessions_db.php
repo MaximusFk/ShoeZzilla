@@ -22,6 +22,13 @@ require_once __DIR__ . '/../items/item_db.php';
         return $sql->insert_id;
     }
     
+    function linked_to_account($session_id) {
+        $sql = get_db(current_db);
+        $result = $sql->query("SELECT account_id FROM _Sessions_ WHERE id='$session_id'");
+        return $result->fetch_assoc()['account_id'] !== null;
+    }
+
+
     function equals_session($session_id) {
         $sql = get_db(current_db);
         $result = $sql->query("SELECT * FROM _Sessions_ WHERE id='$session_id'");

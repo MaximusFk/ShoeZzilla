@@ -30,7 +30,7 @@ function add_to_cart($cart_id, $item_id, array $sizes) {
         if(has_entry($cart_id, $item_id)) {
             $item = get_entry_from_cart($cart_id, $item_id);
             $item_count += $item['count'];
-            $info = json_encode(concat_entry_info($sizes, json_decode($item['info'], true)));
+            $info = json_encode(sum_size_data($sizes, json_decode($item['size_data'], true)));
             update_entry_in_cart($cart_id, $item_id, $item_count, $info);
         }
         else {
@@ -73,7 +73,7 @@ function get_cart_id($session_id, $create = true) {
     }
 }
 
-function concat_entry_info(array $info1, array $info2) {
+function sum_size_data(array $info1, array $info2) {
     foreach ($info2 as $key => $value) {
         if(array_key_exists($key, $info1)) {
             $info1["$key"] += $value;
@@ -85,7 +85,7 @@ function concat_entry_info(array $info1, array $info2) {
     return $info1;
 }
 
-function remove_entry_info(array $info1, array $info2) {
+function delete_size_data(array $info1, array $info2) {
     foreach ($info2 as $key => $value) {
         if(array_key_exists($key, $info1)) {
             $info1["$key"] -= $value;
