@@ -5,8 +5,8 @@ $loader = create_file_loader(['info_pages', 'shoes_cards']);
 $twig = create_twig($loader);
 $founded = find_items($_GET['find']);
 if(count($founded) > 0) {
-    echo $twig->render('show_shoes_list_box.twig', array('items' => $founded));
+    echo $twig->render('show_shoes_list_box.twig', ['items' => $founded, 'str' => filter_input(INPUT_GET, 'find')]);
 } else {
-    echo $twig->render('not_found.twig', array('str' => $_GET['find']));
+    echo $twig->render('not_found.twig', ['str' => filter_input(INPUT_GET, 'find')]);
 }
 ?>
