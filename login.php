@@ -12,7 +12,7 @@ if(filter_has_var(INPUT_POST, 'email') && filter_has_var(INPUT_POST, 'password_h
             $session_id = create_session($user_id);
             setcookie("session_id", $session_id, time() + 60*60*24*7);
         }
-        header("Location: /");
+        header("Location: /profile");
     }
     else {
         $loader = create_file_loader(['info_pages']);
