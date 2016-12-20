@@ -25,3 +25,9 @@ table {
     border-radius: 5px;
 }
 
+button.remove {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+

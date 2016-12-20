@@ -15,7 +15,7 @@
                 <table border="1">
                     <caption>Список выбраных товаров</caption>
                     <thead>
-                        <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th></tr>
+                        <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th><th></th></tr>
                     </thead>
                     <tfoot>
                         <tr><th></th><th></th><th></th><th></th><th>{{ cart.item_count }} шт.</th><th>Итого</th><th>{{ cart.price_sum }} грн.</th></tr>
@@ -23,12 +23,14 @@
                     <tbody>
                         {% for item in items %}
                             <tr><td>{{ loop.index }}</td>
-                                <td><img class="product_photo" src="/shoes/photos/{{ item["node"].img_code }}/{{ item["node"].img_main }}_100.jpg"></td>
+                                <td><a href="/shoes/catalog.php?item_id={{ item["node"].ID }}">
+<img class="product_photo" src="/shoes/photos/{{ item["node"].img_code }}/{{ item["node"].img_main }}_100.jpg"></a></td>
                                 <td>{{ item["node"].display_name }}</td>
                                 <td>{{ item["node"].price }} грн.</td>
                                 <td>{{ item.count }} шт.</td>
-                                <td>{% for key, info in item.info %} {{ key }}: {{ info }} шт.<br/>{% endfor %}</td>
+                                <td>{% for size, count in item.size_data %} {{ size }}: {{ count }} шт.<br/>{% endfor %}</td>
                                 <td>{{ item.count * item["node"].price}} грн.</td>
+                                <td><button class="remove"><img src="/images/remove_red_16.png"></button></td>
                             </tr>
                         {% endfor %}
                     </tbody>
