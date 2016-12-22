@@ -43,6 +43,11 @@ require_once __DIR__ . '/../items/item_db.php';
     
     function set_account_id_for_session($session_id, $account_id) {
         $sql = get_db(current_db);
-        $sql->query("UPDATE " . Sessions . " SET account_id='$account_id' WHERE id='$session_id'");
+        if($account_id === null) {
+            $sql->query("UPDATE " . Sessions . " SET account_id=NULL WHERE id='$session_id'");
+        }
+        else {
+            $sql->query("UPDATE " . Sessions . " SET account_id='$account_id' WHERE id='$session_id'");
+        }
         return $sql->affected_rows !== 0;
     }

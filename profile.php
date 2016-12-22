@@ -35,6 +35,12 @@ switch ($command) {
             header("Location: /profile");
         }
         break;
+    case 'logout':
+        if(linked_to_account($session_id)) {
+            set_account_id_for_session($session_id, null);
+            header("Location: /");
+        }
+        break;
     case 'register':
         echo $twig->render('register.twig');
         break;
