@@ -33,15 +33,14 @@ if(filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET') {
             echo json_encode($responce);
             break;
         case 'REMOVE':
-            $sizes = json_decode(filter_input(INPUT_GET, 'sizes'));
-            $item_id = filter_input(INPUT_GET, 'items_id');
+            $sizes = filter_has_var(INPUT_GET, 'sizes') ? json_decode(filter_input(INPUT_GET, 'sizes')) : null;
+            $item_id = filter_input(INPUT_GET, 'item_id');
             $cart_id = get_cart_id($session_id);
-            $all_count = remove_entry_from_cart($cart_id, $item_id);
+            $done = remove_from_cart($cart_id, $item_id, $sizes);
             $responce = array(
                 'session_id' => $session_id,
                 'item_id' => $item_id,
-                'count' => sizes_sum($sizes),
-                'all_count' => $all_count,
+                'done' => $done,
                 'cart_id' => $cart_id
                     );
             echo json_encode($responce);

@@ -40,11 +40,15 @@ function add_to_cart($cart_id, $item_id, array $sizes) {
     }
 }
 
-function remove_from_cart($cart_id, $item_id, array $sizes) {
+function remove_from_cart($cart_id, $item_id, array $sizes = null) {
     $cart = get_cart($cart_id);
-    if($cart) {
-        
+    if($cart && !$sizes) {
+        $item = get_entry_from_cart($cart_id, $item_id);
+        update_cart($cart_id, $cart['item_count'] - $item['count'], ($cart['price_sum'] - ($item['count'] * get_item_price_retail($item['item_id']))));
+        remove_entry_from_cart($cart_id, $item_id);
+        return true;
     }
+    return false;
 }
 
 function get_cart($cart_id) {
