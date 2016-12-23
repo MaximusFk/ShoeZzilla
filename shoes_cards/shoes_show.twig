@@ -29,7 +29,11 @@
                 </section>
                 <section id="price_cart">
                     <section id="price">{{ item.price }}грн.</section>
-                    <button id="pust_to_cart">В корзину</button>
+                    {% if not has_in_cart %}
+                    <button id="pust_to_cart" class="important_b">В корзину</button>
+                    {% else %}
+                    <button id="pust_to_cart" class="important_lower_b">Добавлено +</button>
+                    {% endif %}
                 </section>
                 <section>
                 </section>
@@ -114,6 +118,7 @@
                     })
                     .done(function (msg) {
                         notify_cart_count(msg.all_count);
+                        $("button#pust_to_cart").removeClass("important_b").addClass("important_lower_b").text("Добавлено +");
                     });
                 }
                 else {

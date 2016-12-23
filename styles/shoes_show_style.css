@@ -99,16 +99,8 @@ section#price_cart {
 }
 
 button#pust_to_cart {
-    background: #FFF url(/images/vertical-cs.png) repeat-x;
     width: 151px;
-    height: 40px;
     border-radius: 2px;
-    border: none;
-    color: white;
-    font: bold 0.7em sans-serif;
-    text-shadow: 1px 1px 2px black;
-    box-shadow: 0 0 2px .5px black;
-    cursor: pointer;
     margin-top: 5px;
 }
 

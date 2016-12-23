@@ -217,6 +217,16 @@ button.important_b {
     cursor: pointer;
 }
 
+button.important_lower_b {
+    height: 3em;
+    border-radius: 2px;
+    color: #00D05e;
+    background-color: transparent;
+    border: 1px solid #00D05e;
+    font: bold 0.7em sans-serif;
+    cursor: pointer;
+}
+
 img.product_photo {
     border-radius: 5px;
     border: 1px solid #00D05e;
