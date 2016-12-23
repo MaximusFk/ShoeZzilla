@@ -126,7 +126,7 @@ function get_items() {
 function has_entry($cart_id, $item_id) {
     $sql = get_db(current_db);
     $result = $sql->query("SELECT item_id FROM " . Entries . " WHERE parent_id='$cart_id' AND parent_table='_Carts_' AND item_id='$item_id'");
-    return $result->num_rows;
+    return $result->num_rows !== 0;
 }
 
 function get_entry_from_cart($cart_id, $item_id) {

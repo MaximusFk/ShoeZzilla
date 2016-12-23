@@ -1,5 +1,5 @@
 <?php
-require_once '../scripts/items/item_db.php';
+require_once '../scripts/items/cart_db.php';
 require_once '../scripts/twig.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -13,8 +13,10 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     else if(filter_has_var(INPUT_GET, 'item_id')) {
         $item_id = filter_input(INPUT_GET, 'item_id');
         $item = get_item_by_id($item_id);
+        $session_id = filter_input(INPUT_COOKIE, 'session_id');
+        $has = has_entry(get_cart_id($session_id), $item_id);
         if($item) {
-            echo $twig->render('shoes_show.twig', array("item" => $item));
+            echo $twig->render('shoes_show.twig', ["item" => $item, "has_in_cart" => $has]);
         }
         else {
             echo $twig->render('error_page.twig', array("text" => "Страница не найдена!"));
