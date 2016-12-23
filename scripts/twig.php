@@ -18,7 +18,7 @@ function create_twig($loader) {
     $twig->addFunction('get_cart_entry_count', new Twig_SimpleFunction('get_cart_entry_count', function ($session_id) { 
         $sql = get_db();
         $result = $sql->query("SELECT item_count FROM " . Carts . " WHERE session_id='$session_id'");
-        $count = $result && $result->num_rows !== 0 ? $result->fetch_assoc()['item_count'] : null;
+        $count = $result && $result->num_rows !== 0 ? $result->fetch_assoc()['item_count'] : 0;
         $sql->close();
         $result->free();
         return $count;
@@ -33,6 +33,6 @@ if(filter_has_var(INPUT_COOKIE, 'session_id')) {
 }
 else {
     $session_id = create_session();
-    setcookie("session_id", $session_id, time() + 60*60*24*7);
+    setcookie("session_id", $session_id, time() + 60*60*24*7, "/");
 }
 
