@@ -90,7 +90,7 @@
                     email: email,
                     password_hash: password_hash
                 }, null, "text").done(function (msg) {
-                    if(msg === "1") {
+                    if(msg !== "0") {
                         location.href = "/index.php";
                     } else {
                         $("#email").addClass("error");

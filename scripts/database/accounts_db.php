@@ -4,7 +4,7 @@ require_once 'db_connect.php';
 function create_account($name, $surname, $secondname, $email, $phone, $password_hash) {
     $sql = get_db();
     $date = date("Y-m-d");
-    if(!$sql->query("INSERT INTO " . Accounts . " (name, surname, secondname, email, phone, password_hash, register_date"
+    if(!$sql->query("INSERT INTO " . Accounts . " (name, surname, secondname, email, phone, password_hash, register_date)"
             . " VALUES ('$name','$surname','$secondname','$email','$phone','$password_hash','$date')")) {
         return $sql->insert_id;
     }
