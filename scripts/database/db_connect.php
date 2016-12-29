@@ -10,7 +10,7 @@ define('Models', '_Shoes_');
 define('Entries', '_ShoesEntries_');
 define('Sessions', '_Sessions_');
 define('Carts', '_Carts_');
-define('Orders', '_Orders');
+define('Orders', '_Orders_');
 
 function get_db($name = current_db) {
 	return new mysqli(Host, Login, Password, $name);
