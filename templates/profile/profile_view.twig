@@ -1,0 +1,30 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/profile_style.css"/>
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content content_block">
+                <h2 id="name">{{ account.name }} {{ account.surname }} {#{ account.secondname }#} <a id="logout" href="/profile.php?type=logout" title="Выход"><img src="/images/logout-web-button.png"></a></h2>
+                <section class="content_block">
+                    <section class="user_info content_block">
+                        <span>Email: <i>{{ account.email }}</i></span><br/>
+                        <span>Телефон: <i>{{ account.phone }} </i></span>
+                    </section>
+                    <section class="user_stats">
+                        <h3>Ваши заказы</h3>
+                        {% for order in orders %}
+                            <a href="/order.php?access_code={{ order.access_code }}">Заказ №<i>{{ order.id }}</i></a><br/>
+                        {% else %}
+                            <h4>Вы еще ничего не заказывали</h4>
+                        {% endfor %}
+                    </section>
+                </section>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>
