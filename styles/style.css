@@ -34,6 +34,11 @@ padding-left: 0.5em;
 padding-top: 0.2em;
 }
 
+H3 {
+    color: #00D05e;
+    text-shadow: 1px 1px 2px black;
+}
+
 div.lang {
     padding-right: 1em;
     padding-top: 0.3em;
@@ -52,8 +57,8 @@ body {
     height: 36px;
     margin-top: 2px;
     background: aliceblue;
-    border-top: 2px solid gray;
-    border-radius: 0 0 5px 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
     /*box-shadow: 2px 0 5px #00D05e;*/
 }
 
@@ -63,7 +68,6 @@ body {
     text-decoration: none;
     float: left;
     padding: 10px;
-    margin-left: 2px;
     font: bold 0.9em sans-serif;
     border-right: 1px solid gray;
     /*box-shadow: 2px 0 5px #00D05e;*/
@@ -83,10 +87,8 @@ body {
 }
 
 .navigation a:hover {
-    /*border-top: 6px solid #00D05e;*/
     box-shadow: .5px .5px 1px 2px gray;
     border-radius: 5px;
-    border: none;
 }
 
 .navigation form {
@@ -167,6 +169,15 @@ form.search_form {
     padding: 1em;
 }
 
+.group {
+    height: max-content;
+    width: max-content;
+    background-color: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
 div.contacts h3, .item_name, h3.parag {
     color: #00D05e;
     text-shadow: 1px 1px 1px black;
@@ -227,6 +238,15 @@ button.important_lower_b {
     cursor: pointer;
 }
 
+button:disabled {
+    color: gray;
+    background: none;
+    background-color: transparent;
+    border: 1px solid gray;
+    box-shadow: none;
+    text-shadow: none;
+}
+
 img.product_photo {
     border-radius: 5px;
     border: 1px solid #00D05e;
@@ -238,4 +258,36 @@ img.product_photo {
 
 p {
     font-family: tahoma;
+}
+
+.warning {
+    background-color: #fef7a1;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
+}
+
+.error {
+    background-color: #feb4b1;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
+}
+
+.info {
+    background-color: lightblue;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
+}
+
+.notify {
+    background-color: aliceblue;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    color: black;
 }
