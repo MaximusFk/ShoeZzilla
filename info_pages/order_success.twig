@@ -1,0 +1,19 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content notify">
+                <h2>Заказ №<i>{{ order_id }}</i> успешно создан</h2>
+                <p>Вы можете просмотреть статус Вашего заказа по данному коду: <b>{{ access_code }}</b><br/>
+                    Вы скоро получите сообщение с деталями вашего заказа.
+                </p>
+                <h1 class="info">:-) Спасибо за покупку</h1>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>

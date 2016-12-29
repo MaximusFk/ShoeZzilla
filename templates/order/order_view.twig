@@ -1,0 +1,43 @@
+<html>
+    <!DOCTYPE>
+    <head>
+        {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/shopcart_style.css">
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content">
+                <section id="cart_view" class="content_block">
+                    <h2>Заказ №<i>{{ order.id }}</i></h2>
+                    <hr/>
+                    <div class="content_block">
+                        <span>Получатель: <b>{{ order.name }}, {{ order.surname }}</b></span><br/>
+                        <span>Адресс доставки: {{ order.address }}</span>
+                    </div>
+                    <hr/>
+                    <span>Статус: {{ order.status }}</span><br/>
+                    <span>Дата: {{ order.date }}</span><br/>
+                    <span>Код заказа: {{ order.access_code }}</span>
+                    <hr/>
+                    <h3>Ваша корзина покупок</h3>
+                    <table border="1">
+                        <caption>Список выбраных товаров</caption>
+                        <thead>
+                            <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th></tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr id="{{ item["node"].ID }}}">
+                                    {% include 'item_t_row.twig' %}
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>

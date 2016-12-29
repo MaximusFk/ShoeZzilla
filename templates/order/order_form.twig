@@ -1,0 +1,100 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+        <script type="text/javascript" src="/scripts/jquery_mask/jquery.mask.min.js"></script>
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content content_block">
+                <h2>Оформление заказа</h2>
+                <section class="content_block" id="cart_info">
+                    <h3>Вы заказали</h3>
+                    <span class="notify">{{ cart.item_count }} пар на сумму <b><i>{{ cart.price_sum }}</i></b> гривен</span>
+                </section>
+                <hr/>
+                <section id="form_order">
+                    <div class="hidden error" id="error"><h4>Поле «<em></em>» не может быть путым</h4></div>
+                    <form name="order" id="order_data" action="/order.php" method="POST">
+                        <p class="group">
+                            <label for="name">Имя</label><br/>
+                            <input id="name" type="text" name="name" placeholder="Иван" value="{% if user %}{{ user.name }}{% endif %}">
+                        </p>
+                        <p class="group">
+                            <label for="surname">Фамилия</label><br/>
+                            <input id="surname" type="text" name="surname" placeholder="Иванов" value="{% if user %}{{ user.surname }}{% endif %}">
+                        </p>
+                        <p class="group">
+                            <label for="email">Электронная почта</label><br/>
+                            <input id="email" name="email" type="email" placeholder="example@domain.com" value="{% if user %}{{ user.email }}{% endif %}">
+                        </p>
+                        <p class="group">
+                            <label for="phone_number">Номер телефона</label><br/>
+                            <input id="phone_number" name="phone_number" type="text" value="{% if user %}{{ user.phone }}{% endif %}">
+                        </p>
+                        <hr/>
+                        <h4 class="warning">Доставка заказа осуществляется службой NovaPoshta</h4>
+                        <p class="group">
+                            <label>Город</label><br/>
+                            <select id="city" name="city" required>
+                                <option disabled selected="selected">Выберите город</option>
+                                <option value="test">Мухосранск</option>
+                            </select>
+                        </p>
+                        <p class="hidden group" id="office_p">
+                            <label>Отделение</label><br/>
+                            <select id="office" name="npoffice" required>
+                                <option disabled selected="selected">Выберите отделение</option>
+                                <option value="test">Говеное no.3</option>
+                            </select>
+                        </p>
+                        <button class="important_b" id="send_order" type="submit" disabled="disabled">Оформить</button>
+                    </form>
+                </section>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+        <script>
+            $("#phone_number").mask('(000) 000-00-00', { placeholder: "(___) ___-__-__" });
+            $("input").change(function () {
+                $(this).removeClass("error");
+                $("div#error").addClass("hidden");
+            });
+            $("select#city").change(function () {
+                $("p#office_p").slideDown("slow");
+            });
+            $("select#office").change(function () {
+                $("button#send_order").removeAttr("disabled");
+            });
+            $("form#order_data").submit(function (event) {
+                var name = $("#name");
+                var surname = $("#surname");
+                var phone = $("#phone_number");
+                var email = $("#email");
+                var empty;
+                $("div#error").addClass("hidden");
+                $("input.error").removeClass("error");
+                if(!name.val()) {
+                    empty = name;
+                }
+                if(!surname.val()) {
+                    empty = surname;
+                }
+                if(!email.val()) {
+                    empty = email;
+                }
+                if(!phone.val()) {
+                    empty = phone;
+                }
+                if(empty) {
+                    empty.addClass("error");
+                    $("div#error").removeClass("hidden");
+                    $("div#error h4 em").text($('label[for="' + empty.attr("id") + '"]').text());
+                    event.preventDefault();
+                    return true;
+                }
+            });
+        </script>
+    </body>
+</html>

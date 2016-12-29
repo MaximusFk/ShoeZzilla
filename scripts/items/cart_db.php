@@ -51,6 +51,10 @@ function remove_from_cart($cart_id, $item_id, array $sizes = null) {
     return false;
 }
 
+function clear_cart($cart_id) {
+    return remove_entries($cart_id, Carts);
+}
+
 function remove_cart($cart_id) {
     $sql = get_db();
     $sql->query("DELETE FROM " . Carts . " WHERE id='$cart_id'");

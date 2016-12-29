@@ -167,6 +167,32 @@ function get_entries($cart_id) {
     return null;
 }
 
+function get_entries_array($parent_id, $parent_table) {
+    $sql = get_db(current_db);
+    $result = $sql->query("SELECT item_id, count, size_data FROM " . Entries . " WHERE parent_id='$parent_id' AND parent_table='$parent_table'");
+    if($result) {
+        $pos = 0;
+        while($actor = $result->fetch_assoc()) {
+            $list[$pos] = $actor;
+            $pos++;
+        }
+        return $list;
+    }
+    return null;
+}
+
+function remove_entries($parent_id, $parent_table) {
+    $sql = get_db();
+    $sql->query("DELETE FROM " . Entries . " WHERE parent_id='$parent_id' AND parent_table='$parent_table;");
+    return $sql->affected_rows !== 0;
+}
+
+function set_new_parent($parent_id, $parent_table, $old_parent_id, $old_parent_table) {
+    $sql = get_db();
+    $sql->query("UPDATE " . Entries . " SET parent_id='$parent_id', parent_table='$parent_table' WHERE parent_id='$old_parent_id' AND parent_table='$old_parent_table'");
+    return $sql->affected_rows !== 0;
+}
+
 function sizes_sum(array $sizes) {
     $sum = 0;
     foreach ($sizes as $value) {
