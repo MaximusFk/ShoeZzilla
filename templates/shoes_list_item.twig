@@ -1,9 +1,11 @@
-<section class="list_item" id="{{ item.ID }}" onclick="click_handler_more({{ item.ID }});">
+<a class="list_item" href="/shoes/catalog.php?item_id={{ item.ID }}">
+<section class="list_item" id="{{ item.ID }}">
     <img height="110" width="198" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_200.jpg">
     <div>
         <h3>{{ item.display_name }}</h3>
         <span>{% for e in item.min_size..item.max_size %}<b>{{ e }} </b>{% endfor %}<br/>
         <span>Цена: <i>{{ item.price }}</i> Грн.</span>
     </div>
-    <button id="more" onclick="click_handler_more({{ item.ID }});">Подробнее</button>
+    <button id="more">Подробнее</button>
 </section>
+</a>

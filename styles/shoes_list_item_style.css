@@ -10,6 +10,10 @@ section.list_item {
     cursor: pointer;
 }
 
+a.list_item {
+    text-decoration: none;
+}
+
 section.list_item:hover {
     box-shadow: 0.5px 0.5px 1px .5px gray;
 }
