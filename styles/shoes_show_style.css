@@ -15,12 +15,20 @@ h1#ss_s {
 section.images {
     width: 38%;
     float: left;
-}
-
-section.images>img#photo_show {
     max-width: 95%;
     max-height: 500px;
 }
+
+section.images img#photo_show {
+    max-width: 95%;
+    max-height: 500px;
+}
+
+span#ext {
+    overflow: hidden;
+    display: inline-block;
+}
+
 section.images>img.photo_small {
     margin-top: 5px;
     max-height: 60px;

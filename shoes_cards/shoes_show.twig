@@ -3,6 +3,7 @@
     <head>
     {{ include('head.html') }}
     <link rel="stylesheet" href="/styles/shoes_show_style.css">
+    <script type="text/javascript" src="/scripts/zoomer/jquery.zoom.min.js"></script>
     </head>
     <body>
         <section class="main">
@@ -10,7 +11,7 @@
         {{ include('navigation.html') }}
         <div class="content">
             <section class="images">
-                <img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"><br/>
+                <span id="ext"><img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"></span><br/>
                 {% for photo in 1..5 %}
                     <img class="photo_small product_photo" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
                 {% endfor %}
@@ -42,6 +43,9 @@
         {{ include('footer.html') }}
         </section>
         <script type="text/javascript">
+            $("#ext").zoom({on: "grab"});
+        </script>
+        <script type="text/javascript">
             ctrl = false;
             shift = false;
             
@@ -68,6 +72,7 @@
                 var id = img.attr("id");
                 $("#photo_show").fadeOut(100, function () {
                     $("#photo_show").attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg").fadeIn(300);
+                    $("#ext").zoom({on: "grab", url: $("#photo_show").attr("src")});
                 });
                 
                 $(".photo_small").removeClass("chosed");
