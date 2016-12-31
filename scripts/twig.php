@@ -15,6 +15,12 @@ function create_file_loader(array $path = null) {
 function create_twig($loader) {
     $twig = new Twig_Environment($loader);
     $twig->addFunction('get_session_id', new Twig_SimpleFunction('get_session_id', function () { return filter_input(INPUT_COOKIE, 'session_id'); }));
+    $twig->addFunction('tr', new Twig_SimpleFunction('tr', function ($key) {
+        $sql = get_db();
+        $sql->query("SET NAMES utf8");
+        $result = $sql->query("SELECT ru_RU FROM _Locale_ WHERE str_key='$key'");
+        return $result && $result->num_rows !== 0 ? $result->fetch_assoc()["ru_RU"] : "";
+    }));
     $twig->addFunction('get_cart_entry_count', new Twig_SimpleFunction('get_cart_entry_count', function ($session_id) { 
         $sql = get_db();
         $result = $sql->query("SELECT item_count FROM " . Carts . " WHERE session_id='$session_id'");
