@@ -1,6 +1,6 @@
 <div class="navigation">
     <a href="/">Главная</a>
-    <a href="/shoes/catalog.php?category=all">Каталог</a>
+    <a id="catalog" href="/shoes/catalog.php?category=all">Каталог</a>
     <a href="/delivery">Доставка</a>
     <a href="#">О нас</a>
     <a href="/contacts">Контакты</a>
@@ -10,3 +10,17 @@
     </form>
     <a class="login" id="login_link" href="/profile.php?type=login">Личный кабинет</a>
 </div>
+<div class="sub_menu hidden" id="categories">
+    <a href="/shoes/catalog.php?category=boots">Ботинки</a><br/><hr/>
+    <a href="/shoes/catalog.php?category=cross">Кроссовки</a>
+</div>
+<script>
+    $("a#catalog").mouseenter(
+    function () {
+        $("#categories").slideDown("fast");
+    });
+    $("#categories").mouseleave(
+    function () {
+        $("#categories").slideUp("fast");
+    });
+</script>

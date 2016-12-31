@@ -99,6 +99,23 @@ body {
     display: inline-block;
 }
 
+#categories {
+    background: white;
+    border: 1px solid grey;
+    border-radius: 5px;
+    position: absolute;
+    padding: 10px;
+    left: 5%;
+    z-index: 1000;
+}
+
+#categories a {
+    text-decoration: none;
+    font: bold 0.9em sans-serif;
+    color: #00D05e;
+    text-shadow: .5px .5px 2px black;
+}
+
 .search {
     height: 2em;
     width: 35em;
@@ -290,4 +307,8 @@ p {
     border-radius: 5px;
     padding: 5px;
     color: black;
+}
+
+.zoomWindow {
+    border-radius: 5px;
 }
