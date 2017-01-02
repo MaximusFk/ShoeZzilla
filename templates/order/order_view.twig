@@ -14,12 +14,13 @@
                     <hr/>
                     <div class="content_block">
                         <span>Получатель: <b>{{ order.name }}, {{ order.surname }}</b></span><br/>
-                        <span>Адресс доставки: {{ order.address }}</span>
+                        <span>Адресс доставки: {{ order.address }}</span><br/>
+                        <span>Сумма заказа: <b>{% if order.price_sum %}{{ order.price_sum }} гривен{% else %}N/A{% endif %}</b></span>
                     </div>
                     <hr/>
                     <span>Статус: {{ tr(order.status) }}</span><br/>
-                    <span>Дата: {{ order.date }}</span><br/>
-                    <span>Код заказа: {{ order.access_code }}</span>
+                    <span>Дата: {{ order.date }}</span><br/><br/>
+                    <span class="info">Код заказа: {{ order.access_code }}</span>
                     <hr/>
                     <h3>Ваша корзина покупок</h3>
                     <table border="1">

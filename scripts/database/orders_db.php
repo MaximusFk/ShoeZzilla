@@ -7,13 +7,13 @@ const STATUS_AWAIT_PAY = 'AWAIT_PAY';
 const STATUS_DONE = 'DONE';
 const STATUS_CANCELED = 'CANCELED';
 
-function create_new_order($name, $surname, $email, $phone, $address, $user_id = null) {
+function create_new_order($name, $surname, $email, $phone, $address, $price, $user_id = null) {
     $sql = get_db();
     $date = date("Y-m-d H:i:s");
     $access = random_int(0, PHP_INT_MAX);
     $user = $user_id ? "'$user_id'" : "NULL";
-    $query = "INSERT INTO " . Orders . " (name, surname, email, phone, address, date, status, access_code, user_id) "
-            . "VALUES ('$name', '$surname', '$email', '$phone', '$address', '$date', '" . STATUS_AWAIT_CONFIRM . "', '$access', $user)";
+    $query = "INSERT INTO " . Orders . " (name, surname, email, phone, address, date, status, price_sum, access_code, user_id) "
+            . "VALUES ('$name', '$surname', '$email', '$phone', '$address', '$date', '" . STATUS_AWAIT_CONFIRM . "', '$price', '$access', $user)";
     $sql->query($query);
     return $sql->insert_id;
 }

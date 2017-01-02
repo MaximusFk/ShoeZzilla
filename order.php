@@ -35,7 +35,8 @@ else if($method === 'POST') {
     $address = $city . ", " . $office;
     if($cart_id && $name && $surname && $email && $phone && $city && $office) {
         $user_id = get_account_id_by_session($session_id);
-        $order_id = create_new_order($name, $surname, $email, $phone, $address, $user_id);
+        $cart = get_cart($cart_id);
+        $order_id = create_new_order($name, $surname, $email, $phone, $address, $cart['price_sum'], $user_id);
         set_new_parent($order_id, Orders, $cart_id, Carts);
         remove_cart($cart_id);
         $access = get_access_code($order_id);
