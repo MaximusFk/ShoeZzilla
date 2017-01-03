@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
             if(!$price_max) {
                 $price_max = $filter['price_max'];
             }
-            $where .= " price_retail>='$price_min' AND price_retail<='$price_max'";
+            $where .= " price_retail>='$price_min' AND price_retail<='$price_max' AND";
         }
         $current['sort'] = $sort_arg = filter_input(INPUT_GET, 'sort');
         $current['sort_t'] = $sort_type = filter_input(INPUT_GET, 'sort_t');

@@ -91,7 +91,7 @@ function get_items_by_name($name) {
 
 function get_items_where($where, $page = 1) {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM " . Models . " WHERE $where AND hide=0";
+    $query = "SELECT * FROM " . Models . " WHERE $where hide=0";
     $result = $sql->query($query);
     if($result) {
         while ($actor = $result->fetch_assoc()) {
