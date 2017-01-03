@@ -18,7 +18,7 @@
             </section>
             <section class="description">
                 <section id="desc_r">
-                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>
+                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/edit.php?item_id={{ item.ID }}">edit</a>]{% endif %}
                     <section class="allow_sizes">
                         {% for i in item.min_size .. item.max_size %}
                           <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
@@ -114,7 +114,7 @@
                     var count = $(this).data().count;
                     sizes[$(this).val()] = count;
                 });
-                if(sizes) {
+                if(Object.getOwnPropertyNames(sizes).length > 0) {
                     $.getJSON("/cart.php", {
                         session_id: $.cookie('session_id'),
                         method: "ADD",
@@ -124,6 +124,8 @@
                     .done(function (msg) {
                         notify_cart_count(msg.all_count);
                         $("button#pust_to_cart").removeClass("important_b").addClass("important_lower_b").text("Добавлено +");
+                        $("button.chosed sup").text("");
+                        $("button.chosed").addClass("size_choser").removeClass("chosed");
                     });
                 }
                 else {
