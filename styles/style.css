@@ -26,6 +26,12 @@ section.main {
     /*box-shadow: 0 0 4px 3px #00D05e;*/
 }
 
+H1 {
+    color: #00D05e;
+    font-size: 2.2em;
+    text-shadow: 1px 1px 2px black;
+}
+
 H2 {
 color: #00D05e;
 font-size: 2em;
@@ -223,13 +229,18 @@ i#count {
     font-size: 1.5em;
 }
 
-input {
+input[type=text], input[type=number], input[type=phone], input[type=password]{
     height: 2em;
-    width: 20em;
     resize: none;
     border-radius: 5px;
     border: 1px solid gray;
     padding-left: 3px;
+}
+
+select {
+    background: none;
+    border: 1px solid grey;
+    border-radius: 2px;
 }
 
 button.important_b {
