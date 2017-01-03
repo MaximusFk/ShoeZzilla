@@ -2,7 +2,8 @@
     <!DOCTYPE html>
     <head>
     {{ include('head.html') }}
-    <link rel="stylesheet" href="/styles/shoes_list_item_style.css">
+    <link rel="stylesheet" href="/styles/shoes_list_item_style.css"/>
+    <link rel="stylesheet" href="/styles/filter_style.css"/>
     </head>
     <body>
         <section class="main">
@@ -10,6 +11,7 @@
         {{ include('navigation.html') }}
         <div class="content">
             {% if str %}<p class="content_block">Показан результат по запросу: <q>{{ str }}</q></p>{% endif %}
+            {{ include('filter.twig') }}
             {% for item in items %}
             {{ include('shoes_list_item.twig') }}
             {% else %}

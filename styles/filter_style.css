@@ -1,0 +1,15 @@
+section#filter {
+    width: 20%;
+    float: left;
+    display: block;
+    margin-right: 15px;
+}
+
+input.short_i {
+    width: 100px;
+}
+
+button[type=submit] {
+    width: 100%;
+}
+

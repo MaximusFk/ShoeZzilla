@@ -16,3 +16,37 @@ function get_db($name = current_db) {
 	return new mysqli(Host, Login, Password, $name);
 }
 
+function get_unique_values_list($table, $column) {
+    $sql = get_db();
+    $result = $sql->query("SELECT DISTINCT($column) FROM " . $table . " ORDER BY $column");
+    $items = [];
+    if($result && $result->num_rows !== 0) {
+        while($assoc = $result->fetch_assoc()) {
+            $items[] = $assoc[$column];
+        }
+    }
+    return $items;
+}
+
+function get_max_value($table, $column) {
+    $sql = get_db();
+    $result = $sql->query("SELECT MAX($column) FROM " . $table);
+    if($result && $result->num_rows !== 0) {
+        return $result->fetch_assoc()["MAX($column)"];
+    }
+    else {
+        return 0;
+    }
+}
+
+function get_min_value($table, $column) {
+    $sql = get_db();
+    $result = $sql->query("SELECT MIN($column) FROM " . $table);
+    if($result && $result->num_rows !== 0) {
+        return $result->fetch_assoc()["MIN($column)"];
+    }
+    else {
+        return 0;
+    }
+}
+

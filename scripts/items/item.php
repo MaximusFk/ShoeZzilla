@@ -15,6 +15,7 @@ class ShoesItem {
     public $max_size;
     public $url;
     public $size_data;
+    public $season;
     public $infoPairs = array("none" => "none");
 }
 

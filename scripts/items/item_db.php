@@ -16,6 +16,7 @@ function construct_item_from_array(array $array) {
     if(array_key_exists('price_retail', $array)) { $item->price = $array['price_retail']; }
     if(array_key_exists('size_data', $array)) { $item->size_data = json_decode($array['size_data'], true); }
     if(array_key_exists('url', $array)) { $item->url = $array['url']; }
+    if(array_key_exists('season', $array)) { $item->season = $array['season']; }
     return $item;
 }
 
@@ -40,7 +41,7 @@ function get_item_by_id($id) {
 
 function get_items_by_category($category) {
     $sql = get_db(current_db);
-    $result = $sql->query("SELECT * FROM " . Models . " WHERE category='$category'");
+    $result = $sql->query("SELECT * FROM " . Models . " WHERE category='$category' AND hide=0");
     if($result) {
         $pos = 0;
         while ($actor = $result->fetch_assoc()) {
@@ -86,6 +87,42 @@ function get_items_by_name($name) {
         }
         return $items;
     }
+}
+
+function get_items_where($where, $page = 1) {
+    $sql = get_db(current_db);
+    $query = "SELECT * FROM " . Models . " WHERE $where AND hide=0";
+    $result = $sql->query($query);
+    if($result) {
+        while ($actor = $result->fetch_assoc()) {
+            $items[] = construct_item_from_array($actor);
+        }
+        return $items;
+    }
+}
+
+function get_brands() {
+    $sql = get_db();
+    $result = $sql->query("SELECT DISTINCT(brand) FROM " . Models . " ORDER BY brand");
+    $items = [];
+    if($result && $result->num_rows !== 0) {
+        while($assoc = $result->fetch_assoc()) {
+            $items[] = $assoc['brand'];
+        }
+    }
+    return $items;
+}
+
+function get_categories() {
+    $sql = get_db();
+    $result = $sql->query("SELECT DISTINCT(category) FROM " . Models . " ORDER BY category");
+    $items = [];
+    if($result && $result->num_rows !== 0) {
+        while($assoc = $result->fetch_assoc()) {
+            $items[] = $assoc['category'];
+        }
+    }
+    return $items;
 }
 
 function find_items($str) {
