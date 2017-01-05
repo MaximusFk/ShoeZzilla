@@ -18,7 +18,7 @@
             </section>
             <section class="description">
                 <section id="desc_r">
-                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/edit.php?item_id={{ item.ID }}">edit</a>]{% endif %}
+                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/admin/edit_shoes.php?item_id={{ item.ID }}">edit</a>]{% endif %}
                     <section class="allow_sizes">
                         {% for i in item.min_size .. item.max_size %}
                           <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>

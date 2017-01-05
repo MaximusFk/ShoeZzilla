@@ -9,7 +9,7 @@ if($session_id && linked_to_account($session_id)) {
     $id = get_account_id_by_session($session_id);
     $account = get_account_info($id);
     $orders = get_orders_for_user($id);
-    echo $twig->render('profile_view.twig', ['account' => $account, 'orders' => $orders]);
+    echo $twig->render('profile_view.twig', ['account' => $account, 'orders' => $orders, 'admin' => is_admin($id)]);
 }
 else {
     header("Location: /profile.php?type=login");

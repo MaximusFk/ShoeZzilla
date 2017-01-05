@@ -14,6 +14,7 @@ function construct_item_from_array(array $array) {
     if(array_key_exists('size_min', $array)) { $item->min_size = $array['size_min']; }
     if(array_key_exists('size_max', $array)) { $item->max_size = $array['size_max']; }
     if(array_key_exists('price_retail', $array)) { $item->price = $array['price_retail']; }
+    if(array_key_exists('price_whole', $array)) { $item->price2 = $array['price_whole']; }
     if(array_key_exists('size_data', $array)) { $item->size_data = json_decode($array['size_data'], true); }
     if(array_key_exists('url', $array)) { $item->url = $array['url']; }
     if(array_key_exists('season', $array)) { $item->season = $array['season']; }
@@ -37,6 +38,47 @@ function get_item_by_id($id) {
                 return construct_item_from_array($actor);
             }
         }
+}
+
+function get_item_by_id_raw($id) {
+    $sql = get_db(current_db);
+    $query = "SELECT * FROM " . Models . " WHERE id='$id'";
+    if ($result = $sql->query($query)) {
+        if ($result->num_rows !== 0) {
+            $actor = $result->fetch_assoc();
+            return $actor;
+        }
+    }
+}
+
+function update_item($id, array $data) {
+    $sql = get_db(current_db);
+    $query = "UPDATE " . Models . " SET ";
+    $comma = "";
+    foreach ($data as $key => $value) {
+        $query .= "{$comma}{$key}='{$value}'";
+        $comma = ",";
+    }
+    $query = $query . " WHERE id='{$id}'";
+    $sql->query($query);
+    return $sql->affected_rows !== 0;
+}
+
+function insert_item(array $data) {
+    $sql = get_db(current_db);
+    $query = "INSERT INTO " . Models . " (";
+    $values = "(";
+    $comma = "";
+    foreach ($data as $key => $value) {
+        $query .= $comma . $key;
+        $values .= "$comma'$value'";
+        $comma = ",";
+    }
+    $query = $query . ") VALUES " . $values . ")";
+    $sql->query($query);
+    echo $query . PHP_EOL;
+    echo $sql->error;
+    return $sql->insert_id;
 }
 
 function get_items_by_category($category) {

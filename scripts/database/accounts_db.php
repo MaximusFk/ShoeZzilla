@@ -33,6 +33,11 @@ function get_name($id) {
 
 function get_account_info($id) {
     $sql = get_db();
-    $result = $sql->query("SELECT name, surname, secondname, phone, email FROM " . Accounts . " WHERE id='$id'");
+    $result = $sql->query("SELECT name, surname, secondname, phone, email, type FROM " . Accounts . " WHERE id='$id'");
     return $result ? $result->fetch_assoc() : null;
+}
+
+function is_admin($id) {
+    $account = get_account_info($id);
+    return $account['type'] === 'ADMIN';
 }

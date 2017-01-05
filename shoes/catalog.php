@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         $session_id = filter_input(INPUT_COOKIE, 'session_id');
         $has = has_entry(get_cart_id($session_id), $item_id);
         if($item) {
-            echo $twig->render('shoes_show.twig', ["item" => $item, "has_in_cart" => $has]);
+            echo $twig->render('shoes_show.twig', ["item" => $item, "has_in_cart" => $has, "admin" => is_admin(get_account_id_by_session($session_id))]);
         }
         else {
             echo $twig->render('error_page.twig', array("text" => "Страница не найдена!"));

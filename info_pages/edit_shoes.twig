@@ -1,0 +1,125 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            <div class="content content_block">
+                <section class="images">
+                    {% for photo in 1..5 %}
+                        <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
+                    {% endfor %}
+                </section>
+                <a href="/shoes/catalog.php?item_id={{ item.id }}"><p class="info">ID: {{ item.id }}</p></a>
+                <section id="name" class="group">
+                    <label>Имя</label><br/>
+                    <input name="name" type="text" value="{{ item.name }}" required="required"/>
+                    <br/>
+                </section>
+                <section id="display_name" class="group">
+                    <label>Отображаемое имя</label><br/>
+                    <input name="display_name" type="text" value="{{ item.display_name }}" required="required"/>
+                    <br/>
+                </section>
+                <section id="brand" class="group">
+                    <label>Брэнд</label><br/>
+                    <input name="brand" type="text" value="{{ item.brand }}" required="required"/>
+                    <br/>
+                </section>
+                <section id="image" class="group">
+                    <label>Папка изображений</label><br/>
+                    <input name="image_path" type="text" value="{{ item.image_path }}" required="required"/>
+                    <br/>
+                    <label>Главное изображение</label><br/>
+                    <input name="image_head" type="text" value="{{ item.image_head }}" required="required"/>
+                    <br/>
+                </section>
+                <section id="price_retail" class="group">
+                    <label>Розничная цена</label><br/>
+                    <input name="price_retail" type="number" value="{{ item.price_retail }}" required="required"/>
+                    <br/>
+                </section>
+                <section id="price_whole" class="group">
+                    <label>Оптовая цена</label><br/>
+                    <input name="price_whole" type="number" value="{{ item.price_whole }}" required="required"/>
+                    <br/>
+                </section>
+                    <section id="sizes" class="group">
+                        <label>Размеры</label><br/>
+                        <input name="size_min" type="number" value="{{ item.size_min }}" required="required"/>&mdash;
+                        <input name="size_max" type="number" value="{{ item.size_max }}" required="required"/>
+                        <br/>
+                    </section>
+                <section class="group">
+                    <label>Категории</label><br/>
+                    <select name="color">
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if color == item.color %}selected="selected"{% endif%}>{{ tr(color) }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="category">
+                        {% for category in categories %}
+                            <option value="{{ category }}" {% if category == item.category %}selected="selected"{% endif%}>{{ tr(category) }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="season">
+                        {% for season in seasons %}
+                            <option value="{{ season }}" {% if season == item.season %}selected="selected"{% endif%}>{{ tr(season) }}</option>
+                        {% endfor %}
+                    </select>
+                    <select name="gender">
+                        {% for gender in genders %}
+                            <option value="{{ gender }}" {% if gender == item.gender %}selected="selected"{% endif%}>{{ tr(gender) }}</option>
+                        {% endfor %}
+                    </select>
+                </section>
+                    <section id="hide" class="group">
+                        <label>Скрыть от пользователей</label><br/>
+                        <input name="hide" type="checkbox" {% if item.hide %}checked="checked"{% endif %}/>Скрыть
+                        <br/>
+                    </section>
+                <hr/>
+                {% if item %}
+                <button class="important_b" id="update" disabled="disabled">Изменить</button>
+                {% else %}
+                <button class="important_b" id="update">Добавить</button>
+                {% endif %}
+            </div>
+        </section>
+<script type="text/javascript">
+    function changed() {
+        $("button#update").removeAttr("disabled");
+        $(this).addClass("changed");
+    } 
+    $("div.content input").change(changed);
+    $("div.content select").change(changed);
+    
+    $("button#update").click(function () {
+        var data = {};
+        {% if item %}
+        $(".changed").each(function () {
+            data[$(this).attr("name")] = this.value;
+        });
+        $.get("/admin/edit_shoes.php", {
+            item_id: {{ item.id }},
+            data: JSON.stringify(data)
+        }).done(function (msg) {
+            if(msg && msg !== "0") 
+                alert(msg);
+            else
+                alert("Error");
+        });
+        {% else %}
+        $("div.content input").each(function () {
+            data[$(this).attr("name")] = $(this).attr("type") === "checkbox" ? (this.checked ? 1 : 0) : this.value;
+        });
+        $("div.content select").each(function () {
+            data[$(this).attr("name")] = this.value;
+        });
+        location.href = "/admin/edit_shoes.php?data=" + JSON.stringify(data);
+        {% endif %}
+    });
+</script>
+    </body>
+</html>

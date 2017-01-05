@@ -50,3 +50,11 @@ function get_min_value($table, $column) {
     }
 }
 
+function get_enum_values($table, $column) {
+    $sql = get_db();
+    $result = $sql->query("SHOW COLUMNS FROM {$table} WHERE Field = '{$column}'");
+    $type = $result ? $result->fetch_assoc()['Type'] : null;
+    preg_match("/^enum\(\'(.*)\'\)$/", $type, $matches);
+    $enum = explode("','", $matches[1]);
+    return $enum;
+}

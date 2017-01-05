@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../lib/Twig/Autoloader.php';
 require_once __DIR__ . '/database/db_connect.php';
+require_once __DIR__ . '/database/accounts_db.php';
 require_once __DIR__ . '/database/sessions_db.php';
 Twig_Autoloader::register();
 
@@ -15,6 +16,7 @@ function create_file_loader(array $path = null) {
 function create_twig($loader) {
     $twig = new Twig_Environment($loader);
     $twig->addFunction('get_session_id', new Twig_SimpleFunction('get_session_id', function () { return filter_input(INPUT_COOKIE, 'session_id'); }));
+    $twig->addFunction('is_admin', new Twig_SimpleFunction('is_admin', "is_admin"));
     $twig->addFunction('tr', new Twig_SimpleFunction('tr', function ($key) {
         $sql = get_db();
         $sql->query("SET NAMES utf8");
