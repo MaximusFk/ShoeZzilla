@@ -1,0 +1,144 @@
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            <div class="content content_block">
+                {% if order %}
+                    <section class="info">
+                        <span>ID: {{ order.id }}</span><br/>
+                        <span>Access Code: {{ order.access_code }}</span><br/>
+                        <span>Дата: {{ order.date }}</span><br/>
+                        <span>Сумма: {{ order.price_sum }}</span>
+                    </section>
+                    <section class="content_block">
+                        <table border="1">
+                            <caption>Список товаров</caption>
+                            <thead>
+                                <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th></tr>
+                            </thead>
+                            <tbody>
+                                {% for item in items %}
+                                    <tr id="{{ item["node"].ID }}}">
+                                        {% include 'item_t_row.twig' %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </section>
+                    <br/>
+                    <section>
+                        <section class="group">
+                            <label>Имя</label><br/>
+                            <input name="name" type="text" value="{{ order.name }}"/>
+                        </section>
+                        <br/>
+                        <section class="group">
+                            <label>Фамилия</label><br/>
+                            <input name="surname" type="text" value="{{ order.surname }}"/>
+                        </section>
+                        <br/>
+                        <section class="group">
+                            <label>Адрес</label><br/>
+                            <input name="address" type="text" value="{{ order.address }}"/>
+                        </section>
+                        <br/>
+                        <section class="group">
+                            <label>Телефон</label><br/>
+                            <input name="phone" type="text" value="{{ order.phone }}"/>
+                        </section>
+                        <br/>
+                        <section class="group">
+                            <label>Электронная почта</label><br/>
+                            <input name="email" type="text" value="{{ order.email }}"/>
+                        </section>
+                        <br/>
+                        <section class="group">
+                            <label>Статус</label>
+                            <select name="status">
+                                {% for status in status_list %}
+                                    <option value="{{ status }}" {% if status == order.status %}selected="selected"{% endif %}>{{ tr(status) }}</option>
+                                {% endfor %}
+                            </select>
+                        </section>
+                        <br/><hr/>
+                        <button id="update" class="important_b">Изменить</button>
+                    </section>
+                {% elseif order_list %}
+                    <table border="1">
+                        <caption>Список заказов</caption>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Получаеть</th>
+                                <th>Адрес доставки</th>
+                                <th>Номер получателя</th>
+                                <th>Почта получателя</th>
+                                <th>Дата заказа</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for order in order_list %}
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.surname }}, {{ order.name }}</td>
+                                    <td>{{ order.address }}</td>
+                                    <td>{{ order.phone }}</td>
+                                    <td>{{ order.email }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>{{ tr(order.status) }}</td>
+                                    <td><a href="/admin/edit_order.php?order_id={{ order.id }}">Изменить</a></td>
+                                    <td><button id="{{ order.id }}" class="remove">Удалить</button></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </section>
+        {% if order %}
+        <script type="text/javascript">
+        function changed() {
+            $("button#update").removeAttr("disabled");
+            $(this).addClass("changed");
+            } 
+        $("div.content input").change(changed);
+        $("div.content select").change(changed);
+        $("button#update").click(function () {
+            var data = {};
+            $(".changed").each(function () {
+                data[$(this).attr("name")] = this.value;
+            });
+            $.get("/admin/edit_order.php", {
+                order_id: {{ order.id }},
+                data: JSON.stringify(data)
+            }).done(function (msg) {
+                if(msg && msg === "access") 
+                    alert(msg);
+                else
+                    alert("Error");
+                $(this).attr("disabled", "disabled");
+            });
+        });
+        </script>
+        {% elseif order_list %}
+        <script type="text/javascript">
+        $("button.remove").click(function () {
+            var id = $(this).attr("id");
+            $.get("/admin/edit_order.php", {
+                order_id: id,
+                remove: "remove"
+            }).done(function (msg) {
+                if(msg === "done") {
+                    location.reload();
+                }
+            });
+        });
+    
+        </script>
+        {% endif %}
+    </body>
+</html>

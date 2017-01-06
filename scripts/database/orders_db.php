@@ -53,3 +53,33 @@ function get_order_by_access_code($access_code) {
     $result = $sql->query("SELECT * FROM " . Orders . " WHERE access_code='$access_code'");
     return $result ? $result->fetch_assoc() : null;
 }
+
+function get_orders() {
+    $sql = get_db();
+    $result = $sql->query("SELECT * FROM " . Orders);
+    if($result && $result->num_rows !== 0) {
+        while (($assoc = $result->fetch_assoc())) {
+            $array[] = $assoc;
+        }
+    }
+    return $array;
+}
+
+function remove_order($id) {
+    $sql = get_db();
+    $sql->query("DELETE FROM " . Orders . " WHERE id='$id'");
+    return $sql->affected_rows !== 0;
+}
+
+function update_order($id, array $data) {
+    $sql = get_db(current_db);
+    $query = "UPDATE " . Orders . " SET ";
+    $comma = "";
+    foreach ($data as $key => $value) {
+        $query .= "{$comma}{$key}='{$value}'";
+        $comma = ",";
+    }
+    $query = $query . " WHERE id='{$id}'";
+    $sql->query($query);
+    return $sql->affected_rows !== 0;
+}
