@@ -262,7 +262,7 @@ function get_entries_array($parent_id, $parent_table) {
 
 function remove_entries($parent_id, $parent_table) {
     $sql = get_db();
-    $sql->query("DELETE FROM " . Entries . " WHERE parent_id='$parent_id' AND parent_table='$parent_table;");
+    $sql->query("DELETE FROM " . Entries . " WHERE parent_id='$parent_id' AND parent_table='$parent_table'");
     return $sql->affected_rows !== 0;
 }
 
