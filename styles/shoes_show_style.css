@@ -16,12 +16,12 @@ section.images {
     width: 38%;
     float: left;
     max-width: 95%;
-    max-height: 500px;
+    text-align: center;
 }
 
 section.images img#photo_show {
     max-width: 95%;
-    max-height: 500px;
+    max-height: 350px;
 }
 
 span#ext {
