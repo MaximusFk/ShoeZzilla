@@ -2,6 +2,13 @@
     <head>
         {{ include('head.html') }}
         <script type="text/javascript" src="/scripts/jquery_mask/jquery.mask.min.js"></script>
+        <style>
+            button#send_order.wait {
+                background-image: url("/images/wait_button.gif");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        </style>
     </head>
     <body>
         <section class="main">
@@ -72,6 +79,7 @@
                 var surname = $("#surname");
                 var phone = $("#phone_number");
                 var email = $("#email");
+                var button = $("button#send_order");
                 var empty;
                 $("div#error").addClass("hidden");
                 $("input.error").removeClass("error");
@@ -94,6 +102,8 @@
                     event.preventDefault();
                     return true;
                 }
+                button.attr("disabled", "disabled");
+                button.addClass("wait");
             });
         </script>
     </body>
