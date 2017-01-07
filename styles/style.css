@@ -323,3 +323,7 @@ p {
 .zoomWindow {
     border-radius: 5px;
 }
+
+.semiOpac {
+    opacity: 0.5;
+}

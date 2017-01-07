@@ -65,6 +65,12 @@ img.chosed {
     box-shadow: 0 0 5px 1px #00D05e;
 }
 
+img#loading {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+}
+
 button.size_choser {
     width: 35px;
     height: 30px;
