@@ -2,8 +2,10 @@
     <!DOCTYPE html>
     <head>
     {{ include('head.html') }}
+    <link rel="stylesheet" href="/styles/list_box_style.css"/>
     <link rel="stylesheet" href="/styles/shoes_list_item_style.css"/>
     <link rel="stylesheet" href="/styles/filter_style.css"/>
+    <script type="text/javascript" src="/scripts/jquery/jquery.ba-bbq.js"></script>
     </head>
     <body>
         <section class="main">
@@ -11,12 +13,25 @@
         {{ include('navigation.html') }}
         <div class="content">
             {% if str %}<p class="content_block">Показан результат по запросу: <q>{{ str }}</q></p>{% endif %}
+            <section class="additional">
             {{ include('filter.twig') }}
+            </section>
+            <section class="list">
             {% for item in items %}
             {{ include('shoes_list_item.twig') }}
             {% else %}
             <h1> По Вашему запросу ничего не найдено! </h1>
             {% endfor %}
+            {% if filter.page_count > 1 %}
+                <section class="content_block">
+                <button class="important_lower_b page"{% if current.page == 1 %}disabled="disabled"{% else %}page="{{ current.page-1 }}"{% endif %}><b>&LeftArrow;</b></button>
+                {% for p in 1..filter.page_count %}
+                    <button class="{% if p == current.page %}important_b{% else %}important_lower_b{% endif %} page" page="{{ p }}">{{ p }}</button>
+                {% endfor %}
+                <button class="important_lower_b page"{% if current.page == filter.page_count %}disabled="disabled"{% else %}page="{{ current.page+1 }}"{% endif %}><b>&RightArrow;</b></button>
+                </section>
+            {% endif %}
+            </section>
         </div>
         {{ include('footer.html') }}
         </section>
@@ -28,6 +43,11 @@
                 function click_handler_more(item_id) {
                     location.href = "/shoes/catalog.php?item_id=" + item_id;
                 }
+                $("button.page").click(function () {
+                    var args = $.deparam(location.href.split("?")[1]);
+                    args.page = $(this).attr("page");
+                    location.href = location.href.split("?")[0] + "?" + $.param(args);
+                });
         </script>
     </body>
 </html>

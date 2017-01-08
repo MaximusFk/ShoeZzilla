@@ -1,12 +1,5 @@
-section#filter {
-    width: 20%;
-    float: left;
-    display: block;
-    margin-right: 15px;
-}
-
 input.short_i {
-    width: 100px;
+    width: 43%;
 }
 
 button[type=submit] {

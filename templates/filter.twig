@@ -3,21 +3,21 @@
         <p>
             <h5>Сортировка</h5>
             <select name="sort">
-                <option value="name" {% if current.sort == "name" %}selected="selected"{% endif %}>По имени</option>
-                <option value="price" {% if current.sort == "price" %}selected="selected"{% endif %}>По цене</option>
+                <option value="display_name" {% if current.sort == "display_name" %}selected="selected"{% endif %}>По имени</option>
+                <option value="price_retail" {% if current.sort == "price_retail" %}selected="selected"{% endif %}>По цене</option>
             </select>
             <select name="sort_t">
-                <option value="upper" {% if current.sort_t == "upper" %}selected="selected"{% endif %}>По возрастанию</option>
-                <option value="lower" {% if current.sort_t == "lower" %}selected="selected"{% endif %}>По убыванию</option>
+                <option value="ASC" {% if current.sort_t == "ASC" %}selected="selected"{% endif %}>По возрастанию</option>
+                <option value="DESC" {% if current.sort_t == "DESC" %}selected="selected"{% endif %}>По убыванию</option>
             </select>
             <hr/>
         </p>
-        <p>
+        {#<p>
             <h5>Наименования</h5>
             {% for b in filter.brands %}
                 <input name="brand{{ loop.index }}" type="checkbox" value="{{ b }}"/>{{ b }}<br/>
             {% endfor %}
-        </p>
+        </p>#}
         <p>
             <h5>Категория</h5>
             <select name="category">

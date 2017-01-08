@@ -131,9 +131,16 @@ function get_items_by_name($name) {
     }
 }
 
-function get_items_where($where, $page = 1) {
+function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like = "") {
     $sql = get_db(current_db);
-    $query = "SELECT * FROM " . Models . " WHERE $where hide=0";
+    $limit = "LIMIT " . ($page === 1 ? $page_size : ($page_size * ($page - 1) . ", " . $page_size));
+    if($order) {
+        $order = "ORDER BY " . $order;
+    }
+    if($like) {
+        $like = " concat(name, color, price_retail, display_name, brand, gender) LIKE " . "'%$like%'";
+    }
+    $query = "SELECT * FROM " . Models . " WHERE $where hide=0 $order $like " . $limit;
     $result = $sql->query($query);
     if($result) {
         while ($actor = $result->fetch_assoc()) {
@@ -141,6 +148,15 @@ function get_items_where($where, $page = 1) {
         }
         return $items;
     }
+}
+
+function get_page_count_where($where, $page_size = 20) {
+    $sql = get_db(current_db);
+    $query = "SELECT COUNT(*) FROM " . Models . " WHERE $where hide=0";
+    $result = $sql->query($query);
+    $count = $result ? $result->fetch_assoc()["COUNT(*)"] : 0;
+    $pages = ceil($count / $page_size);
+    return $pages;
 }
 
 function get_brands() {

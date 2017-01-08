@@ -1,0 +1,16 @@
+section.list {
+    width: 77%;
+    float: right;
+}
+
+section.additional {
+    float: left;
+    width: 21%;
+    height: max-content;
+    margin-right: 2%;
+}
+
+button.important_b, button.important_lower_b {
+    width: 3em;
+}
+
