@@ -46,6 +46,7 @@ function get_item_by_id_raw($id) {
     if ($result = $sql->query($query)) {
         if ($result->num_rows !== 0) {
             $actor = $result->fetch_assoc();
+            $actor['size_data'] = json_decode($actor['size_data'], true);
             return $actor;
         }
     }
@@ -55,6 +56,9 @@ function update_item($id, array $data) {
     $sql = get_db(current_db);
     $query = "UPDATE " . Models . " SET ";
     $comma = "";
+    if(array_key_exists('size_data', $data)) {
+        $data['size_data'] = json_encode($data['size_data']);
+    }
     foreach ($data as $key => $value) {
         $query .= "{$comma}{$key}='{$value}'";
         $comma = ",";

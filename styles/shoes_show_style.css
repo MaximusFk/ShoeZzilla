@@ -74,13 +74,7 @@ img#loading {
 button.size_choser {
     width: 35px;
     height: 30px;
-    color: #00D05e;
     margin-left: 5px;
-    background-color: transparent;
-    border-radius: 2px;
-    border: 1px solid #00D05e;
-    font: bold 0.7em sans-serif;
-    cursor: pointer;
 }
 
 section.allow_sizes {

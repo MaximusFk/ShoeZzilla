@@ -80,6 +80,14 @@
                         <br/>
                     </section>
                 <hr/>
+                <section id="sizes">
+                    <span>Размеры</span><br/>
+                    {% for size in item.size_min..item.size_max %}
+                        <label>{{ size }} </label>
+                        <input style="width: 60px" type="number" name="size_data" value="{{ item.size_data[size] }}" size="{{ size }}"/>
+                    {% endfor %}
+                </section>
+                <hr/>
                 {% if item %}
                 <button class="important_b" id="update" disabled="disabled">Изменить</button>
                 {% else %}
@@ -99,7 +107,13 @@
         var data = {};
         {% if item %}
         $(".changed").each(function () {
-            data[$(this).attr("name")] = this.value;
+            if($(this).attr('size')) {
+                if(!data[$(this).attr("name")])
+                    data[$(this).attr("name")] = {};
+                data[$(this).attr("name")][$(this).attr("size")] = this.value;
+            }
+            else
+                data[$(this).attr("name")] = this.value;
         });
         $.get("/admin/edit_shoes.php", {
             item_id: {{ item.id }},

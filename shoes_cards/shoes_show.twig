@@ -24,7 +24,7 @@
                     <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/admin/edit_shoes.php?item_id={{ item.ID }}">edit</a>]{% endif %}
                     <section class="allow_sizes">
                         {% for i in item.min_size .. item.max_size %}
-                          <button class="size_choser" value="{{ i }}">{{ i }}<sup></sup></button>
+                        <button {% if not item.size_data[i] %}disabled="disabled" title="Нет в наличии"{% endif %} class="size_choser important_lower_b" value="{{ i }}">{{ i }}<sup></sup></button>
                         {% endfor %}
                         <a href="#">Как выбрать?</a><br/>
                         <i>* Ctrl - для выбора нескольких размеров</i>
@@ -107,7 +107,7 @@
                         if($(this).val() === button.val()) {
                             return false;
                         }
-                        if(b || $(this).hasClass("chosed")) {
+                        if((b || $(this).hasClass("chosed")) && !$(this).attr("disabled")) {
                             $(this).addClass("chosed");
                             $(this).removeClass("size_choser");
                             $(this).data({count: (b ? ($(this).data().count + 1) : $(this).data().count)});
