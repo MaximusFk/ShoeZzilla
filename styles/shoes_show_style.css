@@ -130,3 +130,26 @@ section#desc_r p {
     margin-left: 5px;
     width: 60%;
 }
+
+table tbody tr td, table tbody tr th {
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 0;
+    border: none;
+}
+
+table tbody tr th  {
+    color: #00D05e;
+    text-shadow: 1px 1px 1px black;
+}
+
+table tbody tr td {
+    color: darkgreen;
+}
+
+table {
+    border: 1px solid grey;
+    border-radius: 5px;
+    text-align: left;
+}

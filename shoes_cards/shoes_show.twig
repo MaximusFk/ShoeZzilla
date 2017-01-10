@@ -2,7 +2,7 @@
     <!DOCTYPE html>
     <head>
     {{ include('head.html') }}
-    <link rel="stylesheet" href="/styles/shoes_show_style.css">
+    <link rel="stylesheet" href="/styles/shoes_show_style.css"/>
     <script type="text/javascript" src="/scripts/zoomer/jquery.zoom.min.js"></script>
     </head>
     <body>
@@ -12,27 +12,55 @@
         <div class="content">
             <section class="images">
                 <span id="ext">
-                    <img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_800.jpg"/>
+                    <img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.image_path }}/{{ item.image_head }}_800.jpg"/>
                     <img id="loading" class="product_photo hidden" src="/images/loading.gif"/>
                 </span><br/>
                 {% for photo in 1..5 %}
-                    <img class="photo_small product_photo" id="{{ item.img_code }}_{{ photo }}" src="/shoes/photos/{{ item.img_code }}/{{ item.img_code }}_{{ photo }}_100.jpg">
+                    <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
                 {% endfor %}
             </section>
             <section class="description">
                 <section id="desc_r">
-                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/admin/edit_shoes.php?item_id={{ item.ID }}">edit</a>]{% endif %}
+                    <h1 id="ss_s">{{item.display_name}}<i> {{ item.color }}</i></h1>{% if admin %}[<a href="/admin/edit_shoes.php?item_id={{ item.id }}">edit</a>]{% endif %}
                     <section class="allow_sizes">
-                        {% for i in item.min_size .. item.max_size %}
+                        {% for i in item.size_min .. item.size_max %}
                         <button {% if not item.size_data[i] %}disabled="disabled" title="Нет в наличии"{% endif %} class="size_choser important_lower_b" value="{{ i }}">{{ i }}<sup></sup></button>
                         {% endfor %}
                         <a href="#">Как выбрать?</a><br/>
                         <i>* Ctrl - для выбора нескольких размеров</i>
                     </section>
                         <p>Здесь будет очень развернутое и интересное описание этого отличного товара!!</p>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Размеры</th>
+                                    <td>{{ item.size_min }}&mdash;{{ item.size_max }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Отличительный цвет</th>
+                                    <td>{{ tr(item.color) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Сезон</th>
+                                    <td>{{ tr(item.season) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Категория</th>
+                                    <td>{{ tr(item.category) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Пол</th>
+                                    <td>{{ tr(item.gender) }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Бренд</th>
+                                    <td>{{ item.brand }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </section>
                 <section id="price_cart">
-                    <section id="price">{{ item.price }}грн.</section>
+                    <section id="price">{{ item.price_retail }}грн.</section>
                     {% if not has_in_cart %}
                     <button id="pust_to_cart" class="important_b">В корзину</button>
                     {% else %}
@@ -80,7 +108,7 @@
                 var id = img.attr("id");
                 $("img#photo_show").animate({opacity: 0.25}, 100, function () {
                     var img_show = $("#photo_show");
-                    img_show.attr("src", "/shoes/photos/{{ item.img_code }}/" + id + "_800.jpg");
+                    img_show.attr("src", "/shoes/photos/{{ item.image_path }}/" + id + "_800.jpg");
                     $("#ext").zoom({on: "grab", url: $("#photo_show").attr("src")});
                     var limg = $("img#loading");
                     limg.removeClass("hidden");
@@ -133,7 +161,7 @@
                     $.getJSON("/cart.php", {
                         session_id: $.cookie('session_id'),
                         method: "ADD",
-                        item_id: {{ item.ID }},
+                        item_id: {{ item.id }},
                         sizes: JSON.stringify(sizes)
                     })
                     .done(function (msg) {

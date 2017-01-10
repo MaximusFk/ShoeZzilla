@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     $twig = create_twig($loader);
     if(filter_has_var(INPUT_GET, 'item_id')) {
         $item_id = filter_input(INPUT_GET, 'item_id');
-        $item = get_item_by_id($item_id);
+        $item = get_item_by_id_raw($item_id);
         $session_id = filter_input(INPUT_COOKIE, 'session_id');
         $has = has_entry(get_cart_id($session_id), $item_id);
         if($item) {
