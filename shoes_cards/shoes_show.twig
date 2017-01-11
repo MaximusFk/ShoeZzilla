@@ -69,6 +69,7 @@
                     {% else %}
                     <button id="pust_to_cart" class="important_lower_b">Добавлено +</button>
                     {% endif %}
+                    <p id="size_error_message" class="error" hidden="hidden"><b>Ошибка!</b><br/>Вы не выбрали ниодного размера</p>
                 </section>
                 <section>
                 </section>
@@ -161,6 +162,7 @@
                     sizes[$(this).val()] = count;
                 });
                 if(Object.getOwnPropertyNames(sizes).length > 0) {
+                    $("p#size_error_message").slideUp("fast");
                     $.getJSON("/cart.php", {
                         session_id: $.cookie('session_id'),
                         method: "ADD",
@@ -175,7 +177,7 @@
                     });
                 }
                 else {
-                    alert("Выберите размер/ы");
+                    $("p#size_error_message").slideDown("fast");
                 }
             });
         </script>

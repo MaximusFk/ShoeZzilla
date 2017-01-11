@@ -289,19 +289,19 @@ p {
 }
 
 .warning {
-    background-color: #fef7a1;
-    border: 1px solid grey;
+    border: 1px solid #dad55e;
+    background: #fffa90;
+    color: #777620;
     border-radius: 5px;
     padding: 5px;
-    color: black;
 }
 
 .error {
-    background-color: #feb4b1;
-    border: 1px solid grey;
+    border: 1px solid #f1a899;
+    background: #fddfdf;
+    color: #5f3f3f;
     border-radius: 5px;
     padding: 5px;
-    color: black;
 }
 
 .info {

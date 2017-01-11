@@ -126,6 +126,10 @@ section#price {
     text-align: center;
 }
 
+p#size_error_message {
+    width: 140px;
+}
+
 section#desc_r p {
     margin-left: 5px;
     width: 60%;
