@@ -29,7 +29,10 @@
                         <a href="#">Как выбрать?</a><br/>
                         <i>* Ctrl - для выбора нескольких размеров</i>
                     </section>
-                        <p>Здесь будет очень развернутое и интересное описание этого отличного товара!!</p>
+                        {% if item.info["description"] %}
+                            <p>{{ item.info["description"] }}</p>
+                        {% endif %}
+                        <hr/>
                         <table>
                             <tbody>
                                 <tr>
