@@ -63,7 +63,7 @@
                         </table>
                 </section>
                 <section id="price_cart">
-                    <section id="price">{{ item.price_retail }}грн.</section>
+                    <section id="price" title="{{ item.price_retail}} гривен">{{ item.price_retail }}&#8372;</section>
                     {% if not has_in_cart %}
                     <button id="pust_to_cart" class="important_b">В корзину</button>
                     {% else %}
