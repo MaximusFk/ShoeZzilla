@@ -7,3 +7,46 @@
          <span><i>Gmail: </i>maximusfk@gmail.com</span>
     </section>
 </footer>
+<section id="mailback">
+    <section id="head"><img src="/images/email_white.png" alt="[email]"/><span>Отправьте нам сообщение</span><img id="close_img" src="/images/up.png" alt="[close]"/></section>
+    <form id="message" hidden="hidden">
+        <p style="color: gray">Отправьте нам Ваше сообщение и мы Вам обязательно ответим!</p>
+        <textarea name="message" rows="15" placeholder="Ваше сообщение *" required="required"></textarea><br/>
+        <input type="text" name="name" placeholder="Ваше имя"/><br/>
+        <input type="tel" name="phone" placeholder="Ваш телефон"/><br/>
+        <input type="email" name="email" placeholder="Ваш E-mail *" required="required"/><br/><hr/>
+        <button class="important_lower_b" type="submit">Отправить</button>
+    </form>
+</section>
+<script type="text/javascript">
+    $("section#head").click(function () {
+        $("form#message").slideToggle("fast", function () {
+            if($(this).is(":hidden")) {
+                $("img#close_img").attr("src", "/images/up.png");
+            }
+            else {
+                $("img#close_img").attr("src", "/images/down-arrow.png");
+            }
+        });
+    });
+    $("form#message").submit(function (event) {
+        event.preventDefault();
+        var data = {};
+        $("form#message button").addClass("loading");
+        $("form#message textarea, form#message input").each(function () {
+            data[$(this).attr("name")] = $(this).val();
+        });
+        $.get("/method/send_message.php", {
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            message: data.message
+        }).done(function (msg) {
+            $("form#message textarea, form#message input").each(function () {
+                $(this).val("");
+            });
+            $("form#message button").removeClass("loading");
+            $("form#message").slideUp("fast");
+        });
+    });
+</script>

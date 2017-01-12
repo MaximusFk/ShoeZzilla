@@ -229,9 +229,15 @@ i#count {
     font-size: 1.5em;
 }
 
-input[type=text], input[type=number], input[type=phone], input[type=password]{
+input[type=text], input[type=number], input[type=phone], input[type=password], input[type=tel], input[type=email]{
     height: 2em;
     resize: none;
+    border-radius: 5px;
+    border: 1px solid gray;
+    padding-left: 3px;
+}
+
+textarea {
     border-radius: 5px;
     border: 1px solid gray;
     padding-left: 3px;
@@ -275,6 +281,12 @@ button:disabled {
     text-shadow: none;
 }
 
+button.loading {
+    background-image: url("/images/wait_button.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 img.product_photo {
     border-radius: 5px;
     border: 1px solid #00D05e;
@@ -313,11 +325,11 @@ p {
 }
 
 .notify {
-    background-color: aliceblue;
+    background-color: #c9f8c9;
     border: 1px solid grey;
     border-radius: 5px;
     padding: 5px;
-    color: black;
+    color: #018301;
 }
 
 .zoomWindow {
@@ -326,4 +338,45 @@ p {
 
 .semiOpac {
     opacity: 0.5;
+}
+
+section#mailback {
+    width: 300px;
+    background-color: white;
+    position: fixed;
+    bottom: 0;
+    left: 15px;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-radius: 5px 5px 0 0;
+}
+
+section#mailback section#head {
+    padding: 10px;
+    border-top: 1px solid gray;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    background: #c9f8c9 url(/images/vertical-cs.png) repeat-x;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0 0 2px .5px black;
+}
+
+section#mailback section#head span {
+    margin-left: 25px;
+    margin-right: 42px;
+}
+
+section#mailback form {
+    padding: 15px;
+}
+
+section#mailback form input {
+    width: 100%;
+    margin-top: 15px;
+}
+
+section#mailback form textarea {
+    width: 100%;
+    text-align: left;
 }
