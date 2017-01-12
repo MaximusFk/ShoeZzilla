@@ -10,7 +10,7 @@
             {{ include('navigation.html') }}
             <div class="content">
                 <section id="cart_view" class="content_block">
-                {% if cart %}
+                {% if cart and items|length > 0 %}
                 <h2>Ваша корзина покупок</h2>
                 <hr/>
                 <table border="1">
