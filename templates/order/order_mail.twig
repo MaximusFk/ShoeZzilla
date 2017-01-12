@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Ваш заказ принят</title>
+        <style>
+            
+        </style>
+    </head>
+    <body>
+        <h3>Спасибо за покупку</h3>
+        <p>Статус Вашего заказа и подробную информацию вы можете получить по этому коду <a href="http://shoezzilla.zzz.com.ua/order.php?access_code={{ access_code }}">{{ access_code }}</a>, введя его в поле на сайте <a href=""></a></p>
+        <h2>Заказ №<i>{{ order.id }}</i></h2>
+        <hr/>
+        <div class="content_block">
+            <span>Получатель: <b>{{ order.name }}, {{ order.surname }}</b></span><br/>
+            <span>Адресс доставки: {{ order.address }}</span><br/>
+            <span>Сумма заказа: <b>{% if order.price_sum %}{{ order.price_sum }} гривен{% else %}N/A{% endif %}</b></span>
+        </div>
+        <hr/>
+        <span>Статус: {{ tr(order.status) }}</span><br/>
+        <span>Дата: {{ order.date }}</span><br/><br/>
+        <span class="info">Код заказа: {{ order.access_code }}</span>
+        <hr/>
+        <h3>Ваша корзина покупок</h3>
+        <table border="1">
+            <caption>Список выбраных товаров</caption>
+            <thead>
+                <tr><th>№</th><th></th><th>Название</th><th>Цена</th><th>Колличество</th><th>Размеры</th><th>Сумма</th></tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr id="{{ item["node"].ID }}}">
+                        {% include 'item_t_row.twig' %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

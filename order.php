@@ -7,16 +7,20 @@ $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD');
 $loader = create_file_loader(['info_pages', 'templates/order']);
 $twig = create_twig($loader);
 
+function convert_entries($entries) {
+    foreach ($entries as &$key) {
+        $key['size_data'] = json_decode($key['size_data'], true);
+        ksort($key['size_data']);
+        $key['node'] = get_item_by_id($key['item_id']);
+    }
+    return $entries;
+}
+
 if($method === 'GET' && (filter_has_var(INPUT_GET, 'order_id') || filter_has_var(INPUT_GET, 'access_code'))) {
     $order_id = filter_has_var(INPUT_GET, 'order_id') ? filter_input(INPUT_GET, 'order_id') : get_order_id(filter_input(INPUT_GET, 'access_code'));
     $order = get_order_by_id($order_id);
     if($order) {
-        $entries = get_entries_array($order_id, Orders);
-        foreach ($entries as &$key) {
-            $key['size_data'] = json_decode($key['size_data'], true);
-            ksort($key['size_data']);
-            $key['node'] = get_item_by_id($key['item_id']);
-        }
+        $entries = convert_entries(get_entries_array($order_id, Orders));
         echo $twig->render('order_view.twig', ['order_id' => $order_id, 'items' => $entries, 'order' => $order]);
     }
     else {
@@ -40,7 +44,20 @@ else if($method === 'POST') {
         set_new_parent($order_id, Orders, $cart_id, Carts);
         remove_cart($cart_id);
         $access = get_access_code($order_id);
-        echo $twig->render('order_success.twig', ['order_id' => $order_id, 'access_code' => $access]);
+        
+        $headers[] = 'MIME-Version: 1.0';
+        $headers[] = 'Content-type: text/html; charset=utf-8';
+        // Дополнительные заголовки
+        $headers[] = "To: $name <$email>";
+        $headers[] = 'From: ShoeZzilla <admin@shoezzilla.zzz.com.ua>';
+        if(mail($email, "Ваш заказ был принят", 
+                $twig->render('order_mail.twig', ['order' => get_order_by_id($order_id), 'access_code' => $access, 'items' => convert_entries(get_entries_array($order_id, Orders))]),
+                implode("\r\n", $headers))) {
+            echo $twig->render('order_success.twig', ['order_id' => $order_id, 'access_code' => $access]);
+        }
+        else {
+            echo 'Error';
+        }
     }
     else {
         echo $twig->render('error_page.twig', ['text' => 'Во время запроса произошла ошибка, пожалуйста, повторите еще раз!']);
