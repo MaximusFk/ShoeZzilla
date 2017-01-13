@@ -3,7 +3,7 @@
         <a href="/">Главная</a>
         <a id="catalog" href="/shoes/catalog.php?category=all">Каталог</a>
         <a href="/delivery">Доставка</a>
-        <a href="#">О нас</a>
+        <a href="/about">О нас</a>
         <a href="/contacts">Контакты</a>
         <form action="/order.php">
             <input id="order_search_text" type="text" placeholder="Код заказа" name="access_code">
@@ -19,10 +19,10 @@
 <script>
     $("a#catalog").mouseenter(
     function () {
-        $("#categories").slideDown("fast");
+        $("#categories").slideDown({duration: "fast", queue: false});
     });
     $("#navigation").mouseleave(
     function () {
-        $("#categories").slideUp("fast");
+        $("#categories").slideUp({duration: "fast", queue: false});
     });
 </script>
