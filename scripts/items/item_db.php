@@ -205,6 +205,19 @@ function find_items($str) {
     }
 }
 
+function get_raw_items() {
+    $sql = get_db();
+    $query = "SELECT * FROM " . Models;
+    $result = $sql->query($query);
+    if($result) {
+        while($item = $result->fetch_assoc()) {
+            $items[] = $item;
+        }
+        return $items;
+    }
+    return null;
+}
+
 function get_items() {
     $sql = get_db(current_db);
     $query = "SELECT * FROM " . Models . " WHERE hide=0";
