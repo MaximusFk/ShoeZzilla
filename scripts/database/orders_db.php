@@ -12,7 +12,7 @@ function create_new_order($name, $surname, $email, $phone, $address, $price, $us
     $date = date("Y-m-d H:i:s");
     $access = random_int(0, PHP_INT_MAX);
     $user = $user_id ? "'$user_id'" : "NULL";
-    $query = "INSERT INTO " . Orders . " (name, surname, email, phone, address, date, status, price_sum, access_code, user_id) "
+    $query = "INSERT INTO " . Orders . " (name, surname, email, phone, delivery_data, date, status, price_sum, access_code, user_id) "
             . "VALUES ('$name', '$surname', '$email', '$phone', '$address', '$date', '" . STATUS_AWAIT_CONFIRM . "', '$price', '$access', $user)";
     $sql->query($query);
     return $sql->insert_id;
