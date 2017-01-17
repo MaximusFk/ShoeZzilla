@@ -26,8 +26,12 @@ function get_address_from_delivery_data($delivery_data) {
         return $city['DescriptionRu'] . ", " . $office['DescriptionRu'] . "[{$delivery_data['type']}]";
     }
 }
-
-if($method === 'GET' && (filter_has_var(INPUT_GET, 'order_id') || filter_has_var(INPUT_GET, 'access_code'))) {
+if($method === 'GET' && filter_has_var(INPUT_GET, 'access_code') && filter_input(INPUT_GET, 'set_access_status') === 'confirm') {
+    $order_id = get_order_id(filter_input(INPUT_GET, 'access_code'));
+    update_order($order_id, ['status' => 'WAIT_TO_SEND']);
+    echo 'Статус заказа обновлен';
+}
+else if($method === 'GET' && (filter_has_var(INPUT_GET, 'order_id') || filter_has_var(INPUT_GET, 'access_code'))) {
     $order_id = filter_has_var(INPUT_GET, 'order_id') ? filter_input(INPUT_GET, 'order_id') : get_order_id(filter_input(INPUT_GET, 'access_code'));
     $order = get_order_by_id($order_id);
     if($order) {
@@ -55,7 +59,7 @@ else if($method === 'POST') {
         $cart = get_cart($cart_id);
         $order_id = create_new_order($name, $surname, $email, $phone, json_encode($delivery_data), $cart['price_sum'], $user_id);
         $order = get_order_by_id($order_id);
-        $order['address'] = get_address_from_delivery_data(json_decode($order['delivery_data']));
+        $order['address'] = get_address_from_delivery_data(json_decode($order['delivery_data'], true));
         set_new_parent($order_id, Orders, $cart_id, Carts);
         remove_cart($cart_id);
         $access = get_access_code($order_id);
