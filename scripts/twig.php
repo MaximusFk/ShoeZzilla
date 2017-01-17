@@ -5,6 +5,8 @@ require_once __DIR__ . '/database/accounts_db.php';
 require_once __DIR__ . '/database/sessions_db.php';
 Twig_Autoloader::register();
 
+const NOVA_POSHTA_ACCESS = '98f0f33429e0aca503cf27732aae9205';
+
 function create_file_loader(array $path = null) {
     $loader = new Twig_Loader_Filesystem(__DIR__ . '/../templates/');
     foreach ($path as $p) {

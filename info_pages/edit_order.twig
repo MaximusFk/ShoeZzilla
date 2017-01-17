@@ -11,7 +11,8 @@
                         <span>ID: {{ order.id }}</span><br/>
                         <span>Access Code: {{ order.access_code }}</span><br/>
                         <span>Дата: {{ order.date }}</span><br/>
-                        <span>Сумма: {{ order.price_sum }}</span>
+                        <span>Сумма: {{ order.price_sum }}</span><br/>
+                        <span>Адрес: {{ order.address }}</span>
                     </section>
                     <section class="content_block">
                         <table border="1">
@@ -38,11 +39,6 @@
                         <section class="group">
                             <label>Фамилия</label><br/>
                             <input name="surname" type="text" value="{{ order.surname }}"/>
-                        </section>
-                        <br/>
-                        <section class="group">
-                            <label>Адрес</label><br/>
-                            <input name="address" type="text" value="{{ order.address }}"/>
                         </section>
                         <br/>
                         <section class="group">
@@ -85,7 +81,6 @@
                                 <tr>
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.surname }}, {{ order.name }}</td>
-                                    <td>{{ order.address }}</td>
                                     <td>{{ order.phone }}</td>
                                     <td>{{ order.email }}</td>
                                     <td>{{ order.date }}</td>

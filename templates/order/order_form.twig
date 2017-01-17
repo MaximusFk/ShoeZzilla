@@ -46,14 +46,15 @@
                             <label>Город</label><br/>
                             <select id="city" name="city" required>
                                 <option disabled selected="selected">Выберите город</option>
-                                <option value="test">Мухосранск</option>
+                                {% for city in cities %}
+                                    <option value="{{ city.Ref }}">{{ city.DescriptionRu }}</option>
+                                {% endfor %}
                             </select>
                         </p>
                         <p class="hidden group" id="office_p">
                             <label>Отделение</label><br/>
                             <select id="office" name="npoffice" required>
                                 <option disabled selected="selected">Выберите отделение</option>
-                                <option value="test">Говеное no.3</option>
                             </select>
                         </p>
                         <button class="important_b" id="send_order" type="submit" disabled="disabled">Оформить</button>
@@ -69,7 +70,20 @@
                 $("div#error").addClass("hidden");
             });
             $("select#city").change(function () {
-                $("p#office_p").slideDown("slow");
+                var input = $("select#city option:selected");
+                $.get("/method/np_gets.php", {
+                    method: "warehouses",
+                    filter: ["DescriptionRu", "Ref"],
+                    equals: {CityRef: input.attr("value")} 
+                }).done(function(json) {
+                    $("select#office").empty();
+                    $("select#office").append("<option disabled selected=\"selected\">Выберите отделение</option>");
+                    json = JSON.parse(json);
+                    for(var i = 0; i < json.length; i++) {
+                        $("select#office").append("<option value=\"" + json[i].Ref + "\">" + json[i].DescriptionRu + "</option>");
+                    }
+                    $("p#office_p").slideDown("slow");
+                });
             });
             $("select#office").change(function () {
                 $("button#send_order").removeAttr("disabled");
