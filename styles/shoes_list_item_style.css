@@ -19,8 +19,8 @@ section.list_item:hover {
 }
 
 section.list_item h3 {
-    color: #00D05e;
-    text-shadow: 0 0 2px black;
+    color: #018301;
+    text-shadow: none;
     padding-left: 10px;
     -webkit-margin-before: 0.2em;
     margin-top: 0.2em;

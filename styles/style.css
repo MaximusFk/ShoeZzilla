@@ -30,19 +30,22 @@ H1 {
     color: #00D05e;
     font-size: 2.2em;
     text-shadow: 1px 1px 2px black;
+    font-family: 'Times New Roman', serif;
 }
 
 H2 {
-color: #00D05e;
-font-size: 2em;
-text-shadow: 1px 1px 2px black;
-padding-left: 0.5em;
-padding-top: 0.2em;
+    color: #00D05e;
+    font-size: 2em;
+    text-shadow: 1px 1px 2px black;
+    padding-left: 0.5em;
+    padding-top: 0.2em;
+    font-family: 'Times New Roman', serif;
 }
 
 H3 {
     color: #00D05e;
     text-shadow: 1px 1px 2px black;
+    font-family: 'Times New Roman', serif;
 }
 
 div.lang {
@@ -79,6 +82,7 @@ body {
     /*box-shadow: 2px 0 5px #00D05e;*/
     color: #00D05e;
     text-shadow: .5px .5px 2px black;
+    font-family: 'Arial', sans-serif;
 }
 
 .navigation>a.login {
@@ -117,7 +121,7 @@ body {
 
 #categories a {
     text-decoration: none;
-    font: bold 0.9em sans-serif;
+    font: bold 0.9em 'Arial', sans-serif;
     color: #00D05e;
     text-shadow: .5px .5px 2px black;
 }
@@ -223,6 +227,7 @@ section.cart_widget a {
     text-decoration: none;
     color: #00D05f;
     text-shadow: 0 0 .5px black;
+    font-family: 'Times New Roman', serif;
 }
 
 i#count {
@@ -297,7 +302,7 @@ img.product_photo {
 }
 
 p {
-    font-family: tahoma;
+    font-family: 'Times New Roman', serif;
 }
 
 .warning {
@@ -360,6 +365,8 @@ section#mailback section#head {
     color: white;
     text-shadow: 1px 1px 2px black;
     box-shadow: 0 0 2px .5px black;
+    font-family: 'Arial', serif;
+    font-size: 0.9em;
 }
 
 section#mailback section#head span {
