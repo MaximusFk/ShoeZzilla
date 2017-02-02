@@ -1,4 +1,6 @@
 <?php
+ini_set("include_path", '/home/aorynqco/php:' . ini_get("include_path") );
+require_once 'Mail.php';
 require_once './scripts/twig.php';
 require_once './scripts/items/cart_db.php';
 require_once './scripts/database/sessions_db.php';
@@ -64,19 +66,23 @@ else if($method === 'POST') {
         remove_cart($cart_id);
         $access = get_access_code($order_id);
         
-        $headers[] = 'MIME-Version: 1.0';
-        $headers[] = 'Content-type: text/html; charset=utf-8';
-        // Дополнительные заголовки
-        $headers[] = "To: $name <$email>";
-        $headers[] = 'From: ShoeZzilla <admin@shoezzilla.zzz.com.ua>';
-        if(mail($email, "Ваш заказ был принят", 
-                $twig->render('order_mail.twig', ['order' => $order, 'access_code' => $access, 'items' => convert_entries(get_entries_array($order_id, Orders))]),
-                implode("\r\n", $headers))) {
-            echo $twig->render('order_success.twig', ['order_id' => $order_id, 'access_code' => $access]);
-        }
-        else {
-            echo 'Error';
-        }
+        $headers['From'] = 'callback@shoezzilla.com.ua';
+        $headers['To'] = "$name <$email>";
+        $headers['Subject'] = 'Ваш заказ был принят';
+        $headers['Content-Type'] = 'text/html; charset=utf-8';
+        
+        $params['host'] = 'mail.shoezzilla.com.ua';
+        $params['port'] = 26;
+        $params['auth'] = true;
+        $params['username'] = 'order@shoezzilla.com.ua';
+        $params['password'] = 'maxime51mk';
+        $params['timeout'] = 300;
+        
+        $body = $twig->render('order_mail.twig', ['order' => $order, 'access_code' => $access, 'items' => convert_entries(get_entries_array($order_id, Orders))]);
+        
+        $mail = Mail::factory('smtp', $params);
+        $mail->send($email, $headers, $body);
+        echo $twig->render('order_success.twig', ['order_id' => $order_id, 'access_code' => $access]);
     }
     else {
         echo $twig->render('error_page.twig', ['text' => 'Во время запроса произошла ошибка, пожалуйста, повторите еще раз!']);
