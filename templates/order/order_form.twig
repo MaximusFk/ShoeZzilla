@@ -41,9 +41,8 @@
                             <input id="phone_number" name="phone_number" type="text" value="{% if user %}{{ user.phone }}{% endif %}">
                         </p>
                         <hr/>
-                        <h4 class="warning">Доставка заказа осуществляется службой NovaPoshta</h4>
-                        <h4 class="info">Доставка бесплатна!</h4>
-                        <p class="group">
+                        <h4 class="warning">Доставка заказа осуществляется службой NovaPoshta. Для Вас она бесплатна!</h4>
+                        <p class="group" id="city_p">
                             <label>Город</label><br/>
                             <select id="city" name="city" required>
                                 <option disabled selected="selected">Выберите город</option>
@@ -72,6 +71,7 @@
             });
             $("select#city").change(function () {
                 var input = $("select#city option:selected");
+                $("p#city_p").addClass("loading");
                 $.get("/method/np_gets.php", {
                     method: "warehouses",
                     filter: ["DescriptionRu", "Ref"],
@@ -83,6 +83,7 @@
                     for(var i = 0; i < json.length; i++) {
                         $("select#office").append("<option value=\"" + json[i].Ref + "\">" + json[i].DescriptionRu + "</option>");
                     }
+                    $("p#city_p").removeClass("loading");
                     $("p#office_p").slideDown("slow");
                 });
             });
