@@ -66,7 +66,7 @@ else if($method === 'POST') {
         remove_cart($cart_id);
         $access = get_access_code($order_id);
         
-        $headers['From'] = 'callback@shoezzilla.com.ua';
+        $headers['From'] = 'order@shoezzilla.com.ua';
         $headers['To'] = "$name <$email>";
         $headers['Subject'] = 'Ваш заказ был принят';
         $headers['Content-Type'] = 'text/html; charset=utf-8';
