@@ -308,7 +308,7 @@ button:disabled {
     text-shadow: none;
 }
 
-button.loading {
+.loading {
     background-image: url("/images/wait_button.gif");
     background-repeat: no-repeat;
     background-size: cover;
