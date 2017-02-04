@@ -12,11 +12,11 @@
         <div class="content">
             <section class="images">
                 <span id="ext">
-                    <img class="product_photo" id="photo_show" src="/shoes/photos/{{ item.image_path }}/{{ item.image_head }}_800.jpg"/>
+                    <img class="product_photo" id="photo_show" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_head }}_800.jpg"/>
                     <img id="loading" class="product_photo hidden" src="/images/loading.gif"/>
                 </span><br/>
                 {% for photo in 1..5 %}
-                    <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
+                    <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
                 {% endfor %}
             </section>
             <section class="description">
@@ -112,7 +112,7 @@
                 var id = img.attr("id");
                 $("img#photo_show").animate({opacity: 0.25}, 100, function () {
                     var img_show = $("#photo_show");
-                    img_show.attr("src", "/shoes/photos/{{ item.image_path }}/" + id + "_800.jpg");
+                    img_show.attr("src", "/shoes/photos/thumbnails/{{ item.image_path }}/" + id + "_800.jpg");
                     $("#ext").zoom({on: "grab", url: $("#photo_show").attr("src")});
                     var limg = $("img#loading");
                     limg.removeClass("hidden");

@@ -4,7 +4,7 @@
          {% elseif item.season == "SPAU" %}
          style="background: #FFF url(/images/background/spring.png) no-repeat; background-size: cover"
          {% endif %}>
-    <img height="110" width="198" src="/shoes/photos/{{ item.img_code }}/{{ item.img_main }}_200.jpg">
+    <img height="110" width="198" src="/shoes/photos/thumbnails/{{ item.img_code }}/{{ item.img_main }}_200.jpg">
     <div>
         <h3>{{ item.display_name }}</h3>
         <span>{% for e in item.min_size..item.max_size %}<b>{{ e }} </b>{% endfor %}<br/>

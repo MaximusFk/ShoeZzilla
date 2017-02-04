@@ -8,7 +8,7 @@
             <div class="content content_block">
                 <section class="images">
                     {% for photo in 1..5 %}
-                        <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
+                        <img class="photo_small product_photo" id="{{ item.image_path }}_{{ photo }}" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_path }}_{{ photo }}_100.jpg">
                     {% endfor %}
                 </section>
                 <a href="/shoes/catalog.php?item_id={{ item.id }}"><p class="info">ID: {{ item.id }}</p></a>
