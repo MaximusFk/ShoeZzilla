@@ -65,9 +65,9 @@
                 <section id="price_cart">
                     <section id="price" title="{{ item.price_retail}} гривен">{{ item.price_retail }}&#8372;</section>
                     {% if not has_in_cart %}
-                    <button id="pust_to_cart" class="important_b">В корзину</button>
+                    <button id="pust_to_cart" class="important_b"><i class="fa fa-fw fa-cart-arrow-down"> </i>В корзину</button>
                     {% else %}
-                    <button id="pust_to_cart" class="important_lower_b">Добавлено +</button>
+                    <button id="pust_to_cart" class="important_lower_b"><i class="fa fa-fw fa-check-circle"> </i>Добавлено</button>
                     {% endif %}
                     <p id="size_error_message" class="error" hidden="hidden"><b>Ошибка!</b><br/>Вы не выбрали ниодного размера</p>
                 </section>
@@ -171,7 +171,7 @@
                     })
                     .done(function (msg) {
                         notify_cart_count(msg.all_count);
-                        $("button#pust_to_cart").removeClass("important_b").addClass("important_lower_b").text("Добавлено +");
+                        $("button#pust_to_cart").removeClass("important_b").addClass("important_lower_b").text("Добавлено").prepend("<i class=\"fa fa-fw fa-check-circle\"> </i>");
                         $("button.chosed sup").text("");
                         $("button.chosed").addClass("size_choser").removeClass("chosed");
                     });

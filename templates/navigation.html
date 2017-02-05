@@ -1,22 +1,22 @@
 <div id="navigation">
     <div class="navigation">
-        <a href="/">Главная</a>
-        <a id="catalog" href="/shoes/catalog.php?category=all">Каталог</a>
-        <a href="/delivery">Доставка</a>
-        <a href="/about">О нас</a>
-        <a href="/contacts">Контакты</a>
+        <a class="{{ main_c }}" href="/"><i class="fa fa-fw fa-home"> </i>Главная</a>
+        <a class="{{ catalog_c }}" id="catalog" href="/shoes/catalog.php?category=all"><i class="fa fa-fw fa-shopping-bag"> </i>Каталог</a>
+        <a class="{{ delivery_c }}" href="/delivery"><i class="fa fa-fw fa-truck"> </i>Доставка</a>
+        <a class="{{ about_c }}" href="/about"><i class="fa fa-fw fa-info-circle"> </i>О нас</a>
+        <a class="{{ contacts_c }}" href="/contacts"><i class="fa fa-fw fa-phone"> </i>Контакты</a>
         <form action="/order.php">
             <input id="order_search_text" type="text" placeholder="Код заказа" name="access_code">
             <button id="order_search_submit" type="submit"><img src="/images/move-to-next_16.png"></button>
         </form>
-        <a class="login" id="login_link" href="/profile.php?type=login">Личный кабинет</a>
+        <a class="login" id="login_link" href="/profile.php?type=login"><i class="fa fa-fw fa-sign-in"> </i>Личный кабинет</a>
     </div>
-    <div class="sub_menu hidden" id="categories">
+    {#<div class="sub_menu hidden" id="categories">
         <a href="/shoes/catalog.php?category=boots">Ботинки</a><br/><hr/>
         <a href="/shoes/catalog.php?category=cross">Кроссовки</a>
-    </div>
+    </div>#}
 </div>
-<script>
+{#<script>
     $("a#catalog").mouseenter(
     function () {
         $("#categories").slideDown({duration: "fast", queue: false});
@@ -25,4 +25,4 @@
     function () {
         $("#categories").slideUp({duration: "fast", queue: false});
     });
-</script>
+</script>#}

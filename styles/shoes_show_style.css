@@ -48,7 +48,7 @@ section.description {
 }
 
 button.chosed {
-    background: #FFF url(/images/vertical-cs.png) repeat-x;
+    background: #33cc00 url(/images/background/theme_navig.png) repeat;
     color: white;
     text-shadow: 1px 1px 2px black;
     box-shadow: 0 0 2px .5px black;
@@ -110,6 +110,7 @@ button#pust_to_cart {
     width: 151px;
     border-radius: 2px;
     margin-top: 5px;
+    font: bold 0.9em sans-serif;
 }
 
 section#price {

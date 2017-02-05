@@ -1,14 +1,55 @@
 <html>
+    {% set main_c = 'menu_chosed' %}
     <head>
         {{ include('head.html') }}
+        <link rel="stylesheet" href="/styles/carousel_style.css"/>
+        <script type="text/javascript" src="/scripts/jquery_carousel/jquery.jcarousel.min.js"></script>
     </head>
     <body>
         <section class="main">
             {{ include('header.html') }}
             {{ include('navigation.html') }}
-            <div class="content"></div>
+            <div class="content content_block">
+                <section id="newer">
+                    <section class="jcarousel">
+                        <ul>
+                            <li><a href="#"><img src="/shoes/photos/b48_ging/b48_ging_1_800.jpg"></a></li>
+                            <li><a href="#"><img src="/shoes/photos/311_white/311_white_1_800.jpg"></a></li>
+                            <li><a href="#"><img src="/shoes/photos/48_blue/48_blue_1_800.jpg"></a></li>
+                            <li><a href="#"><img src="/shoes/photos/k48_lightblue/k48_lightblue_1_800.jpg"></a></li>
+                        </ul>
+                        <button class="important_lower_b" id="prev">Previous</button>
+                        <button class="important_lower_b" id="next">Next</button>
+                    </section>
+                </section>
+                <section>
+                    <h3>Новинки</h3>
+                    <hr/>
+                </section>
+                <section>
+                    <h3>Хит продаж</h3>
+                    <hr/>
+                </section>
+            </div>
         
             {{ include('footer.html') }}
         </section>
+        <script type="text/javascript">
+            $(".jcarousel").jcarousel({
+                animation: 'slow',
+                wrap: 'circular'
+                }).jcarouselAutoscroll({
+                interval: 3000,
+                target: '+=1',
+                autostart: true
+            });
+            $(".jcarousel").width($(".jcarousel img").width());
+            $("button#prev").click(function () {
+                $('.jcarousel').jcarousel('scroll', '-=1');
+            });
+            $("button#next").click(function () {
+                $('.jcarousel').jcarousel('scroll', '+=1');
+            });
+        </script>
     </body>
 </html>
