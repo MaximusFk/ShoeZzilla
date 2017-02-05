@@ -135,6 +135,19 @@ function get_items_by_name($name) {
     }
 }
 
+function get_items_by_name_raw($name) {
+    $sql = get_db(current_db);
+    $query = "SELECT * FROM " . Models . " WHERE name='$name' AND hide=0";
+    $result = $sql->query($query);
+    if ($result) {
+        while ($actor = $result->fetch_assoc()) {
+            $actor['size_data'] = json_decode($actor['size_data'], true);
+            $items[] = $actor;
+        }
+        return $items;
+    }
+}
+
 function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like = "") {
     $sql = get_db(current_db);
     $limit = "LIMIT " . ($page === 1 ? $page_size : ($page_size * ($page - 1) . ", " . $page_size));

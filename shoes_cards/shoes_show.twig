@@ -61,6 +61,18 @@
                                 </tr>
                             </tbody>
                         </table>
+                            <section id="another_v" class="group">
+                            {% if additional|length > 1 %}
+                            <span>Доступны другие варианты этой модели:</span><br/>
+                            {% for ad in additional %}
+                                {% if ad.id != item.id %}
+                                <a style="text-decoration: none" href="/shoes/catalog.php?item_id={{ ad.id }}">
+                                    <img class="product_photo" src="/shoes/photos/thumbnails/{{ ad.image_path }}/{{ ad.image_head }}_100.jpg"/>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </section>
                 </section>
                 <section id="price_cart">
                     <section id="price" title="{{ item.price_retail}} гривен">{{ item.price_retail }}&#8372;</section>

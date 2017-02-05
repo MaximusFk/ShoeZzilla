@@ -47,6 +47,10 @@ section.description {
     padding: 10px;
 }
 
+section#another_v {
+    margin-top: 5px;
+}
+
 button.chosed {
     background: #33cc00 url(/images/background/theme_navig.png) repeat;
     color: white;
