@@ -15,6 +15,14 @@ function create_file_loader(array $path = null) {
     return $loader;
 }
 
+function create_file_loader_m(array $path = null) {
+    $loader = new Twig_Loader_Filesystem(__DIR__ . '/../mobile/templates/');
+    foreach ($path as $p) {
+        $loader->addPath(__DIR__ . '/../mobile/' . $p);
+    }
+    return $loader;
+}
+
 function create_twig($loader) {
     $twig = new Twig_Environment($loader);
     $twig->addFunction('get_session_id', new Twig_SimpleFunction('get_session_id', function () { return filter_input(INPUT_COOKIE, 'session_id'); }));
