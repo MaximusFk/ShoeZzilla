@@ -1,6 +1,7 @@
 <?php
 require_once '../scripts/items/cart_db.php';
 require_once '../scripts/twig.php';
+require_once '../lib/Mobile_Detect/Mobile_Detect.php';
 
 function cmp_name($a, $b) {
     return strcasecmp($a->display_name, $b->display_name);;
@@ -11,7 +12,8 @@ function cmp_price($a, $b) {
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $loader = create_file_loader(['info_pages', 'shoes_cards']);
+    $device = new Mobile_Detect;
+    $loader = $device->isMobile() ? create_file_loader(['info_pages', 'shoes_cards']) : create_file_loader(['info_pages', 'shoes_cards']);
     $twig = create_twig($loader);
     if(filter_has_var(INPUT_GET, 'item_id')) {
         $item_id = filter_input(INPUT_GET, 'item_id');
@@ -61,6 +63,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
             $where .= " price_retail>='$price_min' AND price_retail<='$price_max' AND";
         }
+        if(filter_has_var(INPUT_GET, 'brands')) {
+            $current['brands'] = $_GET['brands'];
+            $args = implode('|', $current['brands']);
+            $where .= ' brand REGEXP ' . "'$args' AND";
+        }
+        
         $current['sort'] = $sort_arg = filter_input(INPUT_GET, 'sort');
         $current['sort_t'] = $sort_type = filter_input(INPUT_GET, 'sort_t');
         $current['page'] = $page = filter_has_var(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 1;

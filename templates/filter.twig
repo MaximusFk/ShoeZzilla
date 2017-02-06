@@ -12,12 +12,12 @@
             </select>
             <hr/>
         </p>
-        {#<p>
+        <p>
             <h5>Наименования</h5>
             {% for b in filter.brands %}
-                <input name="brand{{ loop.index }}" type="checkbox" value="{{ b }}"/>{{ b }}<br/>
+                <input name="brands[]" type="checkbox" value="{{ b }}" {% if b in current.brands %}checked="checked"{% endif %}/>{{ b }}<br/>
             {% endfor %}
-        </p>#}
+        </p>
         <p>
             <h5>Категория</h5>
             <select name="category">
