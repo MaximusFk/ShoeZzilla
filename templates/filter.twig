@@ -2,14 +2,18 @@
     <form name="filter" action="/shoes/catalog.php" method="GET">
         <p>
             <h5>Сортировка</h5>
+            <div class="select_box">
             <select name="sort">
                 <option value="display_name" {% if current.sort == "display_name" %}selected="selected"{% endif %}>По имени</option>
                 <option value="price_retail" {% if current.sort == "price_retail" %}selected="selected"{% endif %}>По цене</option>
             </select>
+            </div><br/>
+            <div class="select_box">
             <select name="sort_t">
                 <option value="ASC" {% if current.sort_t == "ASC" %}selected="selected"{% endif %}>По возрастанию</option>
                 <option value="DESC" {% if current.sort_t == "DESC" %}selected="selected"{% endif %}>По убыванию</option>
             </select>
+            </div>
             <hr/>
         </p>
         <p>
@@ -20,24 +24,28 @@
         </p>
         <p>
             <h5>Категория</h5>
+            <div class="select_box">
             <select name="category">
                 <option value="all" {% if "all" == current.category %}selected="selected"{% endif %}>Все</option>
                 {% for category in filter.categories %}
                     <option value="{{ category }}" {% if category == current.category %}selected="selected"{% endif %}>{{ tr(category) }}</option>
                 {% endfor %}
             </select>
+            </div>
             <h5>Сезон</h5>
+            <div class="select_box">
             <select name="season">
                 <option value="all" {% if "all" == current.season %}selected="selected"{% endif %}>Все</option>
                 {% for season in filter.seasons %}
                     <option value="{{ season }}" {% if season == current.season %}selected="selected"{% endif %}>{{ tr(season) }}</option>
                 {% endfor %}
             </select>
+            </div>
         </p>
         <p>
             <h5>Цена</h5>
-            <input class="short_i" name="price_min" type="number" placeholder="min:{{ filter.price_min }}" min="{{ filter.price_min }}" max="{{ filter.price_max }}" value="{{ current.price_min }}">&mdash;
-            <input class="short_i" name="price_max" type="number" placeholder="max:{{ filter.price_max }}" min="{{ filter.price_min }}" max="{{ filter.price_max }}" value="{{ current.price_max }}">
+            <input class="short_i" name="price_min" type="number" placeholder="min:{{ filter.price_min }}" min="{{ filter.price_min }}" max="{{ filter.price_max }}" value="{{ current.price_min }}"/>&mdash;
+            <input class="short_i" name="price_max" type="number" placeholder="max:{{ filter.price_max }}" min="{{ filter.price_min }}" max="{{ filter.price_max }}" value="{{ current.price_max }}"/>
         </p>
         <br/><hr/>
         <button class="important_lower_b" type="submit">Показать</button>
