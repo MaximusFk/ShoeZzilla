@@ -150,7 +150,9 @@ function get_items_by_name_raw($name) {
 
 function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like = "") {
     $sql = get_db(current_db);
-    $limit = "LIMIT " . ($page === 1 ? $page_size : ($page_size * ($page - 1) . ", " . $page_size));
+    if($page >= 1 || $page_size > 0) {
+        $limit = "LIMIT " . ($page === 1 ? $page_size : ($page_size * ($page - 1) . ", " . $page_size));
+    }
     if($order) {
         $order = "ORDER BY " . $order;
     }

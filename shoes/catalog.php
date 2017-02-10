@@ -72,11 +72,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
         $current['sort'] = $sort_arg = filter_input(INPUT_GET, 'sort');
         $current['sort_t'] = $sort_type = filter_input(INPUT_GET, 'sort_t');
         $current['page'] = $page = filter_has_var(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 1;
-        $items = get_items_where($where, $sort_arg ? "$sort_arg $sort_type" : "", $page);
+        $current['page_size'] = $page_size = filter_has_var(INPUT_GET, 'page_size') ? filter_input(INPUT_GET, 'page_size') : 20;
+        $items = get_items_where($where, $sort_arg ? "$sort_arg $sort_type" : "", $page, $page_size);
         $filter['brands'] = get_brands();
         $filter['categories'] = get_unique_values_list(Models, 'category');
         $filter['seasons'] = get_unique_values_list(Models, 'season');
-        $filter['page_count'] = get_page_count_where($where);
+        $filter['page_count'] = get_page_count_where($where, $page_size);
         echo $twig->render('show_shoes_list_box.twig', ["items" => $items, 'filter' => $filter, 'current' => $current]);
     }
 }
