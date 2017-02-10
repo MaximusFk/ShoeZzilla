@@ -76,6 +76,7 @@
                         </section>
                 </section>
                 <section id="price_cart">
+                    {% if item.size_data|array_sum > 0 %}
                     <section id="price" title="{{ item.price_retail}} гривен">{{ item.price_retail }}&#8372;</section>
                     {% if not has_in_cart %}
                     <button id="pust_to_cart" class="important_b"><i class="fa fa-fw fa-cart-arrow-down"> </i>В корзину</button>
@@ -83,6 +84,11 @@
                     <button id="pust_to_cart" class="important_lower_b"><i class="fa fa-fw fa-check-circle"> </i>Добавлено</button>
                     {% endif %}
                     <p id="size_error_message" class="error" hidden="hidden"><b>Ошибка!</b><br/>Вы не выбрали ниодного размера</p>
+                    {% else %}
+                    <section id="price" class="error" title="Нет в наличии" style="color: #5f3f3f; font-size: 1.5em;">
+                        <span>Не доступно</span>
+                    </section>
+                    {% endif %}
                 </section>
                 <section>
                 </section>

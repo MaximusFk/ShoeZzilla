@@ -41,6 +41,7 @@ function create_twig($loader) {
         $result->free();
         return $count;
     }));
+    $twig->addFilter('array_sum', new Twig_SimpleFilter('array_sum', array_sum));
     return $twig;
 }
 
