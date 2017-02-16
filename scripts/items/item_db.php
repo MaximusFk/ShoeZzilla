@@ -21,6 +21,12 @@ function construct_item_from_array(array $array) {
     return $item;
 }
 
+function construct_item_raw(array $array) {
+    $array['size_data'] = json_decode($array['size_data'], true);
+    $array['info'] = json_decode($array['info'], true);
+    return $array;
+}
+
 function construct_entry_from_array(array $array) {
     $entry = new ShoesEntry();
     if(array_key_exists('item_id', $array)) { $entry->item_id = $array['item_id']; }
@@ -47,6 +53,7 @@ function get_item_by_id_raw($id) {
         if ($result->num_rows !== 0) {
             $actor = $result->fetch_assoc();
             $actor['size_data'] = json_decode($actor['size_data'], true);
+            $actor['info'] = json_decode($actor['info'], true);
             return $actor;
         }
     }
@@ -56,10 +63,10 @@ function update_item($id, array $data) {
     $sql = get_db(current_db);
     $query = "UPDATE " . Models . " SET ";
     $comma = "";
-    if(array_key_exists('size_data', $data)) {
-        $data['size_data'] = json_encode($data['size_data']);
-    }
     foreach ($data as $key => $value) {
+        if(is_array($value)) {
+            $value = json_encode($value);
+        }
         $query .= "{$comma}{$key}='{$value}'";
         $comma = ",";
     }
@@ -142,6 +149,7 @@ function get_items_by_name_raw($name) {
     if ($result) {
         while ($actor = $result->fetch_assoc()) {
             $actor['size_data'] = json_decode($actor['size_data'], true);
+            $actor['info'] = json_decode($actor['info'], true);
             $items[] = $actor;
         }
         return $items;
@@ -163,7 +171,7 @@ function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like 
     $result = $sql->query($query);
     if($result) {
         while ($actor = $result->fetch_assoc()) {
-            $items[] = construct_item_from_array($actor);
+            $items[] = construct_item_raw($actor);
         }
         return $items;
     }
