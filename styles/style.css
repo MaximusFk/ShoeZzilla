@@ -431,3 +431,25 @@ section#mailback form textarea {
     width: 100%;
     text-align: left;
 }
+
+section#social {
+    float: right;
+    display: inline-block;
+}
+
+section#social ul {
+    list-style: none;
+}
+
+.social_i {
+    border-radius: 100%;
+    background-color: #2a5885;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+}
+
+.social_i i {
+    color: white;
+    font-size: 1.5em;
+}

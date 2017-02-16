@@ -1,10 +1,17 @@
 <footer>
     <section>
+        <section id="social">
+            <h5>Мы в социальных сетях</h5>
+            <ul>
+                <li class="social_i"><a href="https://vk.com/shoezzilla"><i class="fa fa-fw fa-vk vk"></i></a></li>
+            </ul>
+        </section>
         <h5>Интернет-магазин качественной обуви ShoeZzilla</h5>
         <h3>Контакты:</h3>
         <span><i>Kiyvstar: </i>+38 096 605 45 83</span><br>
         <span><i>Lifecell: </i>+38 073 492 50 71</span><br>
-         <span><i>Gmail: </i>maximusfk@gmail.com</span>
+        <span><i>E-mail: </i>support@shoezzilla.com.ua</span>
+        
     </section>
 </footer>
 <section id="mailback">
@@ -33,6 +40,7 @@
         event.preventDefault();
         var data = {};
         $("form#message button").addClass("loading");
+        $("form#message button").attr("disabled", "disabled")
         $("form#message textarea, form#message input").each(function () {
             data[$(this).attr("name")] = $(this).val();
         });
@@ -46,7 +54,10 @@
                 $(this).val("");
             });
             $("form#message button").removeClass("loading");
+            $("form#message button").removeAttr("disabled");
             $("form#message").slideUp("fast");
+        }).error(function (msg) {
+            alert(msg);
         });
     });
 </script>
