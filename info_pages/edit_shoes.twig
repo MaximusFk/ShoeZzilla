@@ -51,6 +51,11 @@
                         <input name="size_max" type="number" value="{{ item.size_max }}" required="required"/>
                         <br/>
                     </section>
+                <section id="description" class="group">
+                    <label>Описание</label><br/>
+                    <textarea name="description" placeholder="Текст описания" wrap="wrap" rows="10" cols="50">{{ item.description }}</textarea>
+                    <br/>
+                </section>
                 <section class="group">
                     <label>Категории</label><br/>
                     <select name="color">
@@ -111,6 +116,7 @@
         $(this).addClass("changed");
     } 
     $("div.content input").change(changed);
+    $("div.content textarea").change(changed);
     $("div.content select").change(changed);
     
     $("button#update").click(function () {
