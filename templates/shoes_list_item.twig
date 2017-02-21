@@ -6,13 +6,13 @@
          {% endif %}>
     <img height="110" width="198" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_head }}_200.jpg">
     {% if item.info["tag"] == "novelty" %}
-        <img style="border: none; position: absolute; margin-left: -199px; margin-top: 10px" width="65" src="/images/newer.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/newer.png"/>
     {% elseif item.info["tag"] == "sellout" %}
-        <img style="border: none; position: absolute; margin-left: -199px; margin-top: 10px" width="65" src="/images/sellout.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/sellout.png"/>
     {% elseif item.info["tag"] == "hit" %}
-        <img style="border: none; position: absolute; margin-left: -199px; margin-top: 10px" width="65" src="/images/hit.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/hit.png"/>
     {% elseif item.info["tag"] == "off" %}
-        <img style="border: none; position: absolute; margin-left: -199px; margin-top: 10px" width="65" src="/images/off.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/off.png"/>
     {% endif %}
     <div>
         <h3>{{ item.display_name }}</h3>
