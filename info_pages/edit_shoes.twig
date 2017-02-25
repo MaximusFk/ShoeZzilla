@@ -134,7 +134,7 @@
                 data[$(this).attr("name")][$(this).attr("info")] = this.value;
             }
             else
-                data[$(this).attr("name")] = this.value;
+                data[$(this).attr("name")] = $(this).attr("type") === "checkbox" ? (this.checked ? 1 : 0) : this.value;
         });
         $.get("/admin/edit_shoes.php", {
             item_id: {{ item.id }},
