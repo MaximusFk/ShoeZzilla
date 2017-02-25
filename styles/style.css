@@ -135,7 +135,7 @@ body {
 
 .search {
     height: 2em;
-    width: 35em;
+    width: 80%;
     align-items: center;
     resize: none;
     border-radius: 5px;
@@ -143,8 +143,15 @@ body {
     padding-left: 3px;
 }
 
-button#search_submit {
+div#order_search_block {
+    display: inline-block;
+    margin-top: 15px;
+    height: initial;
     float: right;
+}
+
+button#search_submit {
+    position: absolute;
     margin-left: 5px;
     width: 60px;
     height: 2em;
@@ -178,6 +185,7 @@ form input#order_search_text {
 form.search_form {
     /*margin-right: 5em;*/
     /*margin-top: 0.4em;*/
+    width: 40%;
     height: 15px;
     position: absolute;
     display: inline-block;
@@ -210,6 +218,12 @@ form.search_form {
     border: 1px solid grey;
     border-radius: 5px;
     padding: 5px;
+}
+
+.sh_group {
+    background: transparent url(/images/background/theme_navig.png) repeat;
+    color: #018301;
+    font-family: 'Arial', sans-serif;
 }
 
 div.contacts h3, .item_name, h3.parag {
@@ -332,6 +346,22 @@ button:disabled {
     text-shadow: none;
 }
 
+button.sh_important {
+    font: bold 0.9em sans-serif;
+    color: #018301;
+    font-family: 'Arial', sans-serif;
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+    padding: 5px 2px 5px 2px;
+    cursor: pointer;
+}
+
+button.sh_important:hover {
+    background: #33cc00 url(/images/background/theme_navig.png) repeat;
+    color: white;
+}
+
 .loading {
     background-image: url("/images/wait_button.gif");
     background-repeat: no-repeat;
@@ -446,10 +476,11 @@ section#social ul {
     background-color: #2a5885;
     width: 40px;
     height: 40px;
-    line-height: 40px;
+    display: inline-block;
 }
 
 .social_i i {
     color: white;
     font-size: 1.5em;
+    line-height: 40px;
 }

@@ -49,6 +49,7 @@ section.description {
 
 section#another_v {
     margin-top: 5px;
+    max-width: 420px;
 }
 
 button.chosed {

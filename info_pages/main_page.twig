@@ -11,11 +11,12 @@
         <section class="main">
             {{ include('header.html') }}
             {{ include('navigation.html') }}
-            <div class="content content_block">
+            <div style="float: left; width: 78%;" class="content content_block">
                 <section id="newer">
                     <section class="jcarousel">
                         <ul>
                             <li><a href="/shoes/catalog.php?item_id=3"><img src="/shoes/promo/promoB1.jpg"></a></li>
+                            <li><a href="#"><img src="/shoes/promo/promoDelivery.png"/></a></li>
                         </ul>
 {#                        <button class="important_lower_b" id="prev">Previous</button>#}
 {#                        <button class="important_lower_b" id="next">Next</button>#}
@@ -30,6 +31,17 @@
                     <hr/>
                 </section>
             </div>
+                    
+                    <div id="order_search_block" class="group sh_group">
+                        <form action="/order.php">
+                            <h4>Найти заказ</h4>
+                            <h5>Код заказа</h5>
+                            <input style="width: 150px;" type="text" name="access_code" placeholder="Введите код"/>
+                            <button class="sh_important" type="reset">Очистить</button>
+                            <br/>
+                            <button class="sh_important" style="width: 100%; margin-top: 15px;" type="submit">Найти</button>
+                        </form>
+                    </div>
         
             {{ include('footer.html') }}
         </section>
@@ -43,6 +55,7 @@
                 autostart: true
             });
             $(".jcarousel").width($(".jcarousel img").width());
+                $(".jcarousel").height($(".jcarousel img").height());
             $("button#prev").click(function () {
                 $('.jcarousel').jcarousel('scroll', '-=1');
             });

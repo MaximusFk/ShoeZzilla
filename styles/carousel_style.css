@@ -1,0 +1,24 @@
+section.jcarousel {
+    border: 1px solid #00D05e;
+    border-radius: 5px;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+
+section.jcarousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+section.jcarousel li {
+    float: left;
+}
+
+section.jcarousel img {
+    max-height: 20em;
+}
+
