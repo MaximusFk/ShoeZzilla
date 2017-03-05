@@ -138,7 +138,7 @@ p#size_error_message {
 
 section#desc_r p {
     margin-left: 5px;
-    width: 60%;
+    max-width: 450px;
 }
 
 table tbody tr td, table tbody tr th {

@@ -53,7 +53,13 @@
                     </section>
                 <section id="description" class="group">
                     <label>Описание</label><br/>
-                    <textarea name="description" placeholder="Текст описания" wrap="wrap" rows="10" cols="50">{{ item.description }}</textarea>
+                    <button class="sh_important" tag="b"><b>B</b></button>
+                    <button class="sh_important" tag="i"><i>I</i></button>
+                    <button class="sh_important" tag="u"><u>U</u></button>
+                    <button class="sh_important" tag="s"><del>S</del></button>
+                    <button class="sh_important" tag="sub">T<sub>sub</sub></button>
+                    <button class="sh_important" tag="sup">T<sup>sup</sup></button><br/>
+                    <textarea id="desc_area" name="description" placeholder="Текст описания" wrap="wrap" rows="10" cols="50">{{ item.description }}</textarea>
                     <br/>
                 </section>
                 <section class="group">
@@ -119,6 +125,14 @@
     $("div.content textarea").change(changed);
     $("div.content select").change(changed);
     
+    $("button.sh_important").click(function () {
+        var textarea = $("section#description textarea");
+        var caret = textarea[0].selectionStart;
+        var text = textarea.val();
+        var add = ("[" + $(this).attr("tag") + "][/" + $(this).attr("tag") + "]");
+        textarea.val(text.substring(0, caret) + add + text.substring(caret));
+    });
+    
     $("button#update").click(function () {
         var data = {};
         {% if item %}
@@ -150,7 +164,13 @@
             data[$(this).attr("name")] = $(this).attr("type") === "checkbox" ? (this.checked ? 1 : 0) : this.value;
         });
         $("div.content select").each(function () {
-            data[$(this).attr("name")] = this.value;
+            if($(this).attr('info')) {
+                if(!data[$(this).attr("name")])
+                    data[$(this).attr("name")] = {};
+                data[$(this).attr("name")][$(this).attr("info")] = this.value;
+            }
+            else
+                data[$(this).attr("name")] = this.value;
         });
         location.href = "/admin/edit_shoes.php?data=" + JSON.stringify(data);
         {% endif %}

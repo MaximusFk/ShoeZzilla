@@ -31,7 +31,7 @@
                         <i>* Ctrl - для выбора нескольких размеров</i>
                     </section>
                         {% if item.description %}
-                            <p>{{ item.description }}</p>
+                            <p>{{ item.description|parse_bb|raw }}</p>
                         {% endif %}
                         <hr/>
                         <table>

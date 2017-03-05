@@ -1,7 +1,9 @@
 <?php
+ini_set("include_path", '/home/aorynqco/php:' . ini_get("include_path") );
 require_once '../scripts/items/cart_db.php';
 require_once '../scripts/twig.php';
 require_once '../lib/Mobile_Detect/Mobile_Detect.php';
+require_once '../scripts/BBCode.php';
 
 function cmp_name($a, $b) {
     return strcasecmp($a->display_name, $b->display_name);;
@@ -15,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET') {
     $device = new Mobile_Detect;
     $loader = $device->isMobile() ? create_file_loader(['info_pages', 'shoes_cards']) : create_file_loader(['info_pages', 'shoes_cards']);
     $twig = create_twig($loader);
+    $twig->addFilter('parse_bb', new Twig_SimpleFilter('parse_bb', decode_bb));
     if(filter_has_var(INPUT_GET, 'item_id')) {
         $item_id = filter_input(INPUT_GET, 'item_id');
         $item = get_item_by_id_raw($item_id);
