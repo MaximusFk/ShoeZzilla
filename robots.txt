@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /profile.php
+Disallow: /cart/
+Sitemap: http://shoezzilla.com.ua/sitemap.xml
+Host: shoezzilla.com.ua
