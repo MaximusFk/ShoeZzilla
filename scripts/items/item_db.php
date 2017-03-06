@@ -92,6 +92,14 @@ function insert_item(array $data) {
     return $sql->insert_id;
 }
 
+function delete_item($id) {
+    $sql = get_db();
+    if(!$sql->query('DELETE FROM ' . Models . ' WHERE id=' . $id)) {
+        printf("Error: %s\n", $sql->error);
+    }
+    return $sql->affected_rows !== 0;
+}
+
 function get_items_by_category($category) {
     $sql = get_db(current_db);
     $result = $sql->query("SELECT * FROM " . Models . " WHERE category='$category' AND hide=0");

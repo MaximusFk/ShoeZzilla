@@ -1,6 +1,23 @@
 <?php
 require_once __DIR__ . '/../items/item_db.php';
 
+    function clear_old_sessions($sql = null) {
+        if(!$sql) {
+            $sql = get_db();
+        }
+        $tcarts = Carts;
+        $tsessions = Sessions;
+        $query_free_carts = "DELETE FROM $tcarts,$tsessions USING $tcarts,$tsessions WHERE "
+            . "({$tcarts}.session_id={$tsessions}.id) AND (TO_DAYS(NOW())-TO_DAYS({$tsessions}.time)>7)";
+        $query_free_sessions = "DELETE FROM $tsessions WHERE (TO_DAYS(NOW())-TO_DAYS({$tsessions}.time)>7)";
+        if(!$sql->query($query_free_carts)) {
+            printf("Error: %s\n", $sql->error);
+        }
+        if(!$sql->query($query_free_sessions)) {
+            printf("Error: %s\n", $sql->error);
+        }
+    }
+
     function create_session($user_id = null, $ip = null) {
         $sql = get_db(current_db);
         $date = date("Y-m-d H:i:s");
@@ -19,7 +36,9 @@ require_once __DIR__ . '/../items/item_db.php';
             printf("Error: %s\n", $sql->error);
             return null;
         }
-        return $sql->insert_id;
+        $newid = $sql->insert_id;
+        clear_old_sessions($sql);
+        return $newid;
     }
     
     function linked_to_account($session_id) {
