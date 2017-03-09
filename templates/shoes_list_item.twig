@@ -1,18 +1,14 @@
 <a class="list_item" href="/shoes/catalog.php?item_id={{ item.id }}">
-<section class="list_item" id="{{ item.id }}" {% if item.season == "WINTER" %}
-         style="background: #FFF url(/images/background/winter.png) no-repeat; background-size: cover"
-         {% elseif item.season == "SPAU" %}
-         style="background: #FFF url(/images/background/spring.png) no-repeat; background-size: cover"
-         {% endif %}>
-    <img height="110" width="198" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_head }}_200.jpg">
+<section class="list_item" id="{{ item.id }}">
+    <img height="160" width="295" src="/shoes/photos/thumbnails/{{ item.image_path }}/{{ item.image_head }}_200.jpg">
     {% if item.info["tag"] == "novelty" %}
-        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/newer.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -149px" width="65" src="/images/newer.png"/>
     {% elseif item.info["tag"] == "sellout" %}
-        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/sellout.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -149px" width="65" src="/images/sellout.png"/>
     {% elseif item.info["tag"] == "hit" %}
-        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/hit.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -149px" width="65" src="/images/hit.png"/>
     {% elseif item.info["tag"] == "off" %}
-        <img style="border: none; display: block; position: absolute; margin-top: -108px" width="65" src="/images/off.png"/>
+        <img style="border: none; display: block; position: absolute; margin-top: -149px" width="65" src="/images/off.png"/>
     {% endif %}
     <div>
         <h3>{{ item.display_name }}</h3>
