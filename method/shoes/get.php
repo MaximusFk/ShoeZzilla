@@ -1,8 +1,14 @@
 <?php
 require_once '../../scripts/items/item_db.php';
+require_once '../../scripts/database/method_accessor.php';
 
 $method = filter_input(INPUT_SERVER, 'REQUEST_METHOD') === 'GET' ? INPUT_GET : INPUT_POST;
 $access_code = getallheaders()['AccessCode'];
+
+if(!equals_with_global_access($access_code)) {
+    echo '{"error":"access_denied"}';
+    return;
+}
 
 if(filter_has_var($method, 'item_id')) {
     $item_id = filter_input($method, 'item_id');
