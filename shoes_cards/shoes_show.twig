@@ -3,7 +3,9 @@
     <!DOCTYPE html>
     <head>
     {{ include('head.html') }}
-    <title>{{ item.display_name }} - Интернет магазин ShoeZzilla</title>
+    <title>{{tr(item.category)}} {{tr(item.gender)|lower}} {{ item.display_name }} {{ item.size_min }}-{{ item.size_max }} Реплика. 
+        Купить {{tr(item.category)|lower}} {{tr(item.gender)|lower}} {{ item.display_name }} {{ item.size_min }}-{{ item.size_max }} в Украине | Интернет-магазин ShoeZzilla shoezzilla.com.ua</title>
+    <meta name="keywords" content="{{tr(item.category)}} {{ item.display_name }} {{ item.size_min }}-{{ item.size_max }}"/>
     <link rel="stylesheet" href="/styles/shoes_show_style.css"/>
     <script type="text/javascript" src="/scripts/zoomer/jquery.zoom.min.js"></script>
     </head>
