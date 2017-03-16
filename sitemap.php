@@ -32,6 +32,7 @@
                         </ul>
                     </li>
                     <li><a href="/delivery/">Доставка</a></li>
+                    <li><a href="/privacy_policy/">Политика конфиденциальности</a></li>
                 </ul>
 
                 

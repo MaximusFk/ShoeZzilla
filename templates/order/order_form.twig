@@ -58,6 +58,10 @@
                                 <option disabled selected="selected">Выберите отделение</option>
                             </select>
                         </p>
+                        <section>
+                            <input id="access_privacy_policy" type="checkbox"/>
+                            <span>Я согласен с условиями <a href="/privacy_policy/" target="_blank">Политики конфиденциальности</a></span>
+                        </section>
                         <button class="important_b" id="send_order" type="submit" disabled="disabled">Оформить</button>
                     </form>
                 </section>
@@ -89,7 +93,14 @@
                 });
             });
             $("select#office").change(function () {
-                $("button#send_order").removeAttr("disabled");
+                if($("#access_privacy_policy").is(":checked")) {
+                    $("button#send_order").removeAttr("disabled");
+                }
+            });
+            $("#access_privacy_policy").change(function () {
+                if($("select#office").val()) {
+                    this.checked ? $("button#send_order").removeAttr("disabled") : $("button#send_order").attr("disabled", "disabled");
+                }
             });
             $("form#order_data").submit(function (event) {
                 var name = $("#name");

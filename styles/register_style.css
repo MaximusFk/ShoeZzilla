@@ -10,6 +10,10 @@ form input.error {
     background-color: salmon;
 }
 
+form input:not([type="checkbox"]) {
+    width: 260px;
+}
+
 p.info {
     background-color: #fffa90;
     height: max-content;

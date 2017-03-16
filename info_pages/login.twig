@@ -14,7 +14,11 @@
                     <p><input id="login" name="email" type="text" placeholder="Электронная почта"></p>
                     <p><input id="password" name="password_hash" type="password" placeholder="Пароль"></p>
                     <p>
-                        <button id="login_submit" type="submit">Войти</button>
+                        <section>
+                            <input id="access_privacy_policy" type="checkbox"/>
+                            <span>Я согласен с условиями <a href="/privacy_policy/" target="_blank">Политики конфиденциальности</a></span>
+                        </section>
+                        <button class="important_b" id="login_submit" type="submit" disabled="disabled">Войти</button>
                         <button id="register" type="button" onclick="register_handler();">Регистрация</button>
                     </p>
                 </form>
@@ -22,6 +26,9 @@
             {{ include('footer.html') }}
         </section>
         <script type="text/javascript">
+            $("#access_privacy_policy").change(function () {
+                this.checked ? $("button#login_submit").removeAttr("disabled") : $("button#login_submit").attr("disabled", "disabled");
+            });
             $("form.login_form").submit(function (event) {
                 var email = $("#email").val();
                 var password = $("#password").val();

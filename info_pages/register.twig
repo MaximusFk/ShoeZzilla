@@ -34,7 +34,11 @@
                     <p><input id="password" type="password" placeholder="Пароль"></p>
                     <p><input id="password_req" type="password" placeholder="Повторите пароль"></p>
                     
-                    <button type="submit" class="important_b">Отправить</button>
+                    <section>
+                            <input id="access_privacy_policy" type="checkbox"/>
+                            <span>Я согласен с условиями <a href="/privacy_policy/" target="_blank">Политики конфиденциальности</a></span>
+                    </section>
+                    <button type="submit" class="important_b" disabled="disabled">Отправить</button>
                     
                 </form>
             </div>
@@ -44,6 +48,9 @@
             $("#phone_number").mask('(000) 000-00-00', { placeholder: "(___) ___-__-__" });
         </script>
         <script type="text/javascript">
+            $("#access_privacy_policy").change(function () {
+                this.checked ? $("button[type=submit]").removeAttr("disabled") : $("button[type=submit]").attr("disabled", "disabled");
+            });
             $("form.register_form").submit(function (event) {
                 event.preventDefault();
                 var name = $("#name").val();
