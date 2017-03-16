@@ -164,6 +164,14 @@ function get_items_by_name_raw($name) {
     }
 }
 
+function get_items_by_tag_raw($tag) {
+    $sql = get_db();
+    $tag = $sql->escape_string($tag);
+    $result = $sql->query("SELECT * FROM " . Models . " WHERE info REGEXP " . 
+            '\'.*\\"tag\\":\\"' . $tag . '\\"\'');
+    return $result !== null ? $result->fetch_assoc() : null;
+}
+
 function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like = "") {
     $sql = get_db(current_db);
     if($page >= 1 || $page_size > 0) {
