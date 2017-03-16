@@ -31,7 +31,8 @@
                         <button {% if not item.size_data[i] %}disabled="disabled" title="Нет в наличии"{% endif %} class="size_choser important_lower_b" value="{{ i }}">{{ i }}<sup></sup></button>
                         {% endfor %}
                         <a href="/size_info">Как выбрать?</a><br/>
-                        <i>* Ctrl - для выбора нескольких размеров</i>
+                        <i>* Ctrl - для выбора нескольких размеров</i><br/>
+                        <i>!Наличие требуется уточнить, Вам придет письмо в случае отсутствия на складе!</i>
                     </section>
                         {% if item.description %}
                             <p>{{ item.description|striptags|nl2br|parse_bb|raw }}</p>
