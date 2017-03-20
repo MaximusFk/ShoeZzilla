@@ -87,8 +87,6 @@ function insert_item(array $data) {
     }
     $query = $query . ") VALUES " . $values . ")";
     $sql->query($query);
-    echo $query . PHP_EOL;
-    echo $sql->error;
     return $sql->insert_id;
 }
 
