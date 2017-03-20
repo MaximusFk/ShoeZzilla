@@ -167,7 +167,12 @@ function get_items_by_tag_raw($tag) {
     $tag = $sql->escape_string($tag);
     $result = $sql->query("SELECT * FROM " . Models . " WHERE info REGEXP " . 
             '\'.*\\"tag\\":\\"' . $tag . '\\"\'');
-    return $result !== null ? $result->fetch_assoc() : null;
+    if($result) {
+        while ($actor = $result->fetch_assoc()) {
+            $items[] = construct_item_raw($actor);
+        }
+        return $items;
+    }
 }
 
 function get_items_where($where, $order = "", $page = 1, $page_size = 20, $like = "") {

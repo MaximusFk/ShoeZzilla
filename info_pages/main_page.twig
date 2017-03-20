@@ -5,7 +5,23 @@
         <title>Главная | Интернет-магазин ShoeZzilla shoezzilla.com.ua</title>
         <meta name="yandex-verification" content="194548e5658f7b9b" />
         <link rel="stylesheet" href="/styles/carousel_style.css"/>
+        <link rel="stylesheet" href="/styles/shoes_list_item_style.css"/>
         <script type="text/javascript" src="/scripts/jquery_carousel/jquery.jcarousel.min.js"></script>
+        <style>
+            section.items_carousel {
+                overflow: hidden;
+            }
+            section.items_carousel ul {
+                width: 20000em;
+                position: relative;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            section.items_carousel ul li {
+                float: left;
+            }
+        </style>
     </head>
     <body>
         <section class="main">
@@ -22,13 +38,27 @@
 {#                        <button class="important_lower_b" id="next">Next</button>#}
                     </section>
                 </section>
-                <section>
+                    <br/>
+                <section class="content_block">
                     <h3>Новинки</h3>
-                    <hr/>
+                    <section class="items_carousel">
+                    <ul>
+                    {% for item in novelty %}
+                        <li>{{ include('shoes_list_item.twig') }}</li>
+                    {% endfor %}
+                    </ul>
+                    </section>
                 </section>
-                <section>
+                    <br/>
+                <section class="content_block">
                     <h3>Хит продаж</h3>
-                    <hr/>
+                    <section class="items_carousel">
+                    <ul>
+                    {% for item in hits %}
+                        <li>{{ include('shoes_list_item.twig') }}</li>
+                    {% endfor %}
+                    </ul>
+                    </section>
                 </section>
             </div>
                     
@@ -51,6 +81,14 @@
                 wrap: 'circular'
                 }).jcarouselAutoscroll({
                 interval: 3000,
+                target: '+=1',
+                autostart: true
+            });
+            $(".items_carousel").jcarousel({
+                animation: 'slow',
+                wrap: 'circular'
+                }).jcarouselAutoscroll({
+                interval: 1900,
                 target: '+=1',
                 autostart: true
             });
