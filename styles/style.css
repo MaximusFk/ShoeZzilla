@@ -466,6 +466,8 @@ section#social {
 
 section#social ul {
     list-style: none;
+    text-align: center;
+    padding-left: 0;
 }
 
 .social_i {
