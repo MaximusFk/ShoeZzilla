@@ -236,12 +236,8 @@ function find_items($str) {
     }
     $query = "SELECT * FROM " . Models . " WHERE concat(name, color, price_retail, display_name, brand, gender) LIKE '%$str%'";
     if($result = $sql->query($query)) {
-        $pos = 0;
-        $items = NULL;
         while ($actor = $result->fetch_assoc()) {
-            $item = construct_item_from_array($actor);
-            $items[$pos] = $item;
-            $pos++;
+            $items[] = construct_item_raw($actor);
         }
         return $items;
     }
