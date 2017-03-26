@@ -51,17 +51,7 @@
                         <input name="size_max" type="number" value="{{ item.size_max }}" required="required"/>
                         <br/>
                     </section>
-                <section id="description" class="group">
-                    <label>Описание</label><br/>
-                    <button class="sh_important" tag="b"><b>B</b></button>
-                    <button class="sh_important" tag="i"><i>I</i></button>
-                    <button class="sh_important" tag="u"><u>U</u></button>
-                    <button class="sh_important" tag="s"><del>S</del></button>
-                    <button class="sh_important" tag="sub">T<sub>sub</sub></button>
-                    <button class="sh_important" tag="sup">T<sup>sup</sup></button><br/>
-                    <textarea id="desc_area" name="description" placeholder="Текст описания" wrap="wrap" rows="10" cols="50">{{ item.description }}</textarea>
-                    <br/>
-                </section>
+                {% include 'bb_text_area.twig' with {'rows': 10, 'area_label': 'Описание', 'area_placeholder': 'Текст описания', 'area_text': item.description} %}
                 <section class="group">
                     <label>Категории</label><br/>
                     <select name="color">
@@ -124,14 +114,6 @@
     $("div.content input").change(changed);
     $("div.content textarea").change(changed);
     $("div.content select").change(changed);
-    
-    $("button.sh_important").click(function () {
-        var textarea = $("section#description textarea");
-        var caret = textarea[0].selectionStart;
-        var text = textarea.val();
-        var add = ("[" + $(this).attr("tag") + "][/" + $(this).attr("tag") + "]");
-        textarea.val(text.substring(0, caret) + add + text.substring(caret));
-    });
     
     $("button#update").click(function () {
         var data = {};

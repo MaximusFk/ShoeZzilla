@@ -1,0 +1,21 @@
+<section id="description" class="group">
+    <label>{{ area_label }}</label><br/>
+    <button class="sh_important" tag="b"><b>B</b></button>
+    <button class="sh_important" tag="i"><i>I</i></button>
+    <button class="sh_important" tag="u"><u>U</u></button>
+    <button class="sh_important" tag="s"><del>S</del></button>
+    <button class="sh_important" tag="sub">T<sub>sub</sub></button>
+    <button class="sh_important" tag="sup">T<sup>sup</sup></button><br/>
+    <textarea id="desc_area" name="{{ area_name }}" placeholder="{{ area_placeholder }}" wrap="wrap" rows="{% if rows %}{{ rows }}{% else %}50{% endif %}"
+              cols="{% if cols %}{{ cols }}{% else %}50{% endif %}">{{ area_text }}</textarea>
+    <br/>
+</section>
+<script type="text/javascript">
+    $("button.sh_important").click(function () {
+        var textarea = $("section#description textarea");
+        var caret = textarea[0].selectionStart;
+        var text = textarea.val();
+        var add = ("[" + $(this).attr("tag") + "][/" + $(this).attr("tag") + "]");
+        textarea.val(text.substring(0, caret) + add + text.substring(caret));
+    });
+</script>
