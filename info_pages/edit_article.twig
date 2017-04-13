@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content content_block">
+                <h2>{% if id %}Изменение{% else %}Добавление{% endif %} статьи</h2>
+                <form action="/articles/create.php" method="POST" accept-charset="UTF-8">
+                {% if id %}
+                <input name="id" type="hidden" value="{{ id }}"/>
+                {% endif %}
+                <section class="group">
+                    <label>Заголовок</label><br/>
+                    <input name="title" type="text" value="{{ title }}" maxlength="100" />
+                </section><br/>
+                    {% include 'bb_text_area.twig' with {'area_name': 'text', 'area_placeholder': 'Введите сюда текст Вашей статьи...', 'area_text': text, 'cols': 100, 'rows': 50} %}<br/>
+                    <button class="important_b" type="submit">Отправить</button>
+                </form>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>

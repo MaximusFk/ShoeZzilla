@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content">
+                <h1>Список статей</h1>
+                <ul style="list-style: none;">
+                    {% for article in articles %}
+                        <li class="content_block"><h3>{{ article.title }}</h3><p>{{ article.text }}</p><a href="{{ article.url }}">Читать</a></li>
+                    {% else %}
+                        <p class="error">Нет статей для отображения</p>
+                    {% endfor %}
+                </ul>
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {{ include('head.html') }}
+    </head>
+    <body>
+        <section class="main">
+            {{ include('header.html') }}
+            {{ include('navigation.html') }}
+            <div class="content content_block">
+                {% if prefix_inc %}
+                    {% include prefix_inc %}
+                {% endif %}
+                {{ content }}
+                {% if postfix_inc %}
+                    {% include postfix_inc %}
+                {% endif %}
+            </div>
+            {{ include('footer.html') }}
+        </section>
+    </body>
+</html>
